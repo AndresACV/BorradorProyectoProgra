@@ -46,6 +46,7 @@ public class Application {
         window.setTitle("SISTEMA...");
         window.setVisible(true);
         mainController.show();
+//        JLabel etiquetaImg  = new JLabel(new ImageIcon("./Image/mapaCostarica.png"));
     }
 
     public static ControllerEmpleados empleadosControllerEmpleados;

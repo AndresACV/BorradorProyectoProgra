@@ -13,6 +13,10 @@ public class ViewAcercaDe implements Observer {
     private JPanel panel;
     private JLabel tituloLbl;
     private JLabel datosLbl;
+    JPanel ImagePanel;
+    public ViewAcercaDe(){
+
+    }
 
     public JPanel getPanel() {
         return panel;
