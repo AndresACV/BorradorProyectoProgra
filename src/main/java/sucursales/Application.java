@@ -43,7 +43,7 @@ public class Application {
         window.setSize(400,300);
         window.setExtendedState(JFrame.MAXIMIZED_BOTH);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("SISTEMA...");
+        window.setTitle("SISE: Sistema de Sucursales y Empleados");
         window.setVisible(true);
         mainController.show();
 //        JLabel etiquetaImg  = new JLabel(new ImageIcon("./Image/mapaCostarica.png"));
