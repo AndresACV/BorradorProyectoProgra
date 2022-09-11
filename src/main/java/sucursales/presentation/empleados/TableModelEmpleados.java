@@ -38,17 +38,26 @@ public class TableModelEmpleados extends AbstractTableModel implements javax.swi
         switch (cols[col]){
             case CEDULA: return empleado.getCedula();
             case NOMBRE: return empleado.getNombre();
+            case TELEFONO: return empleado.getTelefono();
+            case SALARIO_BASE: return empleado.getSalarioBase();
+            case SUCURSAL: return empleado.getSucursal().getReferencia();
             default: return "";
         }
     }
 
     public static final int CEDULA=0;
     public static final int NOMBRE=1;
+    public static final int TELEFONO=2;
+    public static final int SALARIO_BASE=3;
+    public static final int SUCURSAL=4;
 
-    String[] colNames = new String[2];
+    String[] colNames = new String[5];
     private void initColNames(){
         colNames[CEDULA]= "Cedula";
         colNames[NOMBRE]= "Nombre";
+        colNames[TELEFONO]= "Telefono";
+        colNames[SALARIO_BASE]= "Salario Base";
+        colNames[SUCURSAL]= "Sucursal";
     }
 
 }

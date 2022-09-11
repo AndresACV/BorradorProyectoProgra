@@ -3,16 +3,18 @@ package sucursales.logic;
 public class Empleado {
     String cedula;
     String nombre;
+    String telefono;
+    double salarioBase;
+    Sucursal sucursal;
 
-
-    public Empleado(String cedula, String nombre) {
+    public Empleado(String cedula, String nombre, String telefono, double salarioBase, Sucursal sucursal) {
         this.cedula = cedula;
         this.nombre = nombre;
+        this.telefono = telefono;
+        this.salarioBase = salarioBase;
+        this.sucursal = sucursal;
     }
-
-    public Empleado() {
-        this("","");
-    }
+    public Empleado() { this("","","",0.0,null); }
 
     public String getCedula() {
         return cedula;
@@ -29,4 +31,30 @@ public class Empleado {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public double getSalarioBase() {
+        return salarioBase;
+    }
+
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
+    }
 }
+
+
