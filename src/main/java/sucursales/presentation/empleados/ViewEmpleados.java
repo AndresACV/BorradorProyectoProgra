@@ -41,7 +41,7 @@ public class ViewEmpleados implements Observer {
 
     @Override
     public void update(Observable updatedModel, Object parametros) {
-        int[] cols = {TableModelEmpleados.CEDULA, TableModelEmpleados.NOMBRE};
+        int[] cols = {TableModelEmpleados.CEDULA, TableModelEmpleados.NOMBRE, TableModelEmpleados.TELEFONO, TableModelEmpleados.SALARIO_BASE, TableModelEmpleados.SUCURSAL};
         empleadosFld.setModel(new TableModelEmpleados(cols, modelEmpleados.getEmpleados()));
         empleadosFld.setRowHeight(30);
         this.panel.revalidate();
