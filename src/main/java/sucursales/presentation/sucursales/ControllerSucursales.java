@@ -24,8 +24,13 @@ public class ControllerSucursales {
         modelSucursales.setSucursales(rows);
         modelSucursales.commit();
     }
+    public void eliminar(String referencia){
+       modelSucursales.setSucursales(Service.instance().eliminarSucursal(referencia)); // Elimina el objeto y retorna la lista
+        this.buscar(""); // Itera la lista
+        modelSucursales.commit();
+    }
 
-public void show(){
+    public void show(){
         Application.window.setContentPane(viewSucursales.getPanel());
     }
 }

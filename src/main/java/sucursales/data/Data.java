@@ -4,6 +4,7 @@ import sucursales.logic.Empleado;
 import sucursales.logic.Sucursal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Data {
     private List<Empleado> empleados;
@@ -24,7 +25,14 @@ public class Data {
         empleados.add(new Empleado("118811", "Maria", "2358", 213414, sucursales.get(2)));
         empleados.add(new Empleado("118812", "Jose", "2359", 213415, sucursales.get(3)));
         empleados.add(new Empleado("118813", "Ana", "2360", 213416, sucursales.get(4)));
-
+    }
+    public List<Sucursal> eliminarSucursal(String referencia){
+        for(Sucursal i: sucursales){ // For each
+            if(Objects.equals(i.getReferencia(), referencia)){
+                sucursales.remove(i);
+            }
+        }
+        return sucursales;
     }
 
     public List<Empleado> getEmpleados() {
@@ -42,4 +50,4 @@ public class Data {
     public void setSucursales(List<Sucursal> sucursales) {
         this.sucursales = sucursales;
     }
-};
+}

@@ -12,8 +12,9 @@ public class ViewSucursales implements Observer {
     private JTextField direccionFld;
     private JButton buscarFld;
     private JLabel direccionLbl;
-    private JButton agregarFld;
     private JTable sucursalesFld;
+    private JButton agregarButton;
+    private JButton eliminarButton;
 
     ControllerSucursales controllerSucursales;
     ModelSucursales modelSucursales;
@@ -23,6 +24,13 @@ public class ViewSucursales implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controllerSucursales.buscar(direccionFld.getText());
+            }
+        });
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                controllerSucursales.buscar("");
+                controllerSucursales.eliminar(direccionFld.getText());
             }
         });
     }

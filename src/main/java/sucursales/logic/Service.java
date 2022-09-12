@@ -15,7 +15,7 @@ public class Service {
         return theInstance;
     }
 
-    private Data data;
+    private final Data data;
 
     private Service(){
         data = new Data();
@@ -27,5 +27,8 @@ public class Service {
 
     public List<Sucursal> sucursalesSearch(String filtro){
         return data.getSucursales().stream().filter(e->e.getReferencia().contains(filtro)).collect(Collectors.toList());
+    }
+    public List<Sucursal> eliminarSucursal(String referencia){
+        return data.eliminarSucursal(referencia);
     }
  }
