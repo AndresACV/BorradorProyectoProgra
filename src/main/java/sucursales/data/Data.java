@@ -43,4 +43,8 @@ public class Data {
     public void setSucursales(List<Sucursal> sucursales) {
         this.sucursales = sucursales;
     }
+
+    public void agregarEmpleado(Empleado e){
+        this.empleados.add(e);
+    }
 }

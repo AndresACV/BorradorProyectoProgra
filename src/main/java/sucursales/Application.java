@@ -1,5 +1,8 @@
 package sucursales;
 
+import sucursales.presentation.Empleado.ControllerEmpleado;
+import sucursales.presentation.Empleado.ModelEmpleado;
+import sucursales.presentation.Empleado.ViewEmpleado;
 import sucursales.presentation.acerca_de.ControllerAcercaDe;
 import sucursales.presentation.acerca_de.ModelAcercaDe;
 import sucursales.presentation.acerca_de.ViewAcercaDe;
@@ -23,6 +26,10 @@ public class Application {
         ViewEmpleados empleadosViewEmpleados = new ViewEmpleados();
         empleadosControllerEmpleados = new ControllerEmpleados(empleadosViewEmpleados, empleadosModelEmpleados);
 
+//        ModelEmpleado empleadoModelEmpleado = new ModelEmpleado();
+//        ViewEmpleado empleadoViewEmpleado = new ViewEmpleado();
+//        empleadoControllerEmpleado = new ControllerEmpleado(empleadoViewEmpleado, empleadoModelEmpleado);
+
         ModelSucursales sucursalesModelSucursales = new ModelSucursales();
         ViewSucursales sucursalesViewSucursales = new ViewSucursales();
         sucursalesControllerSucursales = new ControllerSucursales(sucursalesViewSucursales, sucursalesModelSucursales);
@@ -37,6 +44,7 @@ public class Application {
 
         mainView.getPanel().add("Empleados", empleadosViewEmpleados.getPanel());
         mainView.getPanel().add("Sucursales", sucursalesViewSucursales.getPanel());
+//        mainView.getPanel().add("Empleado",empleadoViewEmpleado.getPanel());
         mainView.getPanel().add("Acerca de..", acerca_deViewAcercaDe.getPanel());
 
         window = new JFrame();
@@ -50,7 +58,7 @@ public class Application {
 
     public static ControllerEmpleados empleadosControllerEmpleados;
     public static ControllerSucursales sucursalesControllerSucursales;
-
+    public static ControllerEmpleado empleadoControllerEmpleado;
     public static ControllerAcercaDe acerca_deControllerAcercaDe;
     public static sucursales.presentation.main.Controller mainController;
 

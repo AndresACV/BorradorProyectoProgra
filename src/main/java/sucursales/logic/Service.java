@@ -46,5 +46,7 @@ public class Service {
         }
         return data.getSucursales();
     }
-
+    public void agregarEmpleado(Empleado e){
+         data.agregarEmpleado(e);
+    }
  }

@@ -1,10 +1,15 @@
 package sucursales.presentation.empleados;
 
+import sucursales.Application;
+import sucursales.presentation.Empleado.ViewEmpleado;
+import sucursales.presentation.main.View;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+
 
 public class ViewEmpleados implements Observer {
     private JPanel panel;
@@ -15,6 +20,7 @@ public class ViewEmpleados implements Observer {
     private JLabel nombreLbl;
     private JButton eliminarFld;
 
+    private ViewEmpleado empleado;
     public ViewEmpleados() {
         buscarFld.addActionListener(new ActionListener() {
             @Override
@@ -26,6 +32,14 @@ public class ViewEmpleados implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controllerEmpleados.eliminarEmpleado(nombreFld.getText());
+            }
+        });
+        agregarFld.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                Application.window.setVisible(false);
+                empleado = new ViewEmpleado();
+                empleado.showWindow();
             }
         });
     }
