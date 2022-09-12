@@ -15,6 +15,7 @@ public class ViewSucursales implements Observer {
     private JTable sucursalesFld;
     private JButton agregarButton;
     private JButton eliminarButton;
+    private JLabel imagenLbl;
 
     ControllerSucursales controllerSucursales;
     ModelSucursales modelSucursales;
