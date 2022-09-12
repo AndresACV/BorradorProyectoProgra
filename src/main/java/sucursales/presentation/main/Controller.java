@@ -5,10 +5,6 @@ import sucursales.Application;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Escinf
- */
 public class Controller implements ActionListener {
     Model model;
     View view;
@@ -19,13 +15,10 @@ public class Controller implements ActionListener {
         view.setModel(model);
         view.setController(this);
     } 
-    
 
-    // ActionListener Interface    
     public void actionPerformed(ActionEvent e) {
         model.commit();
     }
-
     public void show(){
         Application.window.setContentPane(view.getPanel());
     }

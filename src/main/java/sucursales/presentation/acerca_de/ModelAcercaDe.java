@@ -14,5 +14,4 @@ public class ModelAcercaDe extends java.util.Observable {
         setChanged();
         notifyObservers(null);
     }
-
 }

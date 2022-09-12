@@ -16,7 +16,6 @@ public class ModelSucursales extends java.util.Observable{
    public void setSucursales(List<Sucursal> sucursales){
        this.sucursales = sucursales;
    }
-
     public List<Sucursal> getSucursales() {
          return sucursales;
     }
@@ -31,7 +30,4 @@ public class ModelSucursales extends java.util.Observable{
         setChanged();
         notifyObservers(null);
     }
-
 }
-
-

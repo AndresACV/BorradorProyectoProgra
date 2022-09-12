@@ -11,6 +11,7 @@ import java.util.Observer;
 
 
 public class ViewEmpleados implements Observer {
+
     private JPanel panel;
     private JTextField nombreFld;
     private JButton buscarFld;
@@ -19,8 +20,15 @@ public class ViewEmpleados implements Observer {
     private JLabel nombreLbl;
     private JButton eliminarFld;
     private JButton reporteButton;
-
     private ViewAgregarEmpleado empleado;
+
+    ControllerEmpleados controllerEmpleados;
+    ModelEmpleados modelEmpleados;
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
     public ViewEmpleados() {
         buscarFld.addActionListener(new ActionListener() {
             @Override
@@ -43,17 +51,7 @@ public class ViewEmpleados implements Observer {
         });
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    ControllerEmpleados controllerEmpleados;
-    ModelEmpleados modelEmpleados;
-
-    public void setController(ControllerEmpleados controllerEmpleados) {
-        this.controllerEmpleados = controllerEmpleados;
-    }
-
+    public void setController(ControllerEmpleados controllerEmpleados) { this.controllerEmpleados = controllerEmpleados; }
     public void setModel(ModelEmpleados modelEmpleados) {
         this.modelEmpleados = modelEmpleados;
         modelEmpleados.addObserver(this);
@@ -70,7 +68,7 @@ public class ViewEmpleados implements Observer {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         reporteButton = new JButton();
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconoPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         reporteButton.setIcon(imageIcon);
     }
 }

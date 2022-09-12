@@ -4,6 +4,7 @@ import sucursales.Application;
 import sucursales.presentation.empleados.ControllerEmpleados;
 
 public class ControllerAcercaDe {
+
     ViewAcercaDe viewAcercaDe;
     ModelAcercaDe modelAcercaDe;
 
@@ -17,7 +18,4 @@ public class ControllerAcercaDe {
     public void show(){
         Application.window.setContentPane(viewAcercaDe.getPanel());
     }
-
 }
-
-

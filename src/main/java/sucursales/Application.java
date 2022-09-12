@@ -21,7 +21,6 @@ public class Application {
 
     public static ControllerEmpleados controllerEmpleados;
     public static ControllerSucursales controllerSucursales;
-    public static ControllerAgregarEmpleado empleadoControllerAgregarEmpleado;
     public static ControllerAcercaDe controllerAcercaDe;
 
     public static JFrame window;
@@ -30,7 +29,7 @@ public class Application {
 
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");}
-        catch (Exception ex) {};
+        catch (Exception ignored) {};
 
         ModelEmpleados modelEmpleados = new ModelEmpleados();
         ViewEmpleados viewEmpleados = new ViewEmpleados();
@@ -58,6 +57,7 @@ public class Application {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("SISE: Sistema de Sucursales y Empleados");
         window.setVisible(true);
+
         mainController.show();
     }
 }

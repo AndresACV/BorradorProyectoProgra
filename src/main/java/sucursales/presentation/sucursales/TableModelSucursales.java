@@ -18,19 +18,17 @@ public class TableModelSucursales extends AbstractTableModel implements javax.sw
     public int getColumnCount() {
         return cols.length;
     }
-
     public String getColumnName(int col){
         return colNames[cols[col]];
+    }
+    public int getRowCount() {
+        return rows.size();
     }
 
     public Class<?> getColumnClass(int col){
         switch (cols[col]){
             default: return super.getColumnClass(col);
         }
-    }
-
-    public int getRowCount() {
-        return rows.size();
     }
 
     public Object getValueAt(int row, int col) {
@@ -56,5 +54,4 @@ public class TableModelSucursales extends AbstractTableModel implements javax.sw
         colNames[DIRECCION]= "Direccion";
         colNames[ZONAJE]= "Zonaje";
     }
-
 }

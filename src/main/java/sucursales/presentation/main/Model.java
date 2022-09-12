@@ -15,13 +15,10 @@ public class Model extends Observable{
         commit();
     }
     
-    public Model() {
-
-    }
+    public Model() {}
 
     public void commit(){
         setChanged();
         notifyObservers(null);            
     }
-
 }

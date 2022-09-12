@@ -6,10 +6,11 @@ import java.util.Observer;
 
 public class ViewAgregarSucursal implements Observer {
 
-    ControllerAgregarSucursal controllerAgregarSucursal;
-    ModelAgregarSucursal modelAgregarSucursal;
     private JPanel panel;
     private JFrame window;
+
+    ControllerAgregarSucursal controllerAgregarSucursal;
+    ModelAgregarSucursal modelAgregarSucursal;
 
     public JPanel getPanel() {
         return panel;
@@ -23,18 +24,11 @@ public class ViewAgregarSucursal implements Observer {
         window.add(panel);
         window.setVisible(true);
     }
-    public void setControllerAgregarSucursal(ControllerAgregarSucursal controllerAgregarSucursal) {
-        this.controllerAgregarSucursal = controllerAgregarSucursal;
-    }
+    public void setControllerAgregarSucursal(ControllerAgregarSucursal controllerAgregarSucursal) { this.controllerAgregarSucursal = controllerAgregarSucursal; }
 
-    public void setModelAgregarSucursal(ModelAgregarSucursal modelAgregarSucursal) {
-        this.modelAgregarSucursal = modelAgregarSucursal;
-    }
-
+    public void setModelAgregarSucursal(ModelAgregarSucursal modelAgregarSucursal) { this.modelAgregarSucursal = modelAgregarSucursal; }
     @Override
     public void update(Observable o, Object arg) {
         this.panel.revalidate();
     }
 }
-
-

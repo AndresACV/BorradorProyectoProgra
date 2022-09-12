@@ -18,19 +18,17 @@ public class TableModelEmpleados extends AbstractTableModel implements javax.swi
     public int getColumnCount() {
         return cols.length;
     }
-
     public String getColumnName(int col){
         return colNames[cols[col]];
+    }
+    public int getRowCount() {
+        return rows.size();
     }
 
     public Class<?> getColumnClass(int col){
         switch (cols[col]){
             default: return super.getColumnClass(col);
         }
-    }
-
-    public int getRowCount() {
-        return rows.size();
     }
 
     public Object getValueAt(int row, int col) {
@@ -65,5 +63,4 @@ public class TableModelEmpleados extends AbstractTableModel implements javax.swi
         colNames[ZONAJE]= "%Zonaje";
         colNames[SALARIO_TOTAL]= "Sal. Total";
     }
-
 }

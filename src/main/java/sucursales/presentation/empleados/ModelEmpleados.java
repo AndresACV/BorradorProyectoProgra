@@ -16,7 +16,6 @@ public class ModelEmpleados extends java.util.Observable{
     public void setEmpleados(List<Empleado> empleados){
         this.empleados = empleados;
     }
-
     public List<Empleado> getEmpleados() {
         return empleados;
     }

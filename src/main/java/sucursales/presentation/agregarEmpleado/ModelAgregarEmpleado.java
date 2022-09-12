@@ -10,7 +10,6 @@ public class ModelAgregarEmpleado extends Observable {
         super.addObserver(o);
         commit();
     }
-
     public void commit(){
         setChanged();
         notifyObservers(null);

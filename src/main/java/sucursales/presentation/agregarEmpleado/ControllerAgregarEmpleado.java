@@ -5,9 +5,9 @@ import sucursales.logic.Empleado;
 import sucursales.logic.Service;
 
 public class ControllerAgregarEmpleado {
+
     ViewAgregarEmpleado viewAgregarEmpleado;
     ModelAgregarEmpleado modelAgregarEmpleado;
-
 
     public ControllerAgregarEmpleado(ViewAgregarEmpleado viewAgregarEmpleado, ModelAgregarEmpleado modelAgregarEmpleado) {
         this.viewAgregarEmpleado = viewAgregarEmpleado;
@@ -15,6 +15,7 @@ public class ControllerAgregarEmpleado {
         viewAgregarEmpleado.setControllerempleado(this);
         viewAgregarEmpleado.setModelEmpleado(modelAgregarEmpleado);
     }
+
     public void agregar(Empleado e){
         Service.instance().agregarEmpleado(e);
     }
@@ -22,4 +23,3 @@ public class ControllerAgregarEmpleado {
         Application.window.setContentPane(viewAgregarEmpleado.getPanel());
     }
 }
-;

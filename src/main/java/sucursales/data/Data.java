@@ -10,38 +10,24 @@ public class Data {
     private List<Empleado> empleados;
     private List<Sucursal> sucursales;
 
+    public List<Empleado> getEmpleados() { return empleados; }
+    public List<Sucursal> getSucursales() { return sucursales; }
+
+    public void setEmpleados(List<Empleado> empleados) { this.empleados = empleados; }
+    public void setSucursales(List<Sucursal> sucursales) { this.sucursales = sucursales; }
+
     public Data() {
         empleados = new ArrayList<>();
         sucursales = new ArrayList<>();
 
-        sucursales.add(new Sucursal("001", "San Jose", "500mts sur del Banco Nacional", 1.0));
-        sucursales.add(new Sucursal("002", "Alajuela", "100mts norte del Banco Nacional", 1.0));
-        sucursales.add(new Sucursal("003", "Cartago", "200mts sur del Banco Nacional", 1.0));
-        sucursales.add(new Sucursal("004", "Heredia", "300mts norte del Banco Nacional", 1.0));
-        sucursales.add(new Sucursal("005", "Limon", "400mts sur del Banco Nacional", 1.0));
+        sucursales.add(new Sucursal("001", "Liberia", "Guanacaste, Liberia, 250 S Iglesia", 2.0));
+        sucursales.add(new Sucursal("002", "Sabana", "San Jose, 100 O Teletica", 1.0));
+        sucursales.add(new Sucursal("003", "Golfito", "Puntarenas, Golfito, barrio Huston...", 4.0));
+        sucursales.add(new Sucursal("004", "Tortugero", "Limon, Tortuguero, frente Iglesia", 4.0));
+        sucursales.add(new Sucursal("005", "Cahuita", "Limon, Cahuita, Playa Negra", 4.0));
 
-        empleados.add(new Empleado("118800941", "Andres", "85185158", 450000, sucursales.get(0)));
-        empleados.add(new Empleado("118800942", "Pedro", "85185159", 450000, sucursales.get(1)));
-        empleados.add(new Empleado("118800943", "Maria", "85185160", 450000, sucursales.get(2)));
-        empleados.add(new Empleado("118800944", "Jose", "85185161", 450000, sucursales.get(3)));
-        empleados.add(new Empleado("118800945", "Ana", "85185162", 450000, sucursales.get(4)));
-
-
+        empleados.add(new Empleado("111", "Franklin Chang", "78972356", 7500, sucursales.get(0)));
+        empleados.add(new Empleado("222", "Sandra Cauffman", "54986721", 8200, sucursales.get(1)));
+        empleados.add(new Empleado("333", "Ivan Vargas", "45233246", 7800, sucursales.get(2)));
     }
-    public List<Empleado> getEmpleados() {
-        return empleados;
-    }
-
-    public List<Sucursal> getSucursales() {
-        return sucursales;
-    }
-
-    public void setEmpleados(List<Empleado> empleados) {
-        this.empleados = empleados;
-    }
-
-    public void setSucursales(List<Sucursal> sucursales) {
-        this.sucursales = sucursales;
-    }
-
 }

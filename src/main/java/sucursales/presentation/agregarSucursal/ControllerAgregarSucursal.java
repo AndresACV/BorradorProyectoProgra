@@ -22,5 +22,4 @@ public class ControllerAgregarSucursal {
     public void show(){
         Application.window.setContentPane(viewAgregarSucursal.getPanel());
     }
-
 }

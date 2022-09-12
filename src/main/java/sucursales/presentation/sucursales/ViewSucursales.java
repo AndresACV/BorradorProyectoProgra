@@ -20,8 +20,13 @@ public class ViewSucursales implements Observer {
     private JButton eliminarButton;
     private JLabel imagenLbl;
     private ViewAgregarSucursal sucursal;
+
     ControllerSucursales controllerSucursales;
     ModelSucursales modelSucursales;
+
+    public JPanel getPanel() {
+        return panel;
+    }
 
     public ViewSucursales() {
         buscarFld.addActionListener(new ActionListener() {
@@ -45,14 +50,7 @@ public class ViewSucursales implements Observer {
         });
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    public void setController(ControllerSucursales controllerSucursales) {
-        this.controllerSucursales = controllerSucursales;
-    }
-
+    public void setController(ControllerSucursales controllerSucursales) { this.controllerSucursales = controllerSucursales; }
     public void setModel(ModelSucursales modelSucursales) {
         this.modelSucursales = modelSucursales;
         modelSucursales.addObserver(this);
@@ -65,5 +63,4 @@ public class ViewSucursales implements Observer {
         sucursalesFld.setRowHeight(30);
         this.panel.revalidate();
     }
-
 }

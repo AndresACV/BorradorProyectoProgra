@@ -26,8 +26,8 @@ public class ControllerEmpleados {
 
     public void eliminarEmpleado(String nombre){
         List<Empleado> rows = Service.instance().eliminarEmpleado(nombre);
-        modelEmpleados.setEmpleados(rows); // Elimina el objeto y retorna la lista
-        this.buscarEmpleado("");               // Itera la lista
+        modelEmpleados.setEmpleados(rows);
+        this.buscarEmpleado("");
         modelEmpleados.commit();
     }
 

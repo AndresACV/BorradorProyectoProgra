@@ -1,6 +1,7 @@
 package sucursales.logic;
 
 public class Empleado {
+
     String cedula;
     String nombre;
     String telefono;
@@ -25,7 +26,6 @@ public class Empleado {
     public String getCedula() {
         return cedula;
     }
-
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
@@ -33,7 +33,6 @@ public class Empleado {
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -41,7 +40,6 @@ public class Empleado {
     public String getTelefono() {
         return telefono;
     }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
@@ -49,7 +47,6 @@ public class Empleado {
     public double getSalarioBase() {
         return salarioBase;
     }
-
     public void setSalarioBase(double salarioBase) {
         this.salarioBase = salarioBase;
     }
@@ -57,7 +54,6 @@ public class Empleado {
     public Sucursal getSucursal() {
         return sucursal;
     }
-
     public void setSucursal(Sucursal sucursal) {
         this.sucursal = sucursal;
     }
@@ -65,7 +61,6 @@ public class Empleado {
     public double getZonaje() {
         return zonaje;
     }
-
     public void setZonaje(double zonaje) {
         this.zonaje = zonaje;
     }
@@ -73,10 +68,7 @@ public class Empleado {
     public double getSalarioTotal() {
         return salarioTotal;
     }
-
     public void setSalarioTotal(double salarioTotal) {
         this.salarioTotal = salarioTotal;
     }
 }
-
-

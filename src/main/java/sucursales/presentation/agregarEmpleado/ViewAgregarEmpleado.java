@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class ViewAgregarEmpleado implements Observer {
+
     private JPanel panel;
     private JTextField cedulaField;
     private JTextField nombreField;
@@ -21,6 +22,7 @@ public class ViewAgregarEmpleado implements Observer {
     public JPanel getPanel() {
         return panel;
     }
+
     public void showWindow(){
         window = new JFrame();
         window.setSize(400,400);
@@ -30,14 +32,8 @@ public class ViewAgregarEmpleado implements Observer {
         window.setVisible(true);
     }
 
-    public void setControllerempleado(ControllerAgregarEmpleado controllerEmpleado) {
-        this.controllerempleado = controllerEmpleado;
-    }
-
-    public void setModelEmpleado(ModelAgregarEmpleado modelAgregarEmpleado) {
-        this.modelAgregarEmpleado = modelAgregarEmpleado;
-    }
-
+    public void setControllerempleado(ControllerAgregarEmpleado controllerEmpleado) { this.controllerempleado = controllerEmpleado; }
+    public void setModelEmpleado(ModelAgregarEmpleado modelAgregarEmpleado) { this.modelAgregarEmpleado = modelAgregarEmpleado; }
     @Override
     public void update(Observable o, Object arg) {
         this.panel.revalidate();

@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Sucursales" />
         <module name="BorradorProyectoProgra" />
+        <module name="Proyecto1Progra3" />
       </profile>
     </annotationProcessing>
   </component>
