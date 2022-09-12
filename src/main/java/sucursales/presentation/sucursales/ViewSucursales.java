@@ -1,9 +1,9 @@
 package sucursales.presentation.sucursales;
 
-import sucursales.presentation.agregarEmpleado.ViewAgregarEmpleado;
 import sucursales.presentation.agregarSucursal.ViewAgregarSucursal;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -19,6 +19,7 @@ public class ViewSucursales implements Observer {
     private JButton agregarButton;
     private JButton eliminarButton;
     private JLabel imagenLbl;
+    private JButton reporteButton;
     private ViewAgregarSucursal sucursal;
 
     ControllerSucursales controllerSucursales;
@@ -62,5 +63,16 @@ public class ViewSucursales implements Observer {
         sucursalesFld.setModel(new TableModelSucursales(cols, modelSucursales.getSucursales()));
         sucursalesFld.setRowHeight(30);
         this.panel.revalidate();
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        reporteButton = new JButton();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        reporteButton.setIcon(imageIcon);
+
+        imagenLbl = new JLabel();
+        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(700, 500, Image.SCALE_DEFAULT));
+        imagenLbl.setIcon(imageIcon2);
     }
 }

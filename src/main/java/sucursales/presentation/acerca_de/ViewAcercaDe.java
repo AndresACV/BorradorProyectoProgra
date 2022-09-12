@@ -36,4 +36,11 @@ public class ViewAcercaDe implements Observer {
     public void update(Observable updatedModel, Object parametros) {
         this.panel.revalidate();
     }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        imagenLbl = new JLabel();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/CompanyLogo.png").getImage().getScaledInstance(800, 400, Image.SCALE_DEFAULT));
+        imagenLbl.setIcon(imageIcon);
+    }
 }
