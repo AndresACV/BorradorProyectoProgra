@@ -19,15 +19,15 @@ public class ControllerSucursales {
         viewSucursales.setModel(modelSucursales);
     }
 
-    public void buscar(String filtro){
+    public void buscarSucursal(String filtro){
         List<Sucursal> rows = Service.instance().sucursalesSearch(filtro);
         modelSucursales.setSucursales(rows);
         modelSucursales.commit();
     }
-    public void eliminar(String referencia){
+    public void eliminarSucursal(String referencia){
         List<Sucursal> rows = Service.instance().eliminarSucursal(referencia);
        modelSucursales.setSucursales(rows); // Elimina el objeto y retorna la lista
-        this.buscar("");               // Itera la lista
+        this.buscarSucursal("");               // Itera la lista
         modelSucursales.commit();
     }
 

@@ -18,9 +18,16 @@ public class ControllerEmpleados {
         viewEmpleados.setModel(modelEmpleados);
     }
 
-    public void buscar(String filtro){
+    public void buscarEmpleado(String filtro){
         List<Empleado> rows = Service.instance().empleadosSearch(filtro);
         modelEmpleados.setEmpleados(rows);
+        modelEmpleados.commit();
+    }
+
+    public void eliminarEmpleado(String nombre){
+        List<Empleado> rows = Service.instance().eliminarEmpleado(nombre);
+        modelEmpleados.setEmpleados(rows); // Elimina el objeto y retorna la lista
+        this.buscarEmpleado("");               // Itera la lista
         modelEmpleados.commit();
     }
 

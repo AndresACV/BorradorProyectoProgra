@@ -23,14 +23,13 @@ public class ViewSucursales implements Observer {
         buscarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controllerSucursales.buscar(direccionFld.getText());
+                controllerSucursales.buscarSucursal(direccionFld.getText());
             }
         });
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                controllerSucursales.buscar("");
-                controllerSucursales.eliminar(direccionFld.getText());
+                controllerSucursales.eliminarSucursal(direccionFld.getText());
             }
         });
     }

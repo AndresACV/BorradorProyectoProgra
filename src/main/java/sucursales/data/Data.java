@@ -20,19 +20,13 @@ public class Data {
         sucursales.add(new Sucursal("004", "Heredia", "300mts norte del Banco Nacional", 1.0));
         sucursales.add(new Sucursal("005", "Limon", "400mts sur del Banco Nacional", 1.0));
 
-        empleados.add(new Empleado("118809", "Juan", "2356", 213412, sucursales.get(0)));
-        empleados.add(new Empleado("118810", "Pedro", "2357", 213413, sucursales.get(1)));
-        empleados.add(new Empleado("118811", "Maria", "2358", 213414, sucursales.get(2)));
-        empleados.add(new Empleado("118812", "Jose", "2359", 213415, sucursales.get(3)));
-        empleados.add(new Empleado("118813", "Ana", "2360", 213416, sucursales.get(4)));
-    }
-    public List<Sucursal> eliminarSucursal(String referencia){
-        for (int i = 0; i < sucursales.size(); i++) {
-            if(Objects.equals(sucursales.get(i).getReferencia(), referencia)){
-                sucursales.remove(i);
-            }
-        }
-        return sucursales;
+        empleados.add(new Empleado("118800941", "Andres", "85185158", 450000, sucursales.get(0)));
+        empleados.add(new Empleado("118800942", "Pedro", "85185159", 450000, sucursales.get(1)));
+        empleados.add(new Empleado("118800943", "Maria", "85185160", 450000, sucursales.get(2)));
+        empleados.add(new Empleado("118800944", "Jose", "85185161", 450000, sucursales.get(3)));
+        empleados.add(new Empleado("118800945", "Ana", "85185162", 450000, sucursales.get(4)));
+
+
     }
     public List<Empleado> getEmpleados() {
         return empleados;

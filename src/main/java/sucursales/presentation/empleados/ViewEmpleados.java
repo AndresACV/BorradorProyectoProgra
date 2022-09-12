@@ -13,12 +13,19 @@ public class ViewEmpleados implements Observer {
     private JButton agregarFld;
     private JTable empleadosFld;
     private JLabel nombreLbl;
+    private JButton eliminarFld;
 
     public ViewEmpleados() {
         buscarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controllerEmpleados.buscar(nombreFld.getText());
+                controllerEmpleados.buscarEmpleado(nombreFld.getText());
+            }
+        });
+        eliminarFld.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controllerEmpleados.eliminarEmpleado(nombreFld.getText());
             }
         });
     }
@@ -41,7 +48,7 @@ public class ViewEmpleados implements Observer {
 
     @Override
     public void update(Observable updatedModel, Object parametros) {
-        int[] cols = {TableModelEmpleados.CEDULA, TableModelEmpleados.NOMBRE, TableModelEmpleados.TELEFONO, TableModelEmpleados.SALARIO_BASE, TableModelEmpleados.SUCURSAL};
+        int[] cols = {TableModelEmpleados.CEDULA, TableModelEmpleados.NOMBRE, TableModelEmpleados.TELEFONO, TableModelEmpleados.SALARIO_BASE, TableModelEmpleados.SUCURSAL, TableModelEmpleados.ZONAJE, TableModelEmpleados.SALARIO_TOTAL};
         empleadosFld.setModel(new TableModelEmpleados(cols, modelEmpleados.getEmpleados()));
         empleadosFld.setRowHeight(30);
         this.panel.revalidate();

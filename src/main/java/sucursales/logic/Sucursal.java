@@ -15,7 +15,7 @@ public class Sucursal {
         this.porcentajeZonaje = porcentajeZonaje;
     }
 
-    public Sucursal() { this("","11","",0.0); }
+    public Sucursal() { this("","","",0.0); }
 
     public String getCodigo() { return codigo;}
 
