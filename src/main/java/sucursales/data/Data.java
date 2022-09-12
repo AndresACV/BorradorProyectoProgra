@@ -32,6 +32,11 @@ public class Data {
                 sucursales.remove(i);
             }
         }
+//        for (int i = 0; i < sucursales.size()-1; i++) {
+//            if(Objects.equals(sucursales, referencia)){
+//                sucursales.remove(i);
+//            }
+//        }
         return sucursales;
     }
 
