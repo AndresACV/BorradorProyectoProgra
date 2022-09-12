@@ -1,51 +1,56 @@
 package sucursales;
 
-import sucursales.presentation.Empleado.ControllerEmpleado;
-import sucursales.presentation.Empleado.ModelEmpleado;
-import sucursales.presentation.Empleado.ViewEmpleado;
+import sucursales.presentation.agregarEmpleado.ControllerAgregarEmpleado;
 import sucursales.presentation.acerca_de.ControllerAcercaDe;
 import sucursales.presentation.acerca_de.ModelAcercaDe;
 import sucursales.presentation.acerca_de.ViewAcercaDe;
 import sucursales.presentation.empleados.ControllerEmpleados;
 import sucursales.presentation.empleados.ModelEmpleados;
 import sucursales.presentation.empleados.ViewEmpleados;
+import sucursales.presentation.main.Controller;
+import sucursales.presentation.main.Model;
+import sucursales.presentation.main.View;
 import sucursales.presentation.sucursales.ControllerSucursales;
 import sucursales.presentation.sucursales.ModelSucursales;
 import sucursales.presentation.sucursales.ViewSucursales;
-
 import javax.swing.*;
 
 public class Application {
+
+    public static Controller mainController;
+
+    public static ControllerEmpleados controllerEmpleados;
+    public static ControllerSucursales controllerSucursales;
+    public static ControllerAgregarEmpleado empleadoControllerAgregarEmpleado;
+    public static ControllerAcercaDe controllerAcercaDe;
+
+    public static JFrame window;
+
     public static void main(String[] args) {
+
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");}
         catch (Exception ex) {};
 
+        ModelEmpleados modelEmpleados = new ModelEmpleados();
+        ViewEmpleados viewEmpleados = new ViewEmpleados();
+        controllerEmpleados = new ControllerEmpleados(viewEmpleados, modelEmpleados);
 
-        ModelEmpleados empleadosModelEmpleados = new ModelEmpleados();
-        ViewEmpleados empleadosViewEmpleados = new ViewEmpleados();
-        empleadosControllerEmpleados = new ControllerEmpleados(empleadosViewEmpleados, empleadosModelEmpleados);
+        ModelSucursales modelSucursales = new ModelSucursales();
+        ViewSucursales viewSucursales = new ViewSucursales();
+        controllerSucursales = new ControllerSucursales(viewSucursales, modelSucursales);
 
-//        ModelEmpleado empleadoModelEmpleado = new ModelEmpleado();
-//        ViewEmpleado empleadoViewEmpleado = new ViewEmpleado();
-//        empleadoControllerEmpleado = new ControllerEmpleado(empleadoViewEmpleado, empleadoModelEmpleado);
+        ModelAcercaDe modelAcercaDe = new ModelAcercaDe();
+        ViewAcercaDe viewAcercaDe = new ViewAcercaDe();
+        controllerAcercaDe = new ControllerAcercaDe(viewAcercaDe, modelAcercaDe);
 
-        ModelSucursales sucursalesModelSucursales = new ModelSucursales();
-        ViewSucursales sucursalesViewSucursales = new ViewSucursales();
-        sucursalesControllerSucursales = new ControllerSucursales(sucursalesViewSucursales, sucursalesModelSucursales);
-
-        ModelAcercaDe acerca_deModelAcercaDe = new ModelAcercaDe();
-        ViewAcercaDe acerca_deViewAcercaDe = new ViewAcercaDe();
-        acerca_deControllerAcercaDe = new ControllerAcercaDe(acerca_deViewAcercaDe, acerca_deModelAcercaDe);
-
-        sucursales.presentation.main.Model mainModel= new sucursales.presentation.main.Model();
-        sucursales.presentation.main.View mainView = new sucursales.presentation.main.View();
+        Model mainModel= new sucursales.presentation.main.Model();
+        View mainView = new sucursales.presentation.main.View();
         mainController = new sucursales.presentation.main.Controller(mainView, mainModel);
 
-        mainView.getPanel().add("Empleados", empleadosViewEmpleados.getPanel());
-        mainView.getPanel().add("Sucursales", sucursalesViewSucursales.getPanel());
-//        mainView.getPanel().add("Empleado",empleadoViewEmpleado.getPanel());
-        mainView.getPanel().add("Acerca de..", acerca_deViewAcercaDe.getPanel());
+        mainView.getPanel().add("Empleados", viewEmpleados.getPanel());
+        mainView.getPanel().add("Sucursales", viewSucursales.getPanel());
+        mainView.getPanel().add("Acerca de..", viewAcercaDe.getPanel());
 
         window = new JFrame();
         window.setSize(400,300);
@@ -55,12 +60,4 @@ public class Application {
         window.setVisible(true);
         mainController.show();
     }
-
-    public static ControllerEmpleados empleadosControllerEmpleados;
-    public static ControllerSucursales sucursalesControllerSucursales;
-    public static ControllerEmpleado empleadoControllerEmpleado;
-    public static ControllerAcercaDe acerca_deControllerAcercaDe;
-    public static sucursales.presentation.main.Controller mainController;
-
-    public static JFrame window;
 }

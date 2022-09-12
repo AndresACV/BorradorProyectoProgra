@@ -1,10 +1,10 @@
-package sucursales.presentation.Empleado;
+package sucursales.presentation.agregarEmpleado;
 
 import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ViewEmpleado implements Observer {
+public class ViewAgregarEmpleado implements Observer {
     private JPanel panel;
     private JTextField cedulaField;
     private JTextField nombreField;
@@ -14,8 +14,9 @@ public class ViewEmpleado implements Observer {
     private JButton guardarButton;
     private JButton cancelarButton;
     private JFrame window;
-    ControllerEmpleado controllerempleado;
-    ModelEmpleado modelEmpleado;
+
+    ControllerAgregarEmpleado controllerempleado;
+    ModelAgregarEmpleado modelAgregarEmpleado;
 
     public JPanel getPanel() {
         return panel;
@@ -23,19 +24,18 @@ public class ViewEmpleado implements Observer {
     public void showWindow(){
         window = new JFrame();
         window.setSize(400,400);
-//        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
         window.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         window.setTitle("Empleado");
         window.add(panel);
         window.setVisible(true);
     }
 
-    public void setControllerempleado(ControllerEmpleado controllerempleado) {
-        this.controllerempleado = controllerempleado;
+    public void setControllerempleado(ControllerAgregarEmpleado controllerEmpleado) {
+        this.controllerempleado = controllerEmpleado;
     }
 
-    public void setModelEmpleado(ModelEmpleado modelEmpleado) {
-        this.modelEmpleado = modelEmpleado;
+    public void setModelEmpleado(ModelAgregarEmpleado modelAgregarEmpleado) {
+        this.modelAgregarEmpleado = modelAgregarEmpleado;
     }
 
     @Override

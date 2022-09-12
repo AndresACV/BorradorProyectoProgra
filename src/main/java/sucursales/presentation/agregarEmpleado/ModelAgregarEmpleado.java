@@ -1,17 +1,9 @@
-package sucursales.presentation.Empleado;
+package sucursales.presentation.agregarEmpleado;
 
-import sucursales.logic.Sucursal;
-
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ModelEmpleado extends Observable {
-
-
-
-//    public void creaEmpleado()
-
+public class ModelAgregarEmpleado extends Observable {
 
     @Override
     public void addObserver(Observer o) {

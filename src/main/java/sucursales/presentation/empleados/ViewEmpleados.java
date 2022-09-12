@@ -1,10 +1,9 @@
 package sucursales.presentation.empleados;
 
-import sucursales.Application;
-import sucursales.presentation.Empleado.ViewEmpleado;
-import sucursales.presentation.main.View;
+import sucursales.presentation.agregarEmpleado.ViewAgregarEmpleado;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -19,8 +18,9 @@ public class ViewEmpleados implements Observer {
     private JTable empleadosFld;
     private JLabel nombreLbl;
     private JButton eliminarFld;
+    private JButton reporteButton;
 
-    private ViewEmpleado empleado;
+    private ViewAgregarEmpleado empleado;
     public ViewEmpleados() {
         buscarFld.addActionListener(new ActionListener() {
             @Override
@@ -37,8 +37,7 @@ public class ViewEmpleados implements Observer {
         agregarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                Application.window.setVisible(false);
-                empleado = new ViewEmpleado();
+                empleado = new ViewAgregarEmpleado();
                 empleado.showWindow();
             }
         });
@@ -68,4 +67,10 @@ public class ViewEmpleados implements Observer {
         this.panel.revalidate();
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        reporteButton = new JButton();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconoPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        reporteButton.setIcon(imageIcon);
+    }
 }

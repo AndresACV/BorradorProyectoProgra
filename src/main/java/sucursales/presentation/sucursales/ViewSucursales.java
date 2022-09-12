@@ -1,5 +1,8 @@
 package sucursales.presentation.sucursales;
 
+import sucursales.presentation.agregarEmpleado.ViewAgregarEmpleado;
+import sucursales.presentation.agregarSucursal.ViewAgregarSucursal;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +19,7 @@ public class ViewSucursales implements Observer {
     private JButton agregarButton;
     private JButton eliminarButton;
     private JLabel imagenLbl;
-
+    private ViewAgregarSucursal sucursal;
     ControllerSucursales controllerSucursales;
     ModelSucursales modelSucursales;
 
@@ -31,6 +34,13 @@ public class ViewSucursales implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controllerSucursales.eliminarSucursal(direccionFld.getText());
+            }
+        });
+        agregarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sucursal = new ViewAgregarSucursal();
+                sucursal.showWindow();
             }
         });
     }

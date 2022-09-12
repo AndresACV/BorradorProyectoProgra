@@ -44,7 +44,4 @@ public class Data {
         this.sucursales = sucursales;
     }
 
-    public void agregarEmpleado(Empleado e){
-        this.empleados.add(e);
-    }
 }
