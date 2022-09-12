@@ -41,6 +41,8 @@ public class TableModelEmpleados extends AbstractTableModel implements javax.swi
             case TELEFONO: return empleado.getTelefono();
             case SALARIO_BASE: return empleado.getSalarioBase();
             case SUCURSAL: return empleado.getSucursal().getReferencia();
+            case ZONAJE: return empleado.getZonaje();
+            case SALARIO_TOTAL: return empleado.getSalarioTotal();
             default: return "";
         }
     }
@@ -50,14 +52,18 @@ public class TableModelEmpleados extends AbstractTableModel implements javax.swi
     public static final int TELEFONO=2;
     public static final int SALARIO_BASE=3;
     public static final int SUCURSAL=4;
+    public static final int ZONAJE = 5;
+    public static final int SALARIO_TOTAL = 6;
 
-    String[] colNames = new String[5];
+    String[] colNames = new String[7];
     private void initColNames(){
         colNames[CEDULA]= "Cedula";
         colNames[NOMBRE]= "Nombre";
         colNames[TELEFONO]= "Telefono";
-        colNames[SALARIO_BASE]= "Salario Base";
+        colNames[SALARIO_BASE]= "Salario";
         colNames[SUCURSAL]= "Sucursal";
+        colNames[ZONAJE]= "%Zonaje";
+        colNames[SALARIO_TOTAL]= "Sal. Total";
     }
 
 }

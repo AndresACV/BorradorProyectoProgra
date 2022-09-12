@@ -45,7 +45,6 @@ public class TableModelSucursales extends AbstractTableModel implements javax.sw
     }
 
     public static final int CODIGO=0;
-
     public static final int REFERENCIA=1;
     public static final int DIRECCION=2;
     public static final int ZONAJE=3;
