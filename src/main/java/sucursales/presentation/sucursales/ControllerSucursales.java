@@ -25,8 +25,9 @@ public class ControllerSucursales {
         modelSucursales.commit();
     }
     public void eliminar(String referencia){
-       modelSucursales.setSucursales(Service.instance().eliminarSucursal(referencia)); // Elimina el objeto y retorna la lista
-        this.buscar(""); // Itera la lista
+        List<Sucursal> rows = Service.instance().eliminarSucursal(referencia);
+       modelSucursales.setSucursales(rows); // Elimina el objeto y retorna la lista
+        this.buscar("");               // Itera la lista
         modelSucursales.commit();
     }
 

@@ -27,19 +27,13 @@ public class Data {
         empleados.add(new Empleado("118813", "Ana", "2360", 213416, sucursales.get(4)));
     }
     public List<Sucursal> eliminarSucursal(String referencia){
-        for(Sucursal i: sucursales){ // For each
-            if(Objects.equals(i.getReferencia(), referencia)){
+        for (int i = 0; i < sucursales.size(); i++) {
+            if(Objects.equals(sucursales.get(i).getReferencia(), referencia)){
                 sucursales.remove(i);
             }
         }
-//        for (int i = 0; i < sucursales.size()-1; i++) {
-//            if(Objects.equals(sucursales, referencia)){
-//                sucursales.remove(i);
-//            }
-//        }
         return sucursales;
     }
-
     public List<Empleado> getEmpleados() {
         return empleados;
     }
