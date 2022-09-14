@@ -26,7 +26,7 @@ public class Controller {
         model.commit();
     }
 
-    public void eliminar(String codigo) throws Exception {
+    public void eliminar(String codigo){
         List<Sucursal> rows = Service.instance().eliminarSucursal(codigo);
         model.setSucursales(rows);
         this.buscar("");

@@ -4,24 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 public class View implements Observer {
 
     private JPanel panel;
-    private JTextField direccionFld;
+    private JTextField referenciaFld;
     private JButton buscarFld;
-    private JLabel direccionLbl;
+    private JButton agregarFld;
     private JTable sucursalesFld;
-    private JButton agregarButton;
-    private JButton eliminarButton;
-    private JLabel imagenLbl;
+    private JLabel referenciaLbl;
+    private JButton eliminarFld;
     private JButton reporteButton;
-    private sucursales.presentation.sucursal.View sucursal;
+    private JLabel imagenLbl;
 
-    Controller controller;
-    Model model;
+    sucursales.presentation.sucursales.Controller controller;
+    sucursales.presentation.sucursales.Model model;
 
     public JPanel getPanel() {
         return panel;
@@ -31,38 +32,43 @@ public class View implements Observer {
         buscarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.buscar(direccionFld.getText());
+                controller.buscar(referenciaFld.getText());
             }
         });
-        eliminarButton.addActionListener(new ActionListener() {
+        agregarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.eliminar(direccionFld.getText());
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+
+                controller.preAgregar();
+            }
+        });
+        sucursalesFld.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = sucursalesFld.getSelectedRow();
+                    controller.editar(row);
                 }
             }
         });
-        agregarButton.addActionListener(new ActionListener() {
+        eliminarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sucursal = new sucursales.presentation.sucursal.View();
-                sucursal.showWindow();
+                controller.eliminar(referenciaFld.getText());
             }
         });
     }
 
-    public void setController(Controller controller) { this.controller = controller; }
-    public void setModel(Model model) {
+    public void setController(sucursales.presentation.sucursales.Controller controller) { this.controller = controller; }
+    public void setModel(sucursales.presentation.sucursales.Model model) {
         this.model = model;
         model.addObserver(this);
     }
 
     @Override
     public void update(Observable updatedModel, Object parametros) {
-        int[] cols = {TableModel.CODIGO, TableModel.REFERENCIA, TableModel.DIRECCION, TableModel.ZONAJE};
-        sucursalesFld.setModel(new TableModel(cols, model.getSucursales()));
+        int[] cols = {sucursales.presentation.sucursales.TableModel.CODIGO, sucursales.presentation.sucursales.TableModel.REFERENCIA, sucursales.presentation.sucursales.TableModel.DIRECCION, sucursales.presentation.sucursales.TableModel.ZONAJE};
+        sucursalesFld.setModel(new sucursales.presentation.sucursales.TableModel(cols, model.getSucursales()));
         sucursalesFld.setRowHeight(30);
         this.panel.revalidate();
     }

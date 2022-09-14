@@ -16,15 +16,15 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="f06a0" class="javax.swing.JLabel" binding="direccionLbl">
+          <component id="f06a0" class="javax.swing.JLabel" binding="referenciaLbl">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Direccion"/>
+              <text value="Referencia"/>
             </properties>
           </component>
-          <component id="75fc4" class="javax.swing.JTextField" binding="direccionFld">
+          <component id="75fc4" class="javax.swing.JTextField" binding="referenciaFld">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -91,7 +91,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="db795" class="javax.swing.JButton" binding="agregarButton" default-binding="true">
+          <component id="db795" class="javax.swing.JButton" binding="agregarFld">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -99,7 +99,7 @@
               <text value="Agregar"/>
             </properties>
           </component>
-          <component id="5973e" class="javax.swing.JButton" binding="eliminarButton" default-binding="true">
+          <component id="5973e" class="javax.swing.JButton" binding="eliminarFld">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
