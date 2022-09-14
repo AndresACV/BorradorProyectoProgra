@@ -1,41 +1,104 @@
 package sucursales.presentation.empleado;
 
+import sucursales.Application;
+import sucursales.logic.Empleado;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
 public class View implements Observer {
 
     private JPanel panel;
-    private JTextField cedulaField;
-    private JTextField nombreField;
+    private JTextField cedulaFld;
+    private JTextField nombreFld;
     private JTextField telefonoField;
     private JTextField salarioField;
     private JTextField sucursalField;
-    private JButton guardarButton;
-    private JButton cancelarButton;
+    private JButton guardarFld;
+    private JButton cancelarFld;
+    private JLabel cedulaLbl;
+    private JLabel nombreLbl;
     private JFrame window;
 
-    Controller controllerempleado;
-    Model model;
+    public View() {
+        guardarFld.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validate()) {
+                    Empleado n = take();
+                    try {
+                        controller.guardar(n);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        cancelarFld.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.hide();
+            }
+        }
+        );
+    }
 
     public JPanel getPanel() {
         return panel;
     }
 
-    public void showWindow(){
-        window = new JFrame();
-        window.setSize(400,400);
-        window.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        window.setTitle("Empleado");
-        window.add(panel);
-        window.setVisible(true);
+    Controller controller;
+    Model model;
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
-    public void setControllerempleado(Controller controllerEmpleado) { this.controllerempleado = controllerEmpleado; }
-    public void setModelEmpleado(Model model) { this.model = model; }
+    public void setModel(Model model) {
+        this.model = model;
+        model.addObserver(this);
+    }
+
     @Override
-    public void update(Observable o, Object arg) {
-        this.panel.revalidate();
+    public void update(Observable updatedModel, Object parametros) {
+        Empleado current = model.getCurrent();
+        if(current != null)      {
+            this.cedulaFld.setEnabled(model.getModo() == Application.MODO_AGREGAR);
+            this.cedulaFld.setText(current.getCedula());
+            nombreFld.setText(current.getNombre());
+            this.panel.validate();
+        }
+    }
+
+    public Empleado take() {
+        Empleado e = new Empleado();
+        e.setCedula(cedulaFld.getText());
+        e.setNombre(nombreFld.getText());
+        return e;
+    }
+
+    private boolean validate() {
+        boolean valid = true;
+        if (cedulaFld.getText().isEmpty()) {
+            valid = false;
+            cedulaLbl.setBorder(Application.BORDER_ERROR);
+            cedulaLbl.setToolTipText("Id requerido");
+        } else {
+            cedulaLbl.setBorder(null);
+            cedulaLbl.setToolTipText(null);
+        }
+
+        if (nombreFld.getText().length() == 0) {
+            valid = false;
+            nombreLbl.setBorder(Application.BORDER_ERROR);
+            nombreLbl.setToolTipText("Nombre requerido");
+        } else {
+            nombreLbl.setBorder(null);
+            nombreLbl.setToolTipText(null);
+        }
+        return valid;
     }
 }

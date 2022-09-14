@@ -4,6 +4,7 @@ import sucursales.data.Data;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Service {
@@ -80,17 +81,20 @@ public class Service {
         }
     }
 
-    public List<Empleado> eliminarEmpleado(String cedula) throws Exception {
-          Empleado result = data.getEmpleados().stream().filter(e->e.getCedula().equals(cedula)).findFirst().orElse(null);
-        if (result!=null) data.getEmpleados().remove(result);
-        else throw new Exception("Empleado ya existe");
-        return null;
+    public List<Empleado> eliminarEmpleado(String nombre){
+        for (int i = 0; i < data.getEmpleados().size(); i++) {
+            if(Objects.equals(data.getEmpleados().get(i).getNombre(), nombre)){
+                data.getEmpleados().remove(i);
+            }
+        }
+        return data.getEmpleados();
     }
-
-    public List<Sucursal> eliminarSucursal(String codigo) throws Exception {
-        Sucursal result = data.getSucursales().stream().filter(e->e.getCodigo().equals(codigo)).findFirst().orElse(null);
-        if (result!=null) data.getSucursales().remove(result);
-        else throw new Exception("Sucursales ya existe");
-        return null;
+    public List<Sucursal> eliminarSucursal(String referencia){
+        for (int i = 0; i < data.getSucursales().size(); i++) {
+            if(Objects.equals(data.getSucursales().get(i).getReferencia(), referencia)){
+                data.getSucursales().remove(i);
+            }
+        }
+        return data.getSucursales();
     }
 }

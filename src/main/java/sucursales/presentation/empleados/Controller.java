@@ -7,6 +7,7 @@ import sucursales.logic.Service;
 import java.util.List;
 
 public class Controller {
+
     View view;
     Model model;
 
@@ -24,7 +25,7 @@ public class Controller {
         model.commit();
     }
 
-    public void eliminar(String cedula) throws Exception {
+    public void eliminar(String cedula) {
         List<Empleado> rows = Service.instance().eliminarEmpleado(cedula);
         model.setEmpleados(rows);
         this.buscar("");

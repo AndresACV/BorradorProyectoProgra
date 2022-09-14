@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,21 +37,26 @@ public class View implements Observer {
                 controller.buscar(nombreFld.getText());
             }
         });
-        eliminarFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.eliminar(nombreFld.getText());
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
         agregarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                empleado = new sucursales.presentation.empleado.View();
-                empleado.showWindow();
+
+                controller.preAgregar();
+            }
+        });
+        empleadosFld.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = empleadosFld.getSelectedRow();
+                    controller.editar(row);
+                }
+            }
+        });
+        eliminarFld.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.eliminar(nombreFld.getText());
             }
         });
     }

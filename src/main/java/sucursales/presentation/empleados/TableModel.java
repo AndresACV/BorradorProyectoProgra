@@ -38,8 +38,8 @@ public class TableModel extends AbstractTableModel implements javax.swing.table.
             case NOMBRE: return empleado.getNombre();
             case TELEFONO: return empleado.getTelefono();
             case SALARIO_BASE: return empleado.getSalarioBase();
-            case SUCURSAL: return empleado.getSucursal().getReferencia();
-            case ZONAJE: return empleado.getZonaje();
+          //  case SUCURSAL: return empleado.getSucursal().getReferencia();
+          //  case ZONAJE: return empleado.getZonaje();
             case SALARIO_TOTAL: return empleado.getSalarioTotal();
             default: return "";
         }
