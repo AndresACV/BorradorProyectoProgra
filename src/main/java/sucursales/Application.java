@@ -4,6 +4,8 @@ import sucursales.presentation.about.Controller;
 import sucursales.presentation.about.Model;
 import sucursales.presentation.about.View;
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 
 public class Application {
 
@@ -13,7 +15,15 @@ public class Application {
     public static sucursales.presentation.sucursales.Controller controllerSucursales;
     public static Controller controllerAbout;
 
+    public static sucursales.presentation.empleado.Controller controllerEmpleado;
+    public static sucursales.presentation.sucursal.Controller controllerSucursal;
+
     public static JFrame window;
+
+    public static  final int  MODO_AGREGAR=0;
+    public static final int   MODO_EDITAR=1;
+
+    public static Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
 
     public static void main(String[] args) {
 
@@ -25,9 +35,17 @@ public class Application {
         sucursales.presentation.empleados.View viewEmpleados = new sucursales.presentation.empleados.View();
         controllerEmpleados = new sucursales.presentation.empleados.Controller(viewEmpleados, modelEmpleados);
 
+        sucursales.presentation.empleado.Model modelEmpleado = new sucursales.presentation.empleado.Model();
+        sucursales.presentation.empleado.View viewEmpleado = new sucursales.presentation.empleado.View();
+        controllerEmpleado = new sucursales.presentation.empleado.Controller(viewEmpleado, modelEmpleado);
+
         sucursales.presentation.sucursales.Model modelSucursales = new sucursales.presentation.sucursales.Model();
         sucursales.presentation.sucursales.View viewSucursales = new sucursales.presentation.sucursales.View();
         controllerSucursales = new sucursales.presentation.sucursales.Controller(viewSucursales, modelSucursales);
+
+        sucursales.presentation.sucursal.Model modelSucursal = new sucursales.presentation.sucursal.Model();
+        sucursales.presentation.sucursal.View viewSucursal = new sucursales.presentation.sucursal.View();
+        controllerSucursal = new sucursales.presentation.sucursal.Controller(viewSucursal, modelSucursal);
 
         Model modelAcercaDe = new sucursales.presentation.about.Model();
         View viewAcercaDe = new sucursales.presentation.about.View();
@@ -47,7 +65,6 @@ public class Application {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("SISE: Sistema de Sucursales y Empleados");
         window.setVisible(true);
-
         mainController.show();
     }
 }

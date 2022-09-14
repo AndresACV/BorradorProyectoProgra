@@ -1,6 +1,7 @@
 package sucursales.presentation.sucursales;
 
 import sucursales.Application;
+import sucursales.logic.Empleado;
 import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
 
@@ -19,16 +20,30 @@ public class Controller {
         view.setModel(model);
     }
 
-    public void buscarSucursal(String filtro){
+    public void buscar(String filtro){
         List<Sucursal> rows = Service.instance().sucursalesSearch(filtro);
         model.setSucursales(rows);
         model.commit();
     }
-    public void eliminarSucursal(String referencia){
-        List<Sucursal> rows = Service.instance().eliminarSucursal(referencia);
-       model.setSucursales(rows); // Elimina el objeto y retorna la lista
-        this.buscarSucursal("");               // Itera la lista
+
+    public void eliminar(String codigo) throws Exception {
+        List<Sucursal> rows = Service.instance().eliminarSucursal(codigo);
+        model.setSucursales(rows);
+        this.buscar("");
         model.commit();
+    }
+
+    public void preAgregar(){
+        Application.controllerSucursal.preAgregar();
+    }
+
+    public void editar(int row){
+        String codigo = model.getSucursales().get(row).getCodigo();
+        Sucursal e=null;
+        try {
+            e= Service.instance().sucursalGet(codigo);
+            Application.controllerSucursal.editar(e);
+        } catch (Exception ex) {}
     }
 
     public void show(){

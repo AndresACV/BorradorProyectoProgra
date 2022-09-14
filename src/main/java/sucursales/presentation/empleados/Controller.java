@@ -18,17 +18,30 @@ public class Controller {
         view.setModel(model);
     }
 
-    public void buscarEmpleado(String filtro){
+    public void buscar(String filtro){
         List<Empleado> rows = Service.instance().empleadosSearch(filtro);
         model.setEmpleados(rows);
         model.commit();
     }
 
-    public void eliminarEmpleado(String nombre){
-        List<Empleado> rows = Service.instance().eliminarEmpleado(nombre);
+    public void eliminar(String cedula) throws Exception {
+        List<Empleado> rows = Service.instance().eliminarEmpleado(cedula);
         model.setEmpleados(rows);
-        this.buscarEmpleado("");
+        this.buscar("");
         model.commit();
+    }
+
+    public void preAgregar(){
+        Application.controllerEmpleado.preAgregar();
+    }
+
+    public void editar(int row){
+        String cedula = model.getEmpleados().get(row).getCedula();
+        Empleado e=null;
+        try {
+            e= Service.instance().empleadoGet(cedula);
+            Application.controllerEmpleado.editar(e);
+        } catch (Exception ex) {}
     }
 
     public void show(){

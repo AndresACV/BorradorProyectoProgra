@@ -32,13 +32,17 @@ public class View implements Observer {
         buscarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.buscarEmpleado(nombreFld.getText());
+                controller.buscar(nombreFld.getText());
             }
         });
         eliminarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.eliminarEmpleado(nombreFld.getText());
+                try {
+                    controller.eliminar(nombreFld.getText());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         agregarFld.addActionListener(new ActionListener() {

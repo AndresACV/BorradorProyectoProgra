@@ -31,13 +31,17 @@ public class View implements Observer {
         buscarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.buscarSucursal(direccionFld.getText());
+                controller.buscar(direccionFld.getText());
             }
         });
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.eliminarSucursal(direccionFld.getText());
+                try {
+                    controller.eliminar(direccionFld.getText());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         agregarButton.addActionListener(new ActionListener() {
