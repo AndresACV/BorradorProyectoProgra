@@ -2,10 +2,13 @@
 
 README
 
-Falta anadir imagenes en los agregar
-Crear el jpane de agregar bien hecho
-Darle formato a la vista para que no quede tan fea
-Discutir cual es el mejor mapa
-Desarrollar el metodo agregar
+Arreglar el problema con preAgregar();
 
-seguir con el resto del proyecto
+Agregar sucursales a empleados.
+
+Falta anadir imagenes en los agregar y darles el mismo tamano
+
+Acomodar bien las vistas para que todo calce y quepa bien
+
+Intentar hacer lo del mapa antes de la clase del viernes (implementar coordenadas en sucursal)
+
