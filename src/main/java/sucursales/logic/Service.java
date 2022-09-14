@@ -81,18 +81,22 @@ public class Service {
         }
     }
 
-    public List<Empleado> eliminarEmpleado(String nombre){
+    public List<Empleado> eliminarEmpleado(String nombre) throws Exception{
         for (int i = 0; i < data.getEmpleados().size(); i++) {
             if(Objects.equals(data.getEmpleados().get(i).getNombre(), nombre)){
                 data.getEmpleados().remove(i);
+            } else {
+                throw new Exception("Empleado no existe");
             }
         }
         return data.getEmpleados();
     }
-    public List<Sucursal> eliminarSucursal(String referencia){
+    public List<Sucursal> eliminarSucursal(String referencia) throws Exception{
         for (int i = 0; i < data.getSucursales().size(); i++) {
             if(Objects.equals(data.getSucursales().get(i).getReferencia(), referencia)){
                 data.getSucursales().remove(i);
+            } else {
+                throw new Exception("Sucursal no existe");
             }
         }
         return data.getSucursales();

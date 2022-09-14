@@ -14,6 +14,7 @@ public class Controller {
     Model model;
 
     public Controller(View view, Model model) {
+        model.setCurrent(new Sucursal());
         this.view = view;
         this.model = model;
         view.setController(this);

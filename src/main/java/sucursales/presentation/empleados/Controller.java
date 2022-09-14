@@ -25,7 +25,7 @@ public class Controller {
         model.commit();
     }
 
-    public void eliminar(String cedula) {
+    public void eliminar(String cedula) throws Exception {
         List<Empleado> rows = Service.instance().eliminarEmpleado(cedula);
         model.setEmpleados(rows);
         this.buscar("");

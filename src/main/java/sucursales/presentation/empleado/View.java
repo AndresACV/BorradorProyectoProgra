@@ -65,12 +65,10 @@ public class View implements Observer {
     @Override
     public void update(Observable updatedModel, Object parametros) {
         Empleado current = model.getCurrent();
-        if(current != null)      {
             this.cedulaFld.setEnabled(model.getModo() == Application.MODO_AGREGAR);
             this.cedulaFld.setText(current.getCedula());
             nombreFld.setText(current.getNombre());
             this.panel.validate();
-        }
     }
 
     public Empleado take() {

@@ -56,7 +56,11 @@ public class View implements Observer {
         eliminarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.eliminar(nombreFld.getText());
+                try {
+                    controller.eliminar(nombreFld.getText());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
