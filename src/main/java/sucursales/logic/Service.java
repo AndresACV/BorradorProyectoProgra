@@ -41,8 +41,8 @@ public class Service {
         else throw new Exception("Empleado no existe");
     }
 
-    public Sucursal sucursalGet(String codigo) throws Exception{
-        Sucursal result = data.getSucursales().stream().filter(e->e.getCodigo().equals(codigo)).findFirst().orElse(null);
+    public Sucursal sucursalGet(String referencia) throws Exception{
+        Sucursal result = data.getSucursales().stream().filter(e->e.getReferencia().equals(referencia)).findFirst().orElse(null);
         if (result!=null) return result;
         else throw new Exception("Sucursal no existe");
     }
@@ -73,7 +73,7 @@ public class Service {
     public void sucursalUpdate(Sucursal sucursal) throws Exception{
         Sucursal result;
         try{
-            result = this.sucursalGet(sucursal.codigo);
+            result = this.sucursalGet(sucursal.referencia);
             data.getSucursales().remove(result);
             data.getSucursales().add(sucursal);
         }catch (Exception e) {

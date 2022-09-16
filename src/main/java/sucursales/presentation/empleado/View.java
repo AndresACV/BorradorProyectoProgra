@@ -2,11 +2,14 @@ package sucursales.presentation.empleado;
 
 import sucursales.Application;
 import sucursales.logic.Empleado;
+import sucursales.logic.Service;
+import sucursales.logic.Sucursal;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -34,7 +37,12 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (validate()) {
-                    Empleado n = take();
+                    Empleado n = null;
+                    try {
+                        n = take();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                     try {
                         controller.guardar(n);
                     } catch (Exception ex) {
@@ -75,7 +83,19 @@ public class View implements Observer {
             this.cedulaFld.setText(current.getCedula());
             nombreFld.setText(current.getNombre());
             telefonoField.setText(current.getTelefono());
-            salarioField.setText("");
+            if(String.valueOf(current.getSalarioBase()).equals("0.0")){
+                salarioField.setText("");
+            }
+            else{
+                salarioField.setText(String.valueOf(current.getSalarioBase()));
+            }
+            if(current.getSucursal() != null){
+                sucursalField.setText(current.getSucursal().getReferencia());
+            }
+            else{
+                sucursalField.setText("");
+            }
+
         this.panel.validate();
     }
     public static boolean isNumeric(String cadena) {
@@ -92,12 +112,13 @@ public class View implements Observer {
         return resultado;
     }
 
-    public Empleado take() {
+    public Empleado take() throws Exception {
         Empleado e = new Empleado();
             e.setCedula(cedulaFld.getText());
             e.setNombre(nombreFld.getText());
             e.setTelefono(telefonoField.getText());
             e.setSalarioBase(Double.parseDouble(salarioField.getText()));
+            e.setSucursal(Service.instance().sucursalGet(sucursalField.getText()));
             return e;
     }
 
@@ -135,6 +156,14 @@ public class View implements Observer {
         } else {
             salarioL.setBorder(null);
             salarioL.setToolTipText(null);
+        }
+        if (sucursalField.getText().length() == 0) {
+            valid = false;
+            sucursalL.setBorder(Application.BORDER_ERROR);
+            sucursalL.setToolTipText("salario requerido");
+        } else {
+            sucursalL.setBorder(null);
+            sucursalL.setToolTipText(null);
         }
         return valid;
     }

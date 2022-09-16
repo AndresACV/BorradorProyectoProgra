@@ -7,15 +7,17 @@ public class Empleado {
     String telefono;
     double salarioBase;
     double salarioTotal;
-    public Empleado(String cedula, String nombre, String telefono, double salarioBase) {
+    Sucursal sucursal;
+    public Empleado(String cedula, String nombre, String telefono, double salarioBase, Sucursal sucursal) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.telefono = telefono;
         this.salarioBase = salarioBase;
         this.salarioTotal = salarioBase + (salarioBase / 100);
+        this.sucursal = sucursal;
     }
     public Empleado() {
-        this("", "", "", 0);
+        this("", "", "", 0,null);
     }
 
     public String getCedula() {
@@ -49,6 +51,15 @@ public class Empleado {
     public double getSalarioTotal() {
         return salarioTotal;
     }
+
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
+    }
+
     public void setSalarioTotal(double salarioTotal) {
         this.salarioTotal = salarioTotal;
     }
