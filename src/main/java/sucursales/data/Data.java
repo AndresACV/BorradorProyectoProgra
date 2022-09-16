@@ -26,8 +26,9 @@ public class Data {
         sucursales.add(new Sucursal("004", "Tortugero", "Limon, Tortuguero, frente Iglesia", 4.0));
         sucursales.add(new Sucursal("005", "Cahuita", "Limon, Cahuita, Playa Negra", 4.0));
 
-        empleados.add(new Empleado("111", "Franklin Chang", "78972356", 7500,new Sucursal("003", "liberia", "Guanacaste, Liberia, 250 S Iglesia", 5.0)));
-        empleados.add(new Empleado("222", "Sandra Cauffman", "54986721", 8200,new Sucursal("005", "Sabana", "Guanacaste, Liberia, 250 S Iglesia", 7.0)));
-        empleados.add(new Empleado("333", "Ivan Vargas", "45233246", 7800,new Sucursal("008", "Golfito", "Guanacaste, Liberia, 250 S Iglesia", 8.0)));
+        empleados.add(new Empleado("111", "Franklin Chang", "78972356", 7500, sucursales.get(0)));
+        empleados.add(new Empleado("222", "Sandra Cauffman", "54986721",7500, sucursales.get(1)));
+        empleados.add(new Empleado("333", "Ivan Vargas", "45233246", 7800, sucursales.get(2)));
     }
+
 }
