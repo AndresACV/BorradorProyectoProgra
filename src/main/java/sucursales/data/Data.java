@@ -5,7 +5,12 @@ import sucursales.logic.Sucursal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Data {
     private List<Empleado> empleados;
     private List<Sucursal> sucursales;

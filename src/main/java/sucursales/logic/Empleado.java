@@ -1,7 +1,12 @@
 package sucursales.logic;
 
 import java.util.Objects;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Empleado {
 
     String cedula;
@@ -9,6 +14,7 @@ public class Empleado {
     String telefono;
     double salarioBase;
     double salarioTotal;
+    @XmlIDREF
     Sucursal sucursal;
     public Empleado(String cedula, String nombre, String telefono, double salarioBase, Sucursal sucursal) {
         this.cedula = cedula;

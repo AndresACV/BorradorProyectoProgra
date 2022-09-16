@@ -1,7 +1,7 @@
 package sucursales.logic;
 
 import sucursales.data.Data;
-
+import sucursales.data.XmlPersister;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Service {
 
     private static Service instancia;
-    private final Data data;
+    private Data data;
 
     public static Service instance() {
         if (instancia == null) {
@@ -19,8 +19,13 @@ public class Service {
         return instancia;
     }
 
-    private Service() {
-        data = new Data();
+    private Service(){
+        try{
+            data= XmlPersister.instance().load();
+        }
+        catch(Exception e){
+            data =  new Data();
+        }
     }
 
     public List<Empleado> empleadosSearch(String filtro) {
@@ -101,5 +106,12 @@ public class Service {
             }
         }
         throw new Exception("Sucursal no existe");
+    }
+    public void store(){
+        try {
+            XmlPersister.instance().store(data);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
