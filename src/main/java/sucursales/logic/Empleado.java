@@ -7,7 +7,6 @@ public class Empleado {
     String telefono;
     double salarioBase;
     double salarioTotal;
-
     public Empleado(String cedula, String nombre, String telefono, double salarioBase) {
         this.cedula = cedula;
         this.nombre = nombre;

@@ -84,9 +84,5 @@ public class View implements Observer {
         reporteButton = new JButton();
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         reporteButton.setIcon(imageIcon);
-
-        imagenLbl = new JLabel();
-        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(700, 500, Image.SCALE_DEFAULT));
-        imagenLbl.setIcon(imageIcon2);
     }
 }

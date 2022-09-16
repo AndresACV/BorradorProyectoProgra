@@ -42,6 +42,7 @@ public class Controller {
 
     public void hide(){
         dialog.dispose();
+        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 
     public void guardar(Sucursal e) throws Exception {
