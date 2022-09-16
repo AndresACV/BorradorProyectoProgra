@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -55,9 +56,11 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controller.eliminar(referenciaFld.getText());
+                    if(!Objects.equals(referenciaFld.getText(), "")){
+                        controller.eliminar(referenciaFld.getText());
+                    }
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(panel, "Sucursal no existe","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

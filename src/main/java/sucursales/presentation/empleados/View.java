@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -57,10 +58,12 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controller.eliminar(nombreFld.getText());
+                    if(!Objects.equals(nombreFld.getText(), "")){
+                        controller.eliminar(nombreFld.getText());
+                    }
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
+                JOptionPane.showMessageDialog(panel, "Empleado no existe","ERROR",JOptionPane.ERROR_MESSAGE);
+            }
             }
         });
     }

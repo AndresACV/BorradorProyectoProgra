@@ -12,93 +12,94 @@ public class Service {
     private static Service instancia;
     private final Data data;
 
-    public static Service instance(){
-        if (instancia == null){ instancia = new Service(); }
+    public static Service instance() {
+        if (instancia == null) {
+            instancia = new Service();
+        }
         return instancia;
     }
 
-    private Service(){
+    private Service() {
         data = new Data();
     }
 
-    public List<Empleado> empleadosSearch(String filtro){
+    public List<Empleado> empleadosSearch(String filtro) {
         return data.getEmpleados().stream()
-                .filter(e->e.getNombre().contains(filtro))
+                .filter(e -> e.getNombre().contains(filtro))
                 .sorted(Comparator.comparing(Empleado::getCedula))
                 .collect(Collectors.toList());
     }
 
-    public List<Sucursal> sucursalesSearch(String filtro){
+    public List<Sucursal> sucursalesSearch(String filtro) {
         return data.getSucursales().stream()
-                .filter(e->e.getReferencia().contains(filtro))
+                .filter(e -> e.getReferencia().contains(filtro))
                 .sorted(Comparator.comparing(Sucursal::getReferencia))
                 .collect(Collectors.toList());
     }
 
-    public Empleado empleadoGet(String cedula) throws Exception{
-        Empleado result = data.getEmpleados().stream().filter(e->e.getCedula().equals(cedula)).findFirst().orElse(null);
-        if (result!=null) return result;
+    public Empleado empleadoGet(String cedula) throws Exception {
+        Empleado result = data.getEmpleados().stream().filter(e -> e.getCedula().equals(cedula)).findFirst().orElse(null);
+        if (result != null) return result;
         else throw new Exception("Empleado no existe");
     }
 
-    public Sucursal sucursalGet(String referencia) throws Exception{
-        Sucursal result = data.getSucursales().stream().filter(e->e.getReferencia().equals(referencia)).findFirst().orElse(null);
-        if (result!=null) return result;
+    public Sucursal sucursalGet(String referencia) throws Exception {
+        Sucursal result = data.getSucursales().stream().filter(e -> e.getReferencia().equals(referencia)).findFirst().orElse(null);
+        if (result != null) return result;
         else throw new Exception("Sucursal no existe");
     }
 
-    public void agregarEmpleado(Empleado empleado) throws Exception{
-        Empleado result = data.getEmpleados().stream().filter(e->e.getCedula().equals(empleado.getCedula())).findFirst().orElse(null);
-        if (result==null) data.getEmpleados().add(empleado);
+    public void agregarEmpleado(Empleado empleado) throws Exception {
+        Empleado result = data.getEmpleados().stream().filter(e -> e.getCedula().equals(empleado.getCedula())).findFirst().orElse(null);
+        if (result == null) data.getEmpleados().add(empleado);
         else throw new Exception("Empleado ya existe");
     }
 
-    public void agregarSucursal(Sucursal sucursal) throws Exception{
-        Sucursal result = data.getSucursales().stream().filter(e->e.getCodigo().equals(sucursal.getCodigo())).findFirst().orElse(null);
-        if (result==null) data.getSucursales().add(sucursal);
+    public void agregarSucursal(Sucursal sucursal) throws Exception {
+        Sucursal result = data.getSucursales().stream().filter(e -> e.getCodigo().equals(sucursal.getCodigo())).findFirst().orElse(null);
+        if (result == null) data.getSucursales().add(sucursal);
         else throw new Exception("Sucursal ya existe");
     }
 
-    public void empleadoUpdate(Empleado empleado) throws Exception{
+    public void empleadoUpdate(Empleado empleado) throws Exception {
         Empleado result;
-        try{
+        try {
             result = this.empleadoGet(empleado.cedula);
             data.getEmpleados().remove(result);
             data.getEmpleados().add(empleado);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new Exception("Empleado no existe");
         }
     }
 
-    public void sucursalUpdate(Sucursal sucursal) throws Exception{
+    public void sucursalUpdate(Sucursal sucursal) throws Exception {
         Sucursal result;
-        try{
+        try {
             result = this.sucursalGet(sucursal.referencia);
             data.getSucursales().remove(result);
             data.getSucursales().add(sucursal);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new Exception("Sucursal no existe");
         }
     }
 
-    public List<Empleado> eliminarEmpleado(String nombre) throws Exception{
+    public List<Empleado> eliminarEmpleado(String nombre) throws Exception {
         for (int i = 0; i < data.getEmpleados().size(); i++) {
-            if(Objects.equals(data.getEmpleados().get(i).getNombre(), nombre)){
+            if (Objects.equals(data.getEmpleados().get(i).getNombre(), nombre)) {
                 data.getEmpleados().remove(i);
-            } else {
-                throw new Exception("Empleado no existe");
+                return data.getEmpleados();
             }
         }
-        return data.getEmpleados();
+        throw new Exception("Empleado no existe");
     }
-    public List<Sucursal> eliminarSucursal(String referencia) throws Exception{
+
+    public List<Sucursal> eliminarSucursal(String referencia) throws Exception {
         for (int i = 0; i < data.getSucursales().size(); i++) {
-            if(Objects.equals(data.getSucursales().get(i).getReferencia(), referencia)){
+            if (Objects.equals(data.getSucursales().get(i).getReferencia(), referencia)) {
                 data.getSucursales().remove(i);
-            } else {
-                throw new Exception("Sucursal no existe");
+                return data.getSucursales();
             }
         }
-        return data.getSucursales();
+        throw new Exception("Sucursal no existe");
     }
 }

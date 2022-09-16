@@ -60,8 +60,8 @@ public class Application {
         mainView.getPanel().add("Acerca de..", viewAcercaDe.getPanel());
 
         window = new JFrame();
-        window.setSize(400,300);
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        window.setSize(1200,650);
+        window.setExtendedState(JFrame.NORMAL);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("SISE: Sistema de Sucursales y Empleados");
         window.setVisible(true);

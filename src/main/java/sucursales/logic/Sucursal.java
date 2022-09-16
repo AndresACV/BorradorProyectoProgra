@@ -1,5 +1,7 @@
 package sucursales.logic;
 
+import java.util.Objects;
+
 public class Sucursal {
 
     String codigo;
@@ -15,6 +17,14 @@ public class Sucursal {
     }
 
     public Sucursal() { this("","","",0.0); }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sucursal sucursal = (Sucursal) o;
+        return codigo.equals(sucursal.codigo);
+    }
 
     public String getCodigo() { return codigo;}
     public void setCodigo(String codigo) { this.codigo = codigo; }

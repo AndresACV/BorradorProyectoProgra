@@ -1,5 +1,7 @@
 package sucursales.logic;
 
+import java.util.Objects;
+
 public class Empleado {
 
     String cedula;
@@ -18,6 +20,14 @@ public class Empleado {
     }
     public Empleado() {
         this("", "", "", 0,null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Empleado empleado = (Empleado) o;
+        return cedula.equals(empleado.cedula);
     }
 
     public String getCedula() {

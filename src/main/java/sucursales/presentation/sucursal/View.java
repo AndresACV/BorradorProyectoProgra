@@ -1,10 +1,7 @@
 package sucursales.presentation.sucursal;
 
 import sucursales.Application;
-import sucursales.logic.Empleado;
 import sucursales.logic.Sucursal;
-import sucursales.presentation.empleado.Controller;
-import sucursales.presentation.empleado.Model;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,6 +20,10 @@ public class View implements Observer {
 
     private JLabel codigoLbl;
     private JLabel referenciaLbl;
+    private JLabel direccionLbl;
+    private JLabel zonajeLbl;
+    private JTextField direccionFld;
+    private JTextField zonajeFld;
 
     private JFrame window;
 
@@ -80,6 +81,8 @@ public class View implements Observer {
         Sucursal s = new Sucursal();
         s.setCodigo(codigoFld.getText());
         s.setReferencia(referenciaFld.getText());
+        s.setDireccion(direccionFld.getText());
+        s.setPorcentajeZonaje(Double.parseDouble(zonajeFld.getText()));
         return s;
     }
 
@@ -102,6 +105,25 @@ public class View implements Observer {
             referenciaFld.setBorder(null);
             referenciaFld.setToolTipText(null);
         }
+
+        if (direccionFld.getText().isEmpty()) {
+            valid = false;
+            codigoLbl.setBorder(Application.BORDER_ERROR);
+            codigoLbl.setToolTipText("Direccion requerida");
+        } else {
+            codigoLbl.setBorder(null);
+            codigoLbl.setToolTipText(null);
+        }
+
+        if (zonajeFld.getText().isEmpty()) {
+            valid = false;
+            codigoLbl.setBorder(Application.BORDER_ERROR);
+            codigoLbl.setToolTipText("Zonaje requerido");
+        } else {
+            codigoLbl.setBorder(null);
+            codigoLbl.setToolTipText(null);
+        }
+
         return valid;
     }
 }
