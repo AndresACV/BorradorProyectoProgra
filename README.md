@@ -2,13 +2,11 @@
 
 README
 
-Arreglar el problema con preAgregar();
+Implementar XML al proyecto
 
-Agregar sucursales a empleados.
+Implementar coordenadas a la clase sucursal
 
-Falta anadir imagenes en los agregar y darles el mismo tamano
+Implementar mapa con las pistas que nos dio el profe
 
-Acomodar bien las vistas para que todo calce y quepa bien
-
-Intentar hacer lo del mapa antes de la clase del viernes (implementar coordenadas en sucursal)
+Fecha de entrega: 1 Octubre 2022
 
