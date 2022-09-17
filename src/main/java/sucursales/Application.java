@@ -8,7 +8,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class Application {
-//
+
     public static sucursales.presentation.main.Controller mainController;
 
     public static sucursales.presentation.empleados.Controller controllerEmpleados;
