@@ -42,16 +42,12 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
-    public Empleado empleadoGet(String cedula) throws Exception {
-        Empleado result = data.getEmpleados().stream().filter(e -> e.getCedula().equals(cedula)).findFirst().orElse(null);
-        if (result != null) return result;
-        else throw new Exception("Empleado no existe");
+    public Empleado empleadoGet(String cedula) {
+        return data.getEmpleados().stream().filter(e -> e.getCedula().equals(cedula)).findFirst().orElse(null);
     }
 
-    public Sucursal sucursalGet(String referencia) throws Exception {
-        Sucursal result = data.getSucursales().stream().filter(e -> e.getReferencia().equals(referencia)).findFirst().orElse(null);
-        if (result != null) return result;
-        else throw new Exception("Sucursal no existe");
+    public Sucursal sucursalGet(String referencia) {
+        return data.getSucursales().stream().filter(e -> e.getReferencia().equals(referencia)).findFirst().orElse(null);
     }
 
     public void agregarEmpleado(Empleado empleado) throws Exception {

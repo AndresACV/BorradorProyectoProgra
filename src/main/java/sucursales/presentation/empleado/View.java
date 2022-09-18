@@ -36,18 +36,22 @@ public class View implements Observer {
         guardarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (validate()) {
-                    Empleado n = null;
-                    try {
-                        n = take();
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
+                try {
+                    if (validate()) {
+                        Empleado n = null;
+                        try {
+                            n = take();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        try {
+                            controller.guardar(n);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                    try {
-                        controller.guardar(n);
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
-                    }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });
@@ -99,16 +103,13 @@ public class View implements Observer {
         this.panel.validate();
     }
     public static boolean isNumeric(String cadena) {
-
         boolean resultado;
-
         try {
             Integer.parseInt(cadena);
             resultado = true;
         } catch (NumberFormatException excepcion) {
             resultado = false;
         }
-
         return resultado;
     }
 
@@ -122,13 +123,18 @@ public class View implements Observer {
             return e;
     }
 
-    private boolean validate() {
+    private boolean validate() throws Exception {
         boolean valid = true;
         if (cedulaFld.getText().isEmpty()) {
             valid = false;
             cedulaLbl.setBorder(Application.BORDER_ERROR);
-            cedulaLbl.setToolTipText("Id requerido");
-        } else {
+            JOptionPane.showMessageDialog(panel, "Cedula requerida","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!cedulaFld.getText().matches("[0-9]+")){
+            valid = false;
+            cedulaLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Cedula debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
             cedulaLbl.setBorder(null);
             cedulaLbl.setToolTipText(null);
         }
@@ -137,30 +143,56 @@ public class View implements Observer {
             valid = false;
             nombreLbl.setBorder(Application.BORDER_ERROR);
             nombreLbl.setToolTipText("Nombre requerido");
-        } else {
+            JOptionPane.showMessageDialog(panel, "Nombre requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!nombreFld.getText().matches("^[a-zA-Z]+$")){
+            valid = false;
+            nombreLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "El nombre no puede ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
             nombreLbl.setBorder(null);
             nombreLbl.setToolTipText(null);
         }
+
         if (telefonoField.getText().length() == 0) {
             valid = false;
             telefonoL.setBorder(Application.BORDER_ERROR);
-            telefonoL.setToolTipText("telefono requerido");
-        } else {
+            JOptionPane.showMessageDialog(panel, "Telefono requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!telefonoField.getText().matches("[0-9]+")) {
+            valid = false;
+            telefonoL.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Telefono debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(telefonoField.getText().length() != 8) {
+            valid = false;
+            telefonoL.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Telefono debe tener 8 digitos","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
             telefonoL.setBorder(null);
             telefonoL.setToolTipText(null);
         }
+
         if (salarioField.getText().length() == 0) {
             valid = false;
             salarioL.setBorder(Application.BORDER_ERROR);
-            salarioL.setToolTipText("salario requerido");
+            JOptionPane.showMessageDialog(panel, "Salario requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!salarioField.getText().matches("[0-9]+")) {
+            valid = false;
+            salarioL.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Salario debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             salarioL.setBorder(null);
             salarioL.setToolTipText(null);
         }
+
         if (sucursalField.getText().length() == 0) {
             valid = false;
             sucursalL.setBorder(Application.BORDER_ERROR);
-            sucursalL.setToolTipText("salario requerido");
+            JOptionPane.showMessageDialog(panel, "Sucursal requerida","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(Service.instance().sucursalGet(sucursalField.getText()) == null) {
+            valid = false;
+            sucursalL.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Sucursal no existe","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             sucursalL.setBorder(null);
             sucursalL.setToolTipText(null);
