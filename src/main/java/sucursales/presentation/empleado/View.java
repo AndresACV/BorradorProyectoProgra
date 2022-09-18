@@ -5,11 +5,16 @@ import sucursales.logic.Empleado;
 import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
@@ -32,6 +37,7 @@ public class View implements Observer {
     private JLabel salarioL;
     private JLabel sucursalL;
     private JFrame window;
+    private Image mapa;
 
     public View() {
         guardarFld.addActionListener(new ActionListener() {
@@ -207,8 +213,18 @@ public class View implements Observer {
         return valid;
     }
 
-    private void createUIComponents() {
+    private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
+        // CODIGO PARA PONER UNA IMAGEN ENCIMA DE OTRA
+//        mapaLabel = new JLabel();
+//        mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
+//        mapa = mapa.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+//        BufferedImage result = new BufferedImage(500,500, BufferedImage.TYPE_INT_ARGB);
+//        Graphics g = result.getGraphics();
+//        g.drawImage(mapa, 10, 10,mapaLabel);
+//        mapaLabel.setIcon(new ImageIcon(result));
+//        g.drawImage(mapa, 30, 40,mapaLabel);
+//        mapaLabel.setIcon(new ImageIcon(result));
         mapaLabel = new JLabel();
         ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
         mapaLabel.setIcon(imageIcon2);
