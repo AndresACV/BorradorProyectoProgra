@@ -8,7 +8,7 @@ import jakarta.xml.bind.annotation.XmlIDREF;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Empleado {
-
+    @XmlID
     String cedula;
     String nombre;
     String telefono;

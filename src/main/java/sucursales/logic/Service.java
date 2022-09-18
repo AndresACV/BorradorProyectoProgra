@@ -12,6 +12,14 @@ public class Service {
     private static Service instancia;
     private Data data;
 
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
     public static Service instance() {
         if (instancia == null) {
             instancia = new Service();

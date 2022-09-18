@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 public class XmlPersister {
     private String path;
     private static XmlPersister theInstance;
+
     public static XmlPersister instance(){
         if (theInstance==null){
             theInstance=new XmlPersister("data.xml");
@@ -24,7 +25,6 @@ public class XmlPersister {
     public Data load() throws Exception{
         JAXBContext jaxbContext = JAXBContext.newInstance(Data.class);
         FileInputStream is = new FileInputStream(path);
-        //FileInputStream is = new FileInputStream(this.getClass().getResource(path).getFile());
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         Data result = (Data) unmarshaller.unmarshal(is);
         is.close();

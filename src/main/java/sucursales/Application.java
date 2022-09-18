@@ -1,5 +1,7 @@
 package sucursales;
 
+import sucursales.data.XmlPersister;
+import sucursales.logic.Service;
 import sucursales.presentation.about.Controller;
 import sucursales.presentation.about.Model;
 import sucursales.presentation.about.View;
@@ -25,11 +27,15 @@ public class Application {
 
     public static Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");}
         catch (Exception ignored) {};
+
+     //   XmlPersister persister = new XmlPersister("data.xml");
+     //   persister.store(Service.instance().getData());
+     //   Service.instance().setData(persister.load());
 
         sucursales.presentation.empleados.Model modelEmpleados = new sucursales.presentation.empleados.Model();
         sucursales.presentation.empleados.View viewEmpleados = new sucursales.presentation.empleados.View();
