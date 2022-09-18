@@ -1,5 +1,7 @@
 package sucursales.presentation.empleados;
 
+import sucursales.Application;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,7 +43,6 @@ public class View implements Observer {
         agregarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 controller.preAgregar();
             }
         });

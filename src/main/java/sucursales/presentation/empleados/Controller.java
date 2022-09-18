@@ -48,4 +48,6 @@ public class Controller {
     public void show(){
         Application.window.setContentPane(view.getPanel());
     }
+
+
 }

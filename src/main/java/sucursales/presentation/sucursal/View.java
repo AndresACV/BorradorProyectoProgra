@@ -4,6 +4,8 @@ import sucursales.Application;
 import sucursales.logic.Sucursal;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -24,6 +26,7 @@ public class View implements Observer {
     private JLabel zonajeLbl;
     private JTextField direccionFld;
     private JTextField zonajeFld;
+    private JLabel mapaLabel;
 
     private JFrame window;
 
@@ -31,6 +34,7 @@ public class View implements Observer {
         guardarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clean();
                 if (validate()) {
                     Sucursal n = take();
                     try {
@@ -85,31 +89,44 @@ public class View implements Observer {
         s.setPorcentajeZonaje(Double.parseDouble(zonajeFld.getText()));
         return s;
     }
-
+    private void clean(){
+        codigoLbl.setBorder(new EmptyBorder(0,0,2,0));
+        referenciaLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
+        direccionLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
+        zonajeLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
+    }
     private boolean validate() {
         boolean valid = true;
         if (codigoFld.getText().isEmpty()) {
             valid = false;
             codigoLbl.setBorder(Application.BORDER_ERROR);
-            codigoLbl.setToolTipText("Codigo requerido");
-        } else {
+            JOptionPane.showMessageDialog(panel, "Codigo requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!codigoFld.getText().matches("[0-9]+")){
+            valid = false;
+            codigoLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Codigo debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
         }
 
         if (referenciaFld.getText().length() == 0) {
             valid = false;
-            referenciaFld.setBorder(Application.BORDER_ERROR);
-            referenciaFld.setToolTipText("Referencia requerida");
+            referenciaLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Referencia requerida","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!referenciaFld.getText().matches("^[a-zA-Z]+$")){
+            valid = false;
+            referenciaLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "La referencia no puede ser numerica","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             referenciaFld.setBorder(null);
             referenciaFld.setToolTipText(null);
         }
-
         if (direccionFld.getText().isEmpty()) {
             valid = false;
-            codigoLbl.setBorder(Application.BORDER_ERROR);
-            codigoLbl.setToolTipText("Direccion requerida");
+            direccionLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Direccion requerida","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
@@ -117,13 +134,22 @@ public class View implements Observer {
 
         if (zonajeFld.getText().isEmpty()) {
             valid = false;
-            codigoLbl.setBorder(Application.BORDER_ERROR);
-            codigoLbl.setToolTipText("Zonaje requerido");
+            zonajeLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Zonaje requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!zonajeFld.getText().matches("^[0-9]+\\.?[0-9]*$")) {
+            valid = false;
+            zonajeLbl.setBorder(Application.BORDER_ERROR);
+            JOptionPane.showMessageDialog(panel, "Zonaje debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
         }
-
         return valid;
+    }
+
+    private void createUIComponents() {
+        mapaLabel = new JLabel();
+        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+        mapaLabel.setIcon(imageIcon2);
     }
 }

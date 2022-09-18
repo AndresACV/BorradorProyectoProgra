@@ -6,6 +6,7 @@ import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +37,7 @@ public class View implements Observer {
         guardarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                clean();
                     if (validate()) {
                         Empleado n = null;
                         try {
@@ -50,9 +51,6 @@ public class View implements Observer {
                             JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
                         }
                     }
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
             }
         });
         cancelarFld.addActionListener(new ActionListener() {
@@ -123,8 +121,17 @@ public class View implements Observer {
             return e;
     }
 
-    private boolean validate() throws Exception {
+    private void clean() {
+        cedulaLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
+        nombreLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
+        telefonoL.setBorder(new EmptyBorder(0, 0, 2, 0));
+        salarioL.setBorder(new EmptyBorder(0, 0, 2, 0));
+        sucursalL.setBorder(new EmptyBorder(0, 0, 2, 0));
+    }
+
+    private boolean validate() {
         boolean valid = true;
+
         if (cedulaFld.getText().isEmpty()) {
             valid = false;
             cedulaLbl.setBorder(Application.BORDER_ERROR);
@@ -161,7 +168,7 @@ public class View implements Observer {
         } else if(!telefonoField.getText().matches("[0-9]+")) {
             valid = false;
             telefonoL.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Telefono debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "Telefono debe llenarse con numeros enteros","ERROR",JOptionPane.ERROR_MESSAGE);
         } else if(telefonoField.getText().length() != 8) {
             valid = false;
             telefonoL.setBorder(Application.BORDER_ERROR);
@@ -176,7 +183,7 @@ public class View implements Observer {
             valid = false;
             salarioL.setBorder(Application.BORDER_ERROR);
             JOptionPane.showMessageDialog(panel, "Salario requerido","ERROR",JOptionPane.ERROR_MESSAGE);
-        } else if(!salarioField.getText().matches("[0-9]+")) {
+        } else if(!salarioField.getText().matches("^[0-9]+\\.?[0-9]*$")) {
             valid = false;
             salarioL.setBorder(Application.BORDER_ERROR);
             JOptionPane.showMessageDialog(panel, "Salario debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -199,8 +206,6 @@ public class View implements Observer {
         }
         return valid;
     }
-
-
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
