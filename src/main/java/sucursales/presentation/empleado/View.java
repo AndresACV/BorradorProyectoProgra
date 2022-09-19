@@ -106,16 +106,6 @@ public class View implements Observer {
 
         this.panel.validate();
     }
-    public static boolean isNumeric(String cadena) {
-        boolean resultado;
-        try {
-            Integer.parseInt(cadena);
-            resultado = true;
-        } catch (NumberFormatException excepcion) {
-            resultado = false;
-        }
-        return resultado;
-    }
 
     public Empleado take() throws Exception {
         Empleado e = new Empleado();
@@ -124,10 +114,11 @@ public class View implements Observer {
             e.setTelefono(telefonoField.getText());
             e.setSalarioBase(Double.parseDouble(salarioField.getText()));
             e.setSucursal(Service.instance().sucursalGet(sucursalField.getText()));
+            e.setSalarioTotal(e.getSalarioBase() + (e.getSalarioBase() / 100));
             return e;
     }
 
-    private void clean() {
+    public void clean() {
         cedulaLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
         nombreLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
         telefonoL.setBorder(new EmptyBorder(0, 0, 2, 0));
@@ -215,18 +206,15 @@ public class View implements Observer {
 
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-        // CODIGO PARA PONER UNA IMAGEN ENCIMA DE OTRA
-//        mapaLabel = new JLabel();
-//        mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
-//        mapa = mapa.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
-//        BufferedImage result = new BufferedImage(500,500, BufferedImage.TYPE_INT_ARGB);
-//        Graphics g = result.getGraphics();
-//        g.drawImage(mapa, 10, 10,mapaLabel);
-//        mapaLabel.setIcon(new ImageIcon(result));
-//        g.drawImage(mapa, 30, 40,mapaLabel);
-//        mapaLabel.setIcon(new ImageIcon(result));
+
         mapaLabel = new JLabel();
-        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
-        mapaLabel.setIcon(imageIcon2);
+        mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
+        mapa = mapa.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+        BufferedImage result = new BufferedImage(500,500, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = result.getGraphics();
+        g.drawImage(mapa, 10, 10, mapaLabel);
+        mapaLabel.setIcon(new ImageIcon(result));
+        g.drawImage(mapa, 30, 40,mapaLabel);
+        mapaLabel.setIcon(new ImageIcon(result));
     }
 }

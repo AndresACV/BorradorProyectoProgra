@@ -41,6 +41,7 @@ public class Controller {
     public void hide(){
         dialog.dispose();
        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+       view.clean();
     }
 
     public void guardar(Empleado e) throws Exception {

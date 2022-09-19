@@ -3,11 +3,16 @@ package sucursales.presentation.sucursal;
 import sucursales.Application;
 import sucursales.logic.Sucursal;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,6 +32,7 @@ public class View implements Observer {
     private JTextField direccionFld;
     private JTextField zonajeFld;
     private JLabel mapaLabel;
+    private Image mapa;
 
     private JFrame window;
 
@@ -77,6 +83,8 @@ public class View implements Observer {
             this.codigoFld.setEnabled(model.getModo() == Application.MODO_AGREGAR);
             this.codigoFld.setText(current.getCodigo());
             referenciaFld.setText(current.getReferencia());
+            direccionFld.setText(current.getDireccion());
+            zonajeFld.setText("");
             this.panel.validate();
         }
     }
@@ -89,8 +97,8 @@ public class View implements Observer {
         s.setPorcentajeZonaje(Double.parseDouble(zonajeFld.getText()));
         return s;
     }
-    private void clean(){
-        codigoLbl.setBorder(new EmptyBorder(0,0,2,0));
+    public void clean(){
+        codigoLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
         referenciaLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
         direccionLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
         zonajeLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
@@ -147,9 +155,15 @@ public class View implements Observer {
         return valid;
     }
 
-    private void createUIComponents() {
+    private void createUIComponents() throws IOException {
         mapaLabel = new JLabel();
-        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
-        mapaLabel.setIcon(imageIcon2);
+        mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
+        mapa = mapa.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+        BufferedImage result = new BufferedImage(500,500, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = result.getGraphics();
+        g.drawImage(mapa, 10, 10, mapaLabel);
+        mapaLabel.setIcon(new ImageIcon(result));
+        g.drawImage(mapa, 30, 40,mapaLabel);
+        mapaLabel.setIcon(new ImageIcon(result));
     }
 }

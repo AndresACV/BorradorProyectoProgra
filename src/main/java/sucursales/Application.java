@@ -33,10 +33,6 @@ public class Application {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");}
         catch (Exception ignored) {};
 
-     //   XmlPersister persister = new XmlPersister("data.xml");
-     //   persister.store(Service.instance().getData());
-     //   Service.instance().setData(persister.load());
-
         sucursales.presentation.empleados.Model modelEmpleados = new sucursales.presentation.empleados.Model();
         sucursales.presentation.empleados.View viewEmpleados = new sucursales.presentation.empleados.View();
         controllerEmpleados = new sucursales.presentation.empleados.Controller(viewEmpleados, modelEmpleados);
