@@ -89,10 +89,10 @@ public class Controller {
 
         //Document document = new Document(pdf, PageSize.A4.rotate());
         Document document = new Document(pdf);
-        document.setMargins(20, 20, 20, 20);
+        document.setMargins(10, 10, 10, 10);
 
         Table header = new Table(1);
-        header.setWidth(400);
+        header.setWidth(100);
         header.setHorizontalAlignment(HorizontalAlignment.CENTER);
         header.addCell(getCell(new Paragraph("Sistema Integrado SISE").setFont(font).setBold().setFontSize(20f), TextAlignment.CENTER,false));
         header.addCell(getCell(new Image(ImageDataFactory.create("src/main/resources/CompanyLogo.png")), HorizontalAlignment.CENTER,false));
@@ -103,7 +103,7 @@ public class Controller {
         Color bkg = ColorConstants.RED;
         Color frg= ColorConstants.WHITE;
         Table body = new Table(7);
-        body.setWidth(1000);
+        body.setWidth(500);
         body.setHorizontalAlignment(HorizontalAlignment.CENTER);
         body.addCell(getCell(new Paragraph("Cedula").setBackgroundColor(bkg).setFontColor(frg),TextAlignment.CENTER,true));
         body.addCell(getCell(new Paragraph("Nombre").setBackgroundColor(bkg).setFontColor(frg),TextAlignment.CENTER,true));
