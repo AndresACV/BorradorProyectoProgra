@@ -163,7 +163,7 @@ public class View implements Observer {
         Graphics g = result.getGraphics();
         g.drawImage(mapa, 10, 10, mapaLabel);
         mapaLabel.setIcon(new ImageIcon(result));
-        g.drawImage(mapa, 30, 40,mapaLabel);
-        mapaLabel.setIcon(new ImageIcon(result));
+//        g.drawImage(mapa, 30, 40,mapaLabel);
+//        mapaLabel.setIcon(new ImageIcon(result));
     }
 }

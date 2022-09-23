@@ -64,6 +64,7 @@ public class Application {
         window = new JFrame();
         window.setSize(1200,650);
         window.setExtendedState(JFrame.NORMAL);
+        window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("SISE: Sistema de Sucursales y Empleados");
         window.setVisible(true);

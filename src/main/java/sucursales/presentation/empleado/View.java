@@ -209,12 +209,12 @@ public class View implements Observer {
 
         mapaLabel = new JLabel();
         mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
-        mapa = mapa.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
-        BufferedImage result = new BufferedImage(500,500, BufferedImage.TYPE_INT_ARGB);
+        mapa = mapa.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+        BufferedImage result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
         Graphics g = result.getGraphics();
         g.drawImage(mapa, 10, 10, mapaLabel);
         mapaLabel.setIcon(new ImageIcon(result));
-        g.drawImage(mapa, 30, 40,mapaLabel);
-        mapaLabel.setIcon(new ImageIcon(result));
+//        g.drawImage(mapa, 30, 40,mapaLabel);
+//        mapaLabel.setIcon(new ImageIcon(result));
     }
 }
