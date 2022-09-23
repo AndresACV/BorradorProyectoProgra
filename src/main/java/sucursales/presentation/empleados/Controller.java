@@ -92,7 +92,7 @@ public class Controller {
         document.setMargins(10, 10, 10, 10);
 
         Table header = new Table(1);
-        header.setWidth(100);
+       // header.setWidth(10);
         header.setHorizontalAlignment(HorizontalAlignment.CENTER);
         header.addCell(getCell(new Paragraph("Sistema Integrado SISE").setFont(font).setBold().setFontSize(20f), TextAlignment.CENTER,false));
         header.addCell(getCell(new Image(ImageDataFactory.create("src/main/resources/CompanyLogo.png")), HorizontalAlignment.CENTER,false));
