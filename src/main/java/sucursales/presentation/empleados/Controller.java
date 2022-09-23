@@ -103,7 +103,7 @@ public class Controller {
         Color bkg = ColorConstants.RED;
         Color frg= ColorConstants.WHITE;
         Table body = new Table(7);
-        body.setWidth(400);
+        body.setWidth(1000);
         body.setHorizontalAlignment(HorizontalAlignment.CENTER);
         body.addCell(getCell(new Paragraph("Cedula").setBackgroundColor(bkg).setFontColor(frg),TextAlignment.CENTER,true));
         body.addCell(getCell(new Paragraph("Nombre").setBackgroundColor(bkg).setFontColor(frg),TextAlignment.CENTER,true));
