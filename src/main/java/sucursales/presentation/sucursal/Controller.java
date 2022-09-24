@@ -32,11 +32,9 @@ public class Controller {
 
     public void show(){
         dialog = new JDialog(Application.window,"Sucursal", true);
-        dialog.setSize(800,800);
+        dialog.setSize(700,700);
         dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         dialog.setContentPane(view.getPanel());
-//        Point location = Application.window.getLocation();
-//        dialog.setLocation( location.x+400,location.y+100);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
@@ -48,15 +46,20 @@ public class Controller {
     }
 
     public void guardar(Sucursal e) throws Exception {
-        switch (model.getModo()) {
-            case Application.MODO_AGREGAR:
-                Service.instance().agregarSucursal(e);
-                model.setCurrent(new Sucursal());
-                break;
-            case Application.MODO_EDITAR:
-                Service.instance().sucursalUpdate(e);
-                model.setCurrent(e);
-                break;
+        if(e != null) {
+            switch (model.getModo()) {
+                case Application.MODO_AGREGAR:
+                    Service.instance().agregarSucursal(e);
+                    model.setCurrent(new Sucursal());
+                    break;
+                case Application.MODO_EDITAR:
+                    Service.instance().sucursalUpdate(e);
+                    model.setCurrent(e);
+                    break;
+            }
+        }
+        else{
+            throw new Exception("Error");
         }
         Application.controllerSucursales.buscar("");
         model.commit();

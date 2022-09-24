@@ -100,7 +100,7 @@ public class View implements Observer {
         reporteButton.setIcon(imageIcon);
 
         imagenLbl = new JLabel();
-        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(700, 500, Image.SCALE_DEFAULT));
+        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT));
         imagenLbl.setIcon(imageIcon2);
     }
 }

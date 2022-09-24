@@ -108,11 +108,11 @@ public class View implements Observer {
         if (codigoFld.getText().isEmpty()) {
             valid = false;
             codigoLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Codigo requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(panel, "Codigo requerido","ERROR",JOptionPane.ERROR_MESSAGE);
         } else if(!codigoFld.getText().matches("[0-9]+")){
             valid = false;
             codigoLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Codigo debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+           // JOptionPane.showMessageDialog(panel, "Codigo debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
         }
         else {
             codigoLbl.setBorder(null);
@@ -122,11 +122,11 @@ public class View implements Observer {
         if (referenciaFld.getText().length() == 0) {
             valid = false;
             referenciaLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Referencia requerida","ERROR",JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(panel, "Referencia requerida","ERROR",JOptionPane.ERROR_MESSAGE);
         } else if(!referenciaFld.getText().matches("^[a-zA-Z]+$")){
             valid = false;
             referenciaLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "La referencia no puede ser numerica","ERROR",JOptionPane.ERROR_MESSAGE);
+           // JOptionPane.showMessageDialog(panel, "La referencia no puede ser numerica","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             referenciaFld.setBorder(null);
             referenciaFld.setToolTipText(null);
@@ -134,7 +134,7 @@ public class View implements Observer {
         if (direccionFld.getText().isEmpty()) {
             valid = false;
             direccionLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Direccion requerida","ERROR",JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(panel, "Direccion requerida","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
@@ -143,27 +143,39 @@ public class View implements Observer {
         if (zonajeFld.getText().isEmpty()) {
             valid = false;
             zonajeLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Zonaje requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(panel, "Zonaje requerido","ERROR",JOptionPane.ERROR_MESSAGE);
         } else if(!zonajeFld.getText().matches("^[0-9]+\\.?[0-9]*$")) {
             valid = false;
             zonajeLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Zonaje debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(panel, "Zonaje debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
         }
+        if(codigoFld.getText().isEmpty() && referenciaFld.getText().isEmpty() && direccionFld.getText().isEmpty() && zonajeFld.getText().isEmpty()){
+            JOptionPane.showMessageDialog(panel, "Todos los espacios estan vacios !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else if(referenciaFld.getText().isEmpty() && direccionFld.getText().isEmpty() && zonajeFld.getText().isEmpty()){
+            JOptionPane.showMessageDialog(panel, "Falto la referencia, la direccion y el zonaje !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else if( direccionFld.getText().isEmpty() && zonajeFld.getText().isEmpty()){
+            JOptionPane.showMessageDialog(panel, "Falto la direccion y el zonaje !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else if( zonajeFld.getText().isEmpty()){
+            JOptionPane.showMessageDialog(panel, "Falto el zonaje !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+
+
         return valid;
     }
 
     private void createUIComponents() throws IOException {
         mapaLabel = new JLabel();
         mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
-        mapa = mapa.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
-        BufferedImage result = new BufferedImage(500,500, BufferedImage.TYPE_INT_ARGB);
+        mapa = mapa.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+        BufferedImage result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
         Graphics g = result.getGraphics();
         g.drawImage(mapa, 10, 10, mapaLabel);
         mapaLabel.setIcon(new ImageIcon(result));
-//        g.drawImage(mapa, 30, 40,mapaLabel);
-//        mapaLabel.setIcon(new ImageIcon(result));
     }
 }
