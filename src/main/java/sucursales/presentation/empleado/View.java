@@ -125,14 +125,17 @@ public class View implements Observer {
 
     private boolean validate() {
         boolean valid = true;
+        String mensajeError = "";
+        int concatenaciones = 0;
+
         if (cedulaFld.getText().isEmpty()) {
             valid = false;
             cedulaLbl.setBorder(Application.BORDER_ERROR);
+            mensajeError += "Cedula requerida. "; concatenaciones++;
         } else if(!cedulaFld.getText().matches("[0-9]+")){
             valid = false;
             cedulaLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Cedula debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
-
+            mensajeError += "Cedula debe ser numerico. ";
         }
         else {
             cedulaLbl.setBorder(null);
@@ -142,11 +145,11 @@ public class View implements Observer {
         if (nombreFld.getText().length() == 0) {
             valid = false;
             nombreLbl.setBorder(Application.BORDER_ERROR);
-            nombreLbl.setToolTipText("Nombre requerido");
-        } else if(!nombreFld.getText().matches("^[a-zA-Z]+$")){
+            mensajeError += "Nombre requerido. "; concatenaciones++;
+        } else if(!nombreFld.getText().matches("^[a-z\\sA-Z]+$")){
             valid = false;
             nombreLbl.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "El nombre no puede ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+            mensajeError += "El nombre no puede ser numerico. ";
         }
         else {
             nombreLbl.setBorder(null);
@@ -156,53 +159,53 @@ public class View implements Observer {
         if (telefonoField.getText().length() == 0) {
             valid = false;
             telefonoL.setBorder(Application.BORDER_ERROR);
+            mensajeError += "Telefono requerido. "; concatenaciones++;
         } else if(!telefonoField.getText().matches("[0-9]+")) {
             valid = false;
             telefonoL.setBorder(Application.BORDER_ERROR);
-            JOptionPane.showMessageDialog(panel, "Telefono debe llenarse con numeros enteros","ERROR",JOptionPane.ERROR_MESSAGE);
+            mensajeError += "El telefono debe llenarse con numeros enteros. ";
+        } else if(telefonoField.getText().length() != 8) {
+            valid = false;
+            telefonoL.setBorder(Application.BORDER_ERROR);
+            mensajeError += "El telefono debe tener 8 digitos. ";
         }
         else {
             telefonoL.setBorder(null);
             telefonoL.setToolTipText(null);
         }
+
         if (salarioField.getText().length() == 0) {
             valid = false;
             salarioL.setBorder(Application.BORDER_ERROR);
+            mensajeError += "Salario requerido. "; concatenaciones++;
         } else if(!salarioField.getText().matches("^[0-9]+\\.?[0-9]*$")) {
             valid = false;
             salarioL.setBorder(Application.BORDER_ERROR);
+            mensajeError += "El salario debe ser numerico. ";
         } else {
             salarioL.setBorder(null);
             salarioL.setToolTipText(null);
         }
+
         if (sucursalField.getText().length() == 0) {
             valid = false;
             sucursalL.setBorder(Application.BORDER_ERROR);
+            mensajeError += "Sucursal requerida. "; concatenaciones++;
         } else if(Service.instance().sucursalGet(sucursalField.getText()) == null) {
             valid = false;
             sucursalL.setBorder(Application.BORDER_ERROR);
+            mensajeError += "La sucursal no existe. ";
         } else {
             sucursalL.setBorder(null);
             sucursalL.setToolTipText(null);
         }
-        if(cedulaFld.getText().isEmpty() && nombreFld.getText().isEmpty() && salarioField.getText().isEmpty() && telefonoField.getText().isEmpty() && sucursalField.getText().isEmpty() ){
-            JOptionPane.showMessageDialog(panel, "Todos los espacios estan vacios!!!!","ERROR",JOptionPane.ERROR_MESSAGE);
+        if(concatenaciones == 5){
+            JOptionPane.showMessageDialog(panel, "Todos los campos son requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!mensajeError.equals("")){
+            JOptionPane.showMessageDialog(panel, mensajeError,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        else if( nombreFld.getText().isEmpty() &&  telefonoField.getText().isEmpty() && salarioField.getText().isEmpty() && sucursalField.getText().isEmpty() ){
-            JOptionPane.showMessageDialog(panel, "Falto el nombre, el telefono,el salario, y la sucursal!!!!","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-        else if(  telefonoField.getText().isEmpty() && salarioField.getText().isEmpty()  && sucursalField.getText().isEmpty() ){
-            JOptionPane.showMessageDialog(panel, "Falto  el telefono, el salario, y la sucursal!!!!","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-        else if( salarioField.getText().isEmpty() && sucursalField.getText().isEmpty() ){
-            JOptionPane.showMessageDialog(panel, "Falto el telefono y la sucursal!!!!","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-        else if( sucursalField.getText().isEmpty() ){
-            JOptionPane.showMessageDialog(panel, "Falto la sucursal!!!!","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-
-
         return valid;
+
     }
 
     private void createUIComponents() throws IOException {

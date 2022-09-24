@@ -117,6 +117,11 @@ public class Service {
     public List<Sucursal> eliminarSucursal(String referencia) throws Exception {
         for (int i = 0; i < data.getSucursales().size(); i++) {
             if (Objects.equals(data.getSucursales().get(i).getReferencia(), referencia)) {
+                for (int j = 0; j < data.getEmpleados().size(); j++) {
+                    if(Objects.equals(data.getEmpleados().get(j).getSucursal().referencia, referencia)){
+                        throw new Exception("Sucursal tiene empleados");
+                    }
+                }
                 data.getSucursales().remove(i);
                 persister.store(getData());
                 return data.getSucursales();

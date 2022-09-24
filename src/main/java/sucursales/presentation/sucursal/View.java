@@ -1,6 +1,7 @@
 package sucursales.presentation.sucursal;
 
 import sucursales.Application;
+import sucursales.logic.Empleado;
 import sucursales.logic.Sucursal;
 
 import javax.imageio.ImageIO;
@@ -42,7 +43,12 @@ public class View implements Observer {
             public void actionPerformed(ActionEvent e) {
                 clean();
                 if (validate()) {
-                    Sucursal n = take();
+                    Sucursal n = null;
+                    try {
+                        n = take();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                     try {
                         controller.guardar(n);
                     } catch (Exception ex) {
@@ -79,15 +85,20 @@ public class View implements Observer {
     @Override
     public void update(Observable updatedModel, Object parametros) {
         Sucursal current = model.getCurrent();
-        if(current != null)      {
             this.codigoFld.setEnabled(model.getModo() == Application.MODO_AGREGAR);
             this.codigoFld.setText(current.getCodigo());
             referenciaFld.setText(current.getReferencia());
             direccionFld.setText(current.getDireccion());
-            zonajeFld.setText("");
+            if(String.valueOf(current.getPorcentajeZonaje()).equals("0.0")){
+                zonajeFld.setText("");
+            }
+            else{
+                zonajeFld.setText(String.valueOf(current.getPorcentajeZonaje()));
+            }
             this.panel.validate();
-        }
+
     }
+
 
     public Sucursal take() {
         Sucursal s = new Sucursal();
@@ -105,15 +116,17 @@ public class View implements Observer {
     }
     private boolean validate() {
         boolean valid = true;
+        String mensajeError = "";
+        int concatenaciones = 0;
+
         if (codigoFld.getText().isEmpty()) {
             valid = false;
             codigoLbl.setBorder(Application.BORDER_ERROR);
-            //JOptionPane.showMessageDialog(panel, "Codigo requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+            mensajeError += "Codigo requerido. "; concatenaciones++;
         } else if(!codigoFld.getText().matches("[0-9]+")){
             valid = false;
             codigoLbl.setBorder(Application.BORDER_ERROR);
-           // JOptionPane.showMessageDialog(panel, "Codigo debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
+            mensajeError += "Codigo debe ser numerico. ";        }
         else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
@@ -122,11 +135,11 @@ public class View implements Observer {
         if (referenciaFld.getText().length() == 0) {
             valid = false;
             referenciaLbl.setBorder(Application.BORDER_ERROR);
-            //JOptionPane.showMessageDialog(panel, "Referencia requerida","ERROR",JOptionPane.ERROR_MESSAGE);
-        } else if(!referenciaFld.getText().matches("^[a-zA-Z]+$")){
+            mensajeError += "Referencia requerida. "; concatenaciones++;
+        } else if(!referenciaFld.getText().matches("^[a-z\\sA-Z]+$")){
             valid = false;
             referenciaLbl.setBorder(Application.BORDER_ERROR);
-           // JOptionPane.showMessageDialog(panel, "La referencia no puede ser numerica","ERROR",JOptionPane.ERROR_MESSAGE);
+            mensajeError += "Referencia no puede ser numerica. ";
         } else {
             referenciaFld.setBorder(null);
             referenciaFld.setToolTipText(null);
@@ -134,7 +147,7 @@ public class View implements Observer {
         if (direccionFld.getText().isEmpty()) {
             valid = false;
             direccionLbl.setBorder(Application.BORDER_ERROR);
-            //JOptionPane.showMessageDialog(panel, "Direccion requerida","ERROR",JOptionPane.ERROR_MESSAGE);
+            mensajeError += "Direccion requerida. "; concatenaciones++;
         } else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
@@ -143,29 +156,20 @@ public class View implements Observer {
         if (zonajeFld.getText().isEmpty()) {
             valid = false;
             zonajeLbl.setBorder(Application.BORDER_ERROR);
-            //JOptionPane.showMessageDialog(panel, "Zonaje requerido","ERROR",JOptionPane.ERROR_MESSAGE);
+            mensajeError += "Zonaje requerido. "; concatenaciones++;
         } else if(!zonajeFld.getText().matches("^[0-9]+\\.?[0-9]*$")) {
             valid = false;
             zonajeLbl.setBorder(Application.BORDER_ERROR);
-            //JOptionPane.showMessageDialog(panel, "Zonaje debe ser numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+            mensajeError += "Zonaje debe ser numerico. ";
         } else {
             codigoLbl.setBorder(null);
             codigoLbl.setToolTipText(null);
         }
-        if(codigoFld.getText().isEmpty() && referenciaFld.getText().isEmpty() && direccionFld.getText().isEmpty() && zonajeFld.getText().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "Todos los espacios estan vacios !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
+        if(concatenaciones == 4){
+            JOptionPane.showMessageDialog(panel, "Todos los campos son requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
+        } else if(!mensajeError.equals("")){
+            JOptionPane.showMessageDialog(panel, mensajeError,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        else if(referenciaFld.getText().isEmpty() && direccionFld.getText().isEmpty() && zonajeFld.getText().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "Falto la referencia, la direccion y el zonaje !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-        else if( direccionFld.getText().isEmpty() && zonajeFld.getText().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "Falto la direccion y el zonaje !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-        else if( zonajeFld.getText().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "Falto el zonaje !!! ","ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-
-
         return valid;
     }
 

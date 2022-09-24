@@ -54,10 +54,10 @@ public class Controller {
     }
 
     public void editar(int row){
-        String codigo = model.getSucursales().get(row).getCodigo();
+        String referencia = model.getSucursales().get(row).getReferencia();
         Sucursal e=null;
         try {
-            e= Service.instance().sucursalGet(codigo);
+            e= Service.instance().sucursalGet(referencia);
             Application.controllerSucursal.editar(e);
         } catch (Exception ex) {}
     }

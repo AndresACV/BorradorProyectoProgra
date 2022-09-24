@@ -61,7 +61,7 @@ public class View implements Observer {
                         controller.eliminar(referenciaFld.getText());
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(panel, "Sucursal no existe","ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "Sucursal tiene empleados","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

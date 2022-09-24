@@ -35,7 +35,8 @@ public class Controller {
         dialog.setSize(700,700);
         dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         dialog.setContentPane(view.getPanel());
-        dialog.setLocationRelativeTo(null);
+        Point location = Application.window.getLocation();
+        dialog.setLocation( location.x+400,location.y+100);
         dialog.setVisible(true);
     }
 
@@ -64,6 +65,8 @@ public class Controller {
         Application.controllerSucursales.buscar("");
         model.commit();
     }
+
+
 
     public void editar(Sucursal e){
         model.setModo(Application.MODO_EDITAR);
