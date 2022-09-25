@@ -62,7 +62,7 @@ public class Application {
         mainView.getPanel().add("Acerca de..", viewAcercaDe.getPanel());
 
         window = new JFrame();
-        window.setSize(1200,650);
+        window.setSize(900,600);
         window.setExtendedState(JFrame.NORMAL);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

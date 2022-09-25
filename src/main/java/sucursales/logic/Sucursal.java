@@ -13,6 +13,8 @@ public class Sucursal {
     String referencia;
     String direccion;
     double porcentajeZonaje;
+    float x;
+    float y;
 
     public Sucursal(String codigo, String referencia, String direccion, double porcentajeZonaje) {
         this.codigo = codigo;
@@ -43,4 +45,9 @@ public class Sucursal {
     public String getReferencia() { return referencia; }
     public void setReferencia(String referencia) { this.referencia = referencia; }
 
+    public float getX() { return x; }
+    public void setX(float x) { this.x = x; }
+
+    public float getY() { return y; }
+    public void setY(float y) { this.y = y; }
 }

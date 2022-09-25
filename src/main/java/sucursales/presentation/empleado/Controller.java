@@ -31,11 +31,10 @@ public class Controller {
 
     public void show(){
         dialog = new JDialog(Application.window,"Empleado", true);
-        dialog.setSize(700,700);
+        dialog.setSize(700,470);
         dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         dialog.setContentPane(view.getPanel());
-        Point location = Application.window.getLocation();
-        dialog.setLocation( location.x+400,location.y+100);
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
     public void hide(){
