@@ -3,6 +3,7 @@ package sucursales.presentation.empleado;
 import sucursales.Application;
 import sucursales.logic.Empleado;
 import sucursales.logic.Service;
+import sucursales.logic.Sucursal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -210,7 +211,6 @@ public class View implements Observer {
 
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-
         mapaLabel = new JLabel();
         mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
         mapa = mapa.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
@@ -218,7 +218,5 @@ public class View implements Observer {
         Graphics g = result.getGraphics();
         g.drawImage(mapa, 10, 10, mapaLabel);
         mapaLabel.setIcon(new ImageIcon(result));
-//        g.drawImage(mapa, 30, 40,mapaLabel);
-//        mapaLabel.setIcon(new ImageIcon(result));
     }
 }

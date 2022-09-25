@@ -40,7 +40,6 @@ public class View implements Observer {
         agregarFld.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 controller.preAgregar();
             }
         });

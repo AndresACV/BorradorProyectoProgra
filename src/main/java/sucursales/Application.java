@@ -23,7 +23,7 @@ public class Application {
     public static JFrame window;
 
     public static  final int  MODO_AGREGAR=0;
-    public static final int   MODO_EDITAR=1;
+    public static  final int   MODO_EDITAR=1;
 
     public static Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
 

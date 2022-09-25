@@ -13,14 +13,23 @@ public class Sucursal {
     String referencia;
     String direccion;
     double porcentajeZonaje;
-    float x;
-    float y;
+    int x;
+    int y;
 
     public Sucursal(String codigo, String referencia, String direccion, double porcentajeZonaje) {
         this.codigo = codigo;
         this.referencia = referencia;
         this.direccion = direccion;
         this.porcentajeZonaje = porcentajeZonaje;
+    }
+
+    public Sucursal(String codigo, String referencia, String direccion, double porcentajeZonaje, int x, int y) {
+        this.codigo = codigo;
+        this.referencia = referencia;
+        this.direccion = direccion;
+        this.porcentajeZonaje = porcentajeZonaje;
+        this.x = x;
+        this.y = y;
     }
 
     public Sucursal() { this("","","",0.0); }
@@ -45,9 +54,9 @@ public class Sucursal {
     public String getReferencia() { return referencia; }
     public void setReferencia(String referencia) { this.referencia = referencia; }
 
-    public float getX() { return x; }
-    public void setX(float x) { this.x = x; }
+    public int getX() { return x; }
+    public void setX(int x) { this.x = x; }
 
-    public float getY() { return y; }
-    public void setY(float y) { this.y = y; }
+    public int getY() { return y; }
+    public void setY(int y) { this.y = y; }
 }
