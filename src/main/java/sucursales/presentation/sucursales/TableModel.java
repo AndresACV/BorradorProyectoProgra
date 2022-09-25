@@ -52,6 +52,6 @@ public class TableModel extends AbstractTableModel implements javax.swing.table.
         colNames[CODIGO]= "Codigo";
         colNames[REFERENCIA]= "Referencia";
         colNames[DIRECCION]= "Direccion";
-        colNames[ZONAJE]= "Zonaje";
+        colNames[ZONAJE]= "%Zonaje";
     }
 }
