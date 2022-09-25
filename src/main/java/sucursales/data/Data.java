@@ -25,10 +25,10 @@ public class Data {
         empleados = new ArrayList<>();
         sucursales = new ArrayList<>();
 
-//        sucursales.add(new Sucursal("001", "Liberia", "Guanacaste, Liberia, 250 S Iglesia", 2.0));
-//        sucursales.add(new Sucursal("002", "Sabana", "San Jose, 100 O Teletica", 1.0));
-//        sucursales.add(new Sucursal("003", "Golfito", "Puntarenas, Golfito, barrio Huston...", 4.0));
-//        sucursales.add(new Sucursal("004", "Tortugero", "Limon, Tortuguero, frente Iglesia", 4.0));
+//        sucursales.add(new Sucursal("001", "Liberia", "Guanacaste, Liberia, 250 S Iglesia", 2.0, 70, 80));
+//        sucursales.add(new Sucursal("002", "Sabana", "San Jose, 100 O Teletica", 1.0, 100, 200));
+//        sucursales.add(new Sucursal("003", "Golfito", "Puntarenas, Golfito, barrio Huston...", 4.0, 150, 300));
+//        sucursales.add(new Sucursal("004", "Tortugero", "Limon, Tortuguero, frente Iglesia", 4.0, 200, 300));
 //        sucursales.add(new Sucursal("005", "Cahuita", "Limon, Cahuita, Playa Negra", 4.0));
 //
 //        empleados.add(new Empleado("111", "Franklin Chang", "78972356", 7500, sucursales.get(0)));

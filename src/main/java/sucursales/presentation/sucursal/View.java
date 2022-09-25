@@ -129,9 +129,10 @@ public class View implements Observer {
             else{
                 zonajeFld.setText(String.valueOf(current.getPorcentajeZonaje()));
             }
-
-            g.drawImage(sucursal, current.getX(), current.getY(), mapaLabel);
-            mapaLabel.setIcon(new ImageIcon(result));
+            if(model.getModo() == 1) {
+                g.drawImage(sucursal, current.getX() - 15, current.getY() - 31, mapaLabel);
+                mapaLabel.setIcon(new ImageIcon(result));
+            }
 
             this.panel.validate();
     }
