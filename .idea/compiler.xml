@@ -8,8 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Sucursales" />
         <module name="BorradorProyectoProgra" />
-        <module name="Proyecto1Progra3" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Proyecto1Progra3" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -131,17 +131,14 @@ public class View implements Observer {
         for (int j = 0; j < Service.instance().getData().getSucursales().size(); j++) {
             JLabel temp = new JLabel();
             Sucursal s = Service.instance().getData().getSucursales().get(j);
-            System.out.println(s.getReferencia());
             temp.setSize(30, 30);
             temp.setLocation(s.getX() - 15, s.getY() - 31);
             temp.setToolTipText("<html>" + s.getReferencia()  + "<br/>" + s.getDireccion() +"</html>");
-            if(Objects.equals(referenciaTemporal, s.getReferencia())) {
+            if(Objects.equals(referenciaTemporal, s.getReferencia()))
                 temp.setIcon(new ImageIcon(sucursalSelectedImage));
-                System.out.println("selected");
-            } else {
+             else
                 temp.setIcon(new ImageIcon(sucursalUnselectedImage));
-                System.out.println("unselected");
-            }
+
             temp.setVisible(true);
             mapLabel.add(temp);
         }
