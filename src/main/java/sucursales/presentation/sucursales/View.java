@@ -1,11 +1,13 @@
 package sucursales.presentation.sucursales;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Objects;
 import java.util.Observable;
@@ -21,7 +23,7 @@ public class View implements Observer {
     private JLabel referenciaLbl;
     private JButton eliminarFld;
     private JButton reporteButton;
-    private JLabel imagenLbl;
+    private JLabel mapLabel;
 
     sucursales.presentation.sucursales.Controller controller;
     sucursales.presentation.sucursales.Model model;
@@ -98,8 +100,32 @@ public class View implements Observer {
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         reporteButton.setIcon(imageIcon);
 
-        imagenLbl = new JLabel();
+        mapLabel = new JLabel();
         ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
-        imagenLbl.setIcon(imageIcon2);
+        mapLabel.setIcon(imageIcon2);
+
+//        mapLabel = new JLabel();
+//        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
+//        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+//        result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
+//        graphics = result.getGraphics();
+//        graphics.drawImage(mapImage, 10, 10, mapLabel);
+//        mapLabel.setIcon(new ImageIcon(result));
+//
+//        selectedLabel = new JLabel();
+//        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
+//        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
+//
+//        unselectedLabel = new JLabel();
+//        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
+//        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+//
+//        chirulito = new JLabel();
+//        chirulito.setIcon(new ImageIcon(sucursalUnselectedImage));
+//        chirulito.setSize(30, 30);
+//        chirulito.setVisible(true);
+//        chirulito.setToolTipText("Sucursal");
+//
+//        mapLabel.add(chirulito);
     }
 }

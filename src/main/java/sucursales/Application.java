@@ -1,7 +1,5 @@
 package sucursales;
 
-import sucursales.data.XmlPersister;
-import sucursales.logic.Service;
 import sucursales.presentation.about.Controller;
 import sucursales.presentation.about.Model;
 import sucursales.presentation.about.View;

@@ -10,12 +10,13 @@ import java.util.stream.Collectors;
 public class Service {
 
     private static Service instancia;
-    private Data data;
     private static XmlPersister persister;
+
+    private Data data;
+
     public Data getData() {
         return data;
     }
-
     public void setData(Data data) {
         this.data = data;
     }

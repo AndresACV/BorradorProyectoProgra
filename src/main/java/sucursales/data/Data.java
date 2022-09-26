@@ -11,6 +11,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Data {
+
     private List<Empleado> empleados;
     private List<Sucursal> sucursales;
 

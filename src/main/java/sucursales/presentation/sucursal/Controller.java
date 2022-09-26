@@ -28,7 +28,7 @@ public class Controller {
         this.show();
     }
 
-    JDialog dialog;
+    static JDialog dialog;
 
     public void show(){
         dialog = new JDialog(Application.window,"Sucursal", true);

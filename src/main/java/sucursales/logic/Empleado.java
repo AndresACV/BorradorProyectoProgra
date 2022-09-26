@@ -7,15 +7,19 @@ import jakarta.xml.bind.annotation.XmlID;
 import jakarta.xml.bind.annotation.XmlIDREF;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+
 public class Empleado {
+
     @XmlID
     String cedula;
     String nombre;
     String telefono;
     double salarioBase;
     double salarioTotal;
+
     @XmlIDREF
     Sucursal sucursal;
+
     public Empleado(String cedula, String nombre, String telefono, double salarioBase, Sucursal sucursal) {
         this.cedula = cedula;
         this.nombre = nombre;
@@ -24,9 +28,7 @@ public class Empleado {
         this.salarioTotal = salarioBase + (salarioBase / 100);
         this.sucursal = sucursal;
     }
-    public Empleado() {
-        this("", "", "", 0,null);
-    }
+    public Empleado() { this("", "", "", 0,null); }
 
     @Override
     public boolean equals(Object o) {
@@ -39,9 +41,7 @@ public class Empleado {
     public String getCedula() {
         return cedula;
     }
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
+    public void setCedula(String cedula) { this.cedula = cedula; }
 
     public String getNombre() {
         return nombre;
@@ -67,16 +67,12 @@ public class Empleado {
     public double getSalarioTotal() {
         return salarioTotal;
     }
-
-    public Sucursal getSucursal() {
-        return sucursal;
-    }
-
-    public void setSucursal(Sucursal sucursal) {
-        this.sucursal = sucursal;
-    }
-
     public void setSalarioTotal(double salarioTotal) {
         this.salarioTotal = salarioTotal;
+    }
+
+    public Sucursal getSucursal() { return sucursal; }
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
     }
 }

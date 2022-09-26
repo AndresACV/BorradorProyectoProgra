@@ -1,12 +1,10 @@
 package sucursales.presentation.sucursal;
 
 import sucursales.Application;
-import sucursales.logic.Empleado;
 import sucursales.logic.Sucursal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,42 +16,45 @@ import java.util.Observer;
 
 public class View implements Observer {
 
+    sucursales.presentation.sucursal.Controller controller;
+    sucursales.presentation.sucursal.Model model;
+
     private JPanel panel;
     private JFrame window;
-    private Graphics g;
+    private Graphics graphics;
     private BufferedImage result;
 
-    private JLabel codigoLbl;
-    private JTextField codigoFld;
+    private JLabel codigoLabel;
+    private JTextField codigoField;
 
-    private JLabel referenciaLbl;
-    private JTextField referenciaFld;
+    private JLabel referenciaLabel;
+    private JTextField referenciaField;
 
-    private JButton guardarFld;
-    private JButton cancelarFld;
+    private JButton guardarButton;
+    private JButton cancelarButton;
 
-    private JLabel direccionLbl;
-    private JTextField direccionFld;
+    private JLabel direccionLabel;
+    private JTextField direccionField;
 
-    private JLabel zonajeLbl;
-    private JTextField zonajeFld;
+    private JLabel zonajeLabel;
+    private JTextField zonajeField;
 
-    private JLabel mapaLabel;
-    private Image mapa;
+    private JLabel mapLabel;
+    private Image mapImage;
 
-    private JLabel sucursalLabel;
-    private Image sucursal;
+    private JLabel selectedLabel;
+    private Image sucursalSelectedImage;
 
-    private JLabel sucursalSelLabel;
-    private Image sucursalSel;
+    private JLabel unselectedLabel;
+    private Image sucursalUnselectedImage;
 
-    private JLabel temporal = new JLabel();
+    private JLabel chirulito;
 
     private int x = 0;
     private int y = 0;
 
     public View() throws IOException {
-        guardarFld.addActionListener(new ActionListener() {
+        guardarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 clean();
@@ -62,7 +63,6 @@ public class View implements Observer {
                     JLabel l = null;
                     try {
                         n = take();
-                        l = takeJL(n);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -74,113 +74,81 @@ public class View implements Observer {
                 }
             }
         });
-        cancelarFld.addActionListener(new ActionListener() {
+        cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.hide();
-                limpiarMapa();
+                cleanMap();
             }
         }
         );
-        mapaLabel.addMouseListener(new MouseAdapter() {
+        mapLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                limpiarMapa();
+                cleanMap();
 
                 x = e.getX();
                 y = e.getY();
-
-                g.drawImage(sucursal,x - 15, y - 31, mapaLabel);
-                temporal.setLocation(x - 15, y - 31);
-//                temporal = new JLabel();
-//                temporal.setLocation(e.getLocationOnScreen());
-//                System.out.println(e.getLocationOnScreen());
-//                System.out.println(x + " " + y);
-//                temporal.createToolTip();
-//                temporal.setToolTipText("HOLA");
-//                temporal.setText("HOLA");
-//
-//                temporal.setIcon(new ImageIcon(sucursalSel));
-
-                mapaLabel.setIcon(new ImageIcon(result));
-            }
-        });
-        temporal.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                temporal.setToolTipText("HOLA");
+                chirulito.setLocation(x - 15, y - 31);
+                mapLabel.add(chirulito);
             }
         });
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
+    public JPanel getPanel() { return panel; }
 
-    sucursales.presentation.sucursal.Controller controller;
-    sucursales.presentation.sucursal.Model model;
-
-    public void setController(sucursales.presentation.sucursal.Controller controller) {
-        this.controller = controller;
-    }
+    public void setController(sucursales.presentation.sucursal.Controller controller) { this.controller = controller; }
 
     public void setModel(sucursales.presentation.sucursal.Model model) {
         this.model = model;
         model.addObserver(this);
     }
 
+    private void cleanMap(){
+        mapLabel.remove(chirulito);
+        mapLabel.setIcon(new ImageIcon(result));
+    }
+
     @Override
     public void update(Observable updatedModel, Object parametros) {
         Sucursal current = model.getCurrent();
-            this.codigoFld.setEnabled(model.getModo() == Application.MODO_AGREGAR);
-            this.codigoFld.setText(current.getCodigo());
-            referenciaFld.setText(current.getReferencia());
-            direccionFld.setText(current.getDireccion());
+            this.codigoField.setEnabled(model.getModo() == Application.MODO_AGREGAR);
+            this.codigoField.setText(current.getCodigo());
+            referenciaField.setText(current.getReferencia());
+            direccionField.setText(current.getDireccion());
             if(String.valueOf(current.getPorcentajeZonaje()).equals("0.0")){
-                zonajeFld.setText("");
+                zonajeField.setText("");
             }
             else{
-                zonajeFld.setText(String.valueOf(current.getPorcentajeZonaje()));
+                zonajeField.setText(String.valueOf(current.getPorcentajeZonaje()));
             }
 
-            if(model.getModo() == 0) { limpiarMapa(); }
+            if(model.getModo() == 0) { cleanMap(); }
             if(model.getModo() == 1) {
-
-                temporal = new JLabel();
-                temporal.setLocation(current.getX() - 15, current.getY() - 31);
-                temporal.createToolTip();;
-                temporal.setToolTipText(current.getReferencia());
-
-                g.drawImage(sucursal, current.getX() - 15, current.getY() - 31, mapaLabel);
-                mapaLabel.setIcon(new ImageIcon(result));
+                chirulito.setLocation(current.getX() - 15, current.getY() - 31);
+                chirulito.setToolTipText("<html>" + current.getReferencia() + "<br/>" + current.getDireccion() +"</html>");
+                mapLabel.add(chirulito);
+                mapLabel.setIcon(new ImageIcon(result));
             }
             this.panel.validate();
     }
 
-
     public Sucursal take() {
         Sucursal s = new Sucursal();
-        s.setCodigo(codigoFld.getText());
-        s.setReferencia(referenciaFld.getText());
-        s.setDireccion(direccionFld.getText());
-        s.setPorcentajeZonaje(Double.parseDouble(zonajeFld.getText()));
+        s.setCodigo(codigoField.getText());
+        s.setReferencia(referenciaField.getText());
+        s.setDireccion(direccionField.getText());
+        s.setPorcentajeZonaje(Double.parseDouble(zonajeField.getText()));
         s.setX(x);
         s.setY(y);
         return s;
     }
 
-    public JLabel takeJL(Sucursal s) {
-        JLabel j = new JLabel();
-        j.setIcon(new ImageIcon(sucursal));
-        j.putClientProperty(s.getReferencia(),s);
-        return j;
-    }
-
     public void clean(){
-        codigoLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
-        referenciaLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
-        direccionLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
-        zonajeLbl.setBorder(new EmptyBorder(0, 0, 2, 0));
+        codigoLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
+        referenciaLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
+        direccionLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
+        zonajeLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
     }
     private boolean validate() {
 
@@ -188,55 +156,55 @@ public class View implements Observer {
         String mensajeError = "";
         int concatenaciones = 0;
 
-        if (codigoFld.getText().isEmpty()) {
+        if (codigoField.getText().isEmpty()) {
             valid = false;
-            codigoLbl.setBorder(Application.BORDER_ERROR);
+            codigoLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Codigo requerido. "; concatenaciones++;
-        } else if(!codigoFld.getText().matches("[0-9]+")){
+        } else if(!codigoField.getText().matches("[0-9]+")){
             valid = false;
-            codigoLbl.setBorder(Application.BORDER_ERROR);
+            codigoLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Codigo debe ser numerico. ";        }
         else {
-            codigoFld.setBorder(null);
+            codigoField.setBorder(null);
         }
 
-        if (referenciaFld.getText().length() == 0) {
+        if (referenciaField.getText().length() == 0) {
             valid = false;
-            referenciaLbl.setBorder(Application.BORDER_ERROR);
+            referenciaLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Referencia requerida. "; concatenaciones++;
-        } else if(!referenciaFld.getText().matches("^[a-z\\sA-Z]+$")){
+        } else if(!referenciaField.getText().matches("^[a-z\\sA-Z]+$")){
             valid = false;
-            referenciaLbl.setBorder(Application.BORDER_ERROR);
+            referenciaLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Referencia no puede ser numerica. ";
         } else {
-            referenciaFld.setBorder(null);
+            referenciaField.setBorder(null);
         }
-        if (direccionFld.getText().isEmpty()) {
+        if (direccionField.getText().isEmpty()) {
             valid = false;
-            direccionLbl.setBorder(Application.BORDER_ERROR);
+            direccionLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Direccion requerida. "; concatenaciones++;
         } else {
-            codigoLbl.setBorder(null);
+            codigoLabel.setBorder(null);
         }
 
-        if (zonajeFld.getText().isEmpty()) {
+        if (zonajeField.getText().isEmpty()) {
             valid = false;
-            zonajeLbl.setBorder(Application.BORDER_ERROR);
+            zonajeLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Zonaje requerido. "; concatenaciones++;
-        } else if(!zonajeFld.getText().matches("^[0-9]+\\.?[0-9]*$")) {
+        } else if(!zonajeField.getText().matches("^[0-9]+\\.?[0-9]*$")) {
             valid = false;
-            zonajeLbl.setBorder(Application.BORDER_ERROR);
+            zonajeLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Zonaje debe ser numerico. ";
         } else {
-            codigoLbl.setBorder(null);
+            codigoLabel.setBorder(null);
         }
 
         if (x == 0 && y == 0) {
             valid = false;
-            mapaLabel.setBorder(Application.BORDER_ERROR);
+            mapLabel.setBorder(Application.BORDER_ERROR);
             JOptionPane.showMessageDialog(panel, "Debe seleccionar un lugar en el mapa","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
-            mapaLabel.setBorder(null);
+            mapLabel.setBorder(null);
         }
 
         if(concatenaciones == 4){
@@ -247,38 +215,39 @@ public class View implements Observer {
         return valid;
     }
 
-    private void limpiarMapa(){
-        g.drawImage(mapa, 10, 10, mapaLabel);
-        mapaLabel.setIcon(new ImageIcon(result));
-    }
-
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-        mapaLabel = new JLabel();
-        mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
-        mapa = mapa.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+        mapLabel = new JLabel();
+        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
+        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
         result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
-        g = result.getGraphics();
-        g.drawImage(mapa, 10, 10, mapaLabel);
-        mapaLabel.setIcon(new ImageIcon(result));
+        graphics = result.getGraphics();
+        graphics.drawImage(mapImage, 10, 10, mapLabel);
+        mapLabel.setIcon(new ImageIcon(result));
 
-        sucursalLabel = new JLabel();
-        sucursal = ImageIO.read(new File("src/main/resources/Sucursal.png"));
-        sucursalLabel.setIcon(new ImageIcon(sucursal));
+        selectedLabel = new JLabel();
+        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
+        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
 
-        sucursalSelLabel = new JLabel();
-        sucursalSel = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
-        sucursalSelLabel.setIcon(new ImageIcon(sucursalSel));
+        unselectedLabel = new JLabel();
+        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
+        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
 
-        //        Sucursal sucursal = new Sucursal("006", "Limon", "Limon, Cahuita, Playa Negra", 4.0);
+        chirulito = new JLabel();
+        chirulito.setIcon(new ImageIcon(sucursalUnselectedImage));
+        chirulito.setSize(30, 30);
+        chirulito.setVisible(true);
+        chirulito.setToolTipText("Sucursal");
+
+        mapLabel.add(chirulito);
+
+//        Sucursal sucursal = new Sucursal("006", "Limon", "Limon, Cahuita, Playa Negra", 4.0);
 //        JLabel labelPrueba = new JLabel();
 //        labelPrueba.putClientProperty(sucursal.getReferencia(), sucursal);
-  //      Sucursal x = (Sucursal) labelPrueba.getClientProperty("Limon");
-
-        //  mapaLabel.putClientProperty(sucursal.getReferencia(), sucursal);
-        //  mapaLabel.getClientProperty(sucursal.getReferencia());
-
-//        g.drawImage(mapa, 30, 40,mapaLabel);
-//        mapaLabel.setIcon(new ImageIcon(result));
+//        Sucursal x = (Sucursal) labelPrueba.getClientProperty("Limon");
+//        mapLabel.putClientProperty(sucursal.getReferencia(), sucursal);
+//        mapLabel.getClientProperty(sucursal.getReferencia());
+//        graphics.drawImage(mapImage, 30, 40,mapLabel);
+//        mapLabel.setIcon(new ImageIcon(result));
     }
 }
