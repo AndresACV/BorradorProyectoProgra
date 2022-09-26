@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +98,6 @@ public class View implements Observer {
 
     @Override
     public void update(Observable updatedModel, Object parametros) {
-        actualizarMapa();
 
         Empleado current = model.getCurrent();
             this.cedulaFld.setEnabled(model.getModo() == Application.MODO_AGREGAR);
@@ -115,6 +116,8 @@ public class View implements Observer {
             else{
                 sucursalField.setText("");
             }
+
+            actualizarMapa();
 
         this.panel.validate();
     }
@@ -229,6 +232,7 @@ public class View implements Observer {
         panel.setSize(panel.getX(), panel.getY());
     }
 
+
     private void llenarMapa() {
         for (int j = 0; j < Service.instance().getData().getSucursales().size(); j++) {
             JLabel temp = new JLabel();
@@ -236,15 +240,27 @@ public class View implements Observer {
             temp.setSize(30, 30);
             temp.setLocation(s.getX() - 15, s.getY() - 31);
             temp.setToolTipText("<html>" + s.getReferencia()  + "<br/>" + s.getDireccion() +"</html>");
-            if(Objects.equals(referenciaTemporal, s.getReferencia()))
+            temp.setIcon(new ImageIcon(sucursalUnselectedImage));
+            if(sucursalField.getText().equals(s.getReferencia())){
                 temp.setIcon(new ImageIcon(sucursalSelectedImage));
-            else
-                temp.setIcon(new ImageIcon(sucursalUnselectedImage));
-
+            }
+            temp.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    temp.setIcon(new ImageIcon(sucursalSelectedImage));
+                    sucursalField.setText(s.getReferencia());
+                    sucursalField.setForeground(Color.RED);
+                }
+            });
+            temp.addMouseListener(new MouseAdapter() {
+                public void mouseExited(MouseEvent e) {
+                    temp.setIcon(new ImageIcon(sucursalUnselectedImage));
+                }
+            });
             temp.setVisible(true);
             mapLabel.add(temp);
         }
     }
+
 
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
