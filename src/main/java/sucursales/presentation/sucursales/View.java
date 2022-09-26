@@ -1,5 +1,8 @@
 package sucursales.presentation.sucursales;
 
+import sucursales.logic.Service;
+import sucursales.logic.Sucursal;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
@@ -24,6 +28,16 @@ public class View implements Observer {
     private JButton eliminarFld;
     private JButton reporteButton;
     private JLabel mapLabel;
+    private Image mapImage;
+    private Graphics graphics;
+    private BufferedImage result;
+    private JLabel selectedLabel;
+    private Image sucursalSelectedImage;
+
+    private JLabel unselectedLabel;
+    private Image sucursalUnselectedImage;
+
+    private String referenciaTemporal;
 
     sucursales.presentation.sucursales.Controller controller;
     sucursales.presentation.sucursales.Model model;
@@ -51,6 +65,16 @@ public class View implements Observer {
                 if (e.getClickCount() == 2) {
                     int row = sucursalesFld.getSelectedRow();
                     controller.editar(row);
+                }
+            }
+        });
+        sucursalesFld.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int row = sucursalesFld.getSelectedRow();
+                    referenciaTemporal = model.getSucursales().get(row).getReferencia();
+                    actualizarMapa();
                 }
             }
         });
@@ -86,46 +110,65 @@ public class View implements Observer {
         model.addObserver(this);
     }
 
+    public void actualizarMapa(){
+        mapLabel.removeAll();
+        llenarMapa();
+        panel.setSize(panel.getX(), panel.getY());
+    }
+
     @Override
     public void update(Observable updatedModel, Object parametros) {
+
+        actualizarMapa();
+
         int[] cols = {sucursales.presentation.sucursales.TableModel.CODIGO, sucursales.presentation.sucursales.TableModel.REFERENCIA, sucursales.presentation.sucursales.TableModel.DIRECCION, sucursales.presentation.sucursales.TableModel.ZONAJE};
         sucursalesFld.setModel(new sucursales.presentation.sucursales.TableModel(cols, model.getSucursales()));
         sucursalesFld.setRowHeight(30);
         this.panel.revalidate();
     }
 
-    private void createUIComponents() {
+    private void llenarMapa() {
+        for (int j = 0; j < Service.instance().getData().getSucursales().size(); j++) {
+            JLabel temp = new JLabel();
+            Sucursal s = Service.instance().getData().getSucursales().get(j);
+            System.out.println(s.getReferencia());
+            temp.setSize(30, 30);
+            temp.setLocation(s.getX() - 15, s.getY() - 31);
+            temp.setToolTipText("<html>" + s.getReferencia()  + "<br/>" + s.getDireccion() +"</html>");
+            if(Objects.equals(referenciaTemporal, s.getReferencia())) {
+                temp.setIcon(new ImageIcon(sucursalSelectedImage));
+                System.out.println("selected");
+            } else {
+                temp.setIcon(new ImageIcon(sucursalUnselectedImage));
+                System.out.println("unselected");
+            }
+            temp.setVisible(true);
+            mapLabel.add(temp);
+        }
+    }
+
+
+    private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
         reporteButton = new JButton();
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         reporteButton.setIcon(imageIcon);
 
-        mapLabel = new JLabel();
-        ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("src/main/resources/MapCR.png").getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
-        mapLabel.setIcon(imageIcon2);
+        selectedLabel = new JLabel();
+        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
+        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
 
-//        mapLabel = new JLabel();
-//        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
-//        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-//        result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
-//        graphics = result.getGraphics();
-//        graphics.drawImage(mapImage, 10, 10, mapLabel);
-//        mapLabel.setIcon(new ImageIcon(result));
-//
-//        selectedLabel = new JLabel();
-//        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
-//        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
-//
-//        unselectedLabel = new JLabel();
-//        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
-//        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
-//
-//        chirulito = new JLabel();
-//        chirulito.setIcon(new ImageIcon(sucursalUnselectedImage));
-//        chirulito.setSize(30, 30);
-//        chirulito.setVisible(true);
-//        chirulito.setToolTipText("Sucursal");
-//
-//        mapLabel.add(chirulito);
+        unselectedLabel = new JLabel();
+        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
+        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+
+        mapLabel = new JLabel();
+        mapLabel.removeAll();
+        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
+        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+        result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
+        graphics = result.getGraphics();
+        graphics.drawImage(mapImage, 10, 10, mapLabel);
+        mapLabel.setIcon(new ImageIcon(result));
     }
 }

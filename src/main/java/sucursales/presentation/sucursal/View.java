@@ -59,8 +59,7 @@ public class View implements Observer {
             public void actionPerformed(ActionEvent e) {
                 clean();
                 if (validate()) {
-                    Sucursal n = null;
-                    JLabel l = null;
+                    Sucursal n;
                     try {
                         n = take();
                     } catch (Exception ex) {
@@ -141,6 +140,7 @@ public class View implements Observer {
         s.setPorcentajeZonaje(Double.parseDouble(zonajeField.getText()));
         s.setX(x);
         s.setY(y);
+        x = 0; y = 0;
         return s;
     }
 
