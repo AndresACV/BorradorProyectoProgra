@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,13 +30,24 @@ public class View implements Observer {
     private JButton cancelarFld;
     private JLabel cedulaLbl;
     private JLabel nombreLbl;
-    private JLabel mapaLabel;
     private JLabel telefonoL;
     private JLabel salarioL;
     private JLabel sucursalL;
     private JButton gurdarFld;
     private JFrame window;
-    private Image mapa;
+
+    private JLabel mapLabel;
+    private Image mapImage;
+    private Graphics graphics;
+    private BufferedImage result;
+    private JLabel selectedLabel;
+    private Image sucursalSelectedImage;
+
+    private JLabel unselectedLabel;
+    private Image sucursalUnselectedImage;
+
+    private String referenciaTemporal;
+
 
     public View() {
         gurdarFld.addActionListener(new ActionListener() {
@@ -84,6 +96,8 @@ public class View implements Observer {
 
     @Override
     public void update(Observable updatedModel, Object parametros) {
+        actualizarMapa();
+
         Empleado current = model.getCurrent();
             this.cedulaFld.setEnabled(model.getModo() == Application.MODO_AGREGAR);
             this.cedulaFld.setText(current.getCedula());
@@ -209,14 +223,46 @@ public class View implements Observer {
 
     }
 
+    public void actualizarMapa(){
+        mapLabel.removeAll();
+        llenarMapa();
+        panel.setSize(panel.getX(), panel.getY());
+    }
+
+    private void llenarMapa() {
+        for (int j = 0; j < Service.instance().getData().getSucursales().size(); j++) {
+            JLabel temp = new JLabel();
+            Sucursal s = Service.instance().getData().getSucursales().get(j);
+            temp.setSize(30, 30);
+            temp.setLocation(s.getX() - 15, s.getY() - 31);
+            temp.setToolTipText("<html>" + s.getReferencia()  + "<br/>" + s.getDireccion() +"</html>");
+            if(Objects.equals(referenciaTemporal, s.getReferencia()))
+                temp.setIcon(new ImageIcon(sucursalSelectedImage));
+            else
+                temp.setIcon(new ImageIcon(sucursalUnselectedImage));
+
+            temp.setVisible(true);
+            mapLabel.add(temp);
+        }
+    }
+
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-        mapaLabel = new JLabel();
-        mapa = ImageIO.read(new File("src/main/resources/MapCR.png"));
-        mapa = mapa.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-        BufferedImage result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = result.getGraphics();
-        g.drawImage(mapa, 10, 10, mapaLabel);
-        mapaLabel.setIcon(new ImageIcon(result));
+        selectedLabel = new JLabel();
+        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
+        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
+
+        unselectedLabel = new JLabel();
+        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
+        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+
+        mapLabel = new JLabel();
+        mapLabel.removeAll();
+        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
+        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+        result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
+        graphics = result.getGraphics();
+        graphics.drawImage(mapImage, 10, 10, mapLabel);
+        mapLabel.setIcon(new ImageIcon(result));
     }
 }
