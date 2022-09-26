@@ -229,7 +229,8 @@ public class View implements Observer {
     public void actualizarMapa(){
         mapLabel.removeAll();
         llenarMapa();
-        panel.setSize(panel.getX(), panel.getY());
+        panel.updateUI();
+
     }
 
 
@@ -249,11 +250,7 @@ public class View implements Observer {
                     temp.setIcon(new ImageIcon(sucursalSelectedImage));
                     sucursalField.setText(s.getReferencia());
                     sucursalField.setForeground(Color.RED);
-                }
-            });
-            temp.addMouseListener(new MouseAdapter() {
-                public void mouseExited(MouseEvent e) {
-                    temp.setIcon(new ImageIcon(sucursalUnselectedImage));
+                    actualizarMapa();
                 }
             });
             temp.setVisible(true);

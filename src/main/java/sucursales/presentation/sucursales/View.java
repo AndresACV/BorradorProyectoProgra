@@ -113,7 +113,7 @@ public class View implements Observer {
     public void actualizarMapa(){
         mapLabel.removeAll();
         llenarMapa();
-        panel.setSize(panel.getX(), panel.getY());
+        panel.updateUI();
     }
 
     @Override
