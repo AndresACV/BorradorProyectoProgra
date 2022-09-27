@@ -64,7 +64,7 @@ public class Application {
         window.setExtendedState(JFrame.NORMAL);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("SISE: Sistema de Sucursales y Empleados");
+        window.setTitle("SECR: Sucursales y Empleados Costa Rica");
         window.setVisible(true);
         mainController.show();
     }

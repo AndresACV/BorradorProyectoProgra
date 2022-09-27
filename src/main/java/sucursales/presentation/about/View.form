@@ -29,7 +29,7 @@
               <background color="-16554332"/>
               <font name="Lucida Console" size="30" style="1"/>
               <foreground color="-742398"/>
-              <text value="SISE: Sistema de Sucursales y Empleados"/>
+              <text value="SECR: Sucursales y Empleados Costa Rica"/>
               <verticalAlignment value="1"/>
             </properties>
           </component>
@@ -52,7 +52,7 @@
             <properties>
               <font size="20" style="1"/>
               <foreground color="-16554332"/>
-              <text value="Total Soft Inc.     @totalsoft    Tel: 67197691"/>
+              <text value="SECR S.A.     @SECR     Tel: +506 8518 5158"/>
             </properties>
           </component>
         </children>

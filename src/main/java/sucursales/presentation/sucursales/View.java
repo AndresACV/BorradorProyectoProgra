@@ -28,6 +28,7 @@ public class View implements Observer {
     private JButton eliminarFld;
     private JButton reporteButton;
     private JLabel mapLabel;
+    private JScrollPane scrollPane1;
     private Image mapImage;
     private Graphics graphics;
     private BufferedImage result;
