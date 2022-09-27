@@ -8,9 +8,9 @@ import java.util.Observer;
 public class View implements Observer {
 
     private JPanel panel;
-    private JLabel tituloLbl;
-    private JLabel datosLbl;
-    private JLabel imagenLbl;
+    private JLabel tituloLabel;
+    private JLabel aboutLabel;
+    private JLabel imagenLabel;
 
     JPanel ImagePanel;
     private ImageIcon image;
@@ -35,8 +35,8 @@ public class View implements Observer {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        imagenLbl = new JLabel();
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/CompanyLogo.png").getImage().getScaledInstance(800, 400, Image.SCALE_DEFAULT));
-        imagenLbl.setIcon(imageIcon);
+        imagenLabel = new JLabel();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/CompanyLogo.jpg").getImage().getScaledInstance(800, 400, Image.SCALE_DEFAULT));
+        imagenLabel.setIcon(imageIcon);
     }
 }
