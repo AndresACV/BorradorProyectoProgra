@@ -48,6 +48,10 @@ public class View implements Observer {
     private int currentX = 0;
     private int currentY = 0;
 
+    Robot robot;
+    Color outOfRangeColor;
+    Color currentColor;
+
     public View() throws IOException {
         guardarButton.addActionListener(e -> {
             clean();
@@ -75,10 +79,19 @@ public class View implements Observer {
             public void mouseClicked(MouseEvent e) {
                 cleanMap();
 
-                currentX = e.getX();
-                currentY = e.getY();
-                currentSucursal.setLocation(currentX - 15, currentY - 31);
-                mapLabel.add(currentSucursal);
+                try {
+                    robot = new Robot();
+                    outOfRangeColor = robot.getPixelColor(e.getXOnScreen(), e.getYOnScreen());
+                    currentColor = new Color(236, 219, 194);
+                } catch (AWTException ex) { throw new RuntimeException(ex); }
+
+                if(!outOfRangeColor.equals(currentColor)) {
+                    panel.getGraphics().getColor();
+                    currentX = e.getX();
+                    currentY = e.getY();
+                    currentSucursal.setLocation(currentX - 15, currentY - 31);
+                    mapLabel.add(currentSucursal);
+                }
             }
         });
     }
@@ -210,6 +223,8 @@ public class View implements Observer {
 
     public void init() {
         try {
+
+
             mapLabel = new JLabel(); mapLabel.removeAll();
             selectedLabel = new JLabel();
             unselectedLabel = new JLabel();
