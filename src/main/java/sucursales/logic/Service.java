@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 
 public class Service {
 
-    private static Service instancia;
+
+    private static Service instance;
     private static XmlPersister persister;
 
     private Data data;
@@ -17,16 +18,14 @@ public class Service {
     public Data getData() {
         return data;
     }
-    public void setData(Data data) {
-        this.data = data;
-    }
+    public void setData(Data data) { this.data = data; }
 
     public static Service instance() {
-        if (instancia == null) {
-            instancia = new Service();
+        if (instance == null) {
+            instance = new Service();
             persister = new XmlPersister("data.xml");
         }
-        return instancia;
+        return instance;
     }
 
     private Service(){

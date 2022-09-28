@@ -2,7 +2,6 @@ package sucursales.presentation.sucursales;
 
 import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -27,11 +25,11 @@ public class View implements Observer {
     private JLabel referenciaLbl;
     private JButton eliminarFld;
     private JButton reporteButton;
-    private JLabel mapLabel;
     private JScrollPane scrollPane1;
+
+    private JLabel mapLabel;
     private Image mapImage;
-    private Graphics graphics;
-    private BufferedImage result;
+
     private JLabel selectedLabel;
     private Image sucursalSelectedImage;
 
@@ -49,18 +47,8 @@ public class View implements Observer {
     }
 
     public View() {
-        buscarFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.buscar(referenciaFld.getText());
-            }
-        });
-        agregarFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.preAgregar();
-            }
-        });
+        buscarFld.addActionListener(e -> controller.buscar(referenciaFld.getText()));
+        agregarFld.addActionListener(e -> controller.preAgregar());
         sucursalesFld.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -80,29 +68,23 @@ public class View implements Observer {
                 }
             }
         });
-        eliminarFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if(!Objects.equals(referenciaFld.getText(), "")){
-                        controller.eliminar(referenciaFld.getText());
-                    }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(panel, "Sucursal tiene empleados o no existe","ERROR",JOptionPane.ERROR_MESSAGE);
+        eliminarFld.addActionListener(e -> {
+            try {
+                if(!Objects.equals(referenciaFld.getText(), "")){
+                    controller.eliminar(referenciaFld.getText());
                 }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "Sucursal tiene empleados o no existe","ERROR",JOptionPane.ERROR_MESSAGE);
             }
         });
-        reporteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.imprimir();
-                    if (Desktop.isDesktopSupported()) {
-                        File myFile = new File("sucursales.pdf");
-                        Desktop.getDesktop().open(myFile);
-                    }
-                } catch (Exception ex) { }
-            }
+        reporteButton.addActionListener(e -> {
+            try {
+                controller.imprimir();
+                if (Desktop.isDesktopSupported()) {
+                    File myFile = new File("sucursales.pdf");
+                    Desktop.getDesktop().open(myFile);
+                }
+            } catch (Exception ex) { }
         });
     }
 
@@ -120,7 +102,6 @@ public class View implements Observer {
 
     @Override
     public void update(Observable updatedModel, Object parametros) {
-
         actualizarMapa();
 
         int[] cols = {sucursales.presentation.sucursales.TableModel.CODIGO, sucursales.presentation.sucursales.TableModel.REFERENCIA, sucursales.presentation.sucursales.TableModel.DIRECCION, sucursales.presentation.sucursales.TableModel.ZONAJE};
@@ -130,9 +111,9 @@ public class View implements Observer {
     }
 
     private void llenarMapa() {
-        for (int j = 0; j < Service.instance().getData().getSucursales().size(); j++) {
+        for (int j = 0; j < model.getSucursales().size(); j++) {
             JLabel temp = new JLabel();
-            Sucursal s = Service.instance().getData().getSucursales().get(j);
+            Sucursal s = model.getSucursales().get(j);
             temp.setSize(30, 30);
             temp.setLocation(s.getX() - 15, s.getY() - 31);
             temp.setToolTipText("<html>" + s.getReferencia()  + "<br/>" + s.getDireccion() +"</html>");
@@ -152,6 +133,7 @@ public class View implements Observer {
     }
 
     public void init() {
+
         try {
             mapLabel = new JLabel(); mapLabel.removeAll();
             selectedLabel = new JLabel();
