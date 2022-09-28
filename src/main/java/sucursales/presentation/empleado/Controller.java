@@ -14,6 +14,7 @@ public class Controller {
     Model model;
 
     public Controller(View view, Model model) {
+        model.setSucursales(Service.instance().getData().getSucursales());
         model.setCurrent(new Empleado());
         this.view = view;
         this.model = model;

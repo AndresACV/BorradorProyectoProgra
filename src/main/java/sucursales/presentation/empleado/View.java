@@ -231,9 +231,9 @@ public class View implements Observer {
 
 
     private void llenarMapa() {
-        for (int j = 0; j < /*model.*/Service.instance().getData().getSucursales().size(); j++) {
+        for (int j = 0; j < model.getSucursales().size(); j++) {
             JLabel temp = new JLabel();
-            Sucursal s = /*model.getSucursales()*/Service.instance().getData().getSucursales().get(j);
+            Sucursal s = model.getSucursales().get(j);
             temp.setSize(30, 30);
             temp.setLocation(s.getX() - 15, s.getY() - 31);
             temp.setToolTipText("<html>" + s.getReferencia()  + "<br/>" + s.getDireccion() +"</html>");
