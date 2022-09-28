@@ -15,15 +15,14 @@ import java.util.Observer;
 public class View implements Observer {
 
     private JPanel panel;
-    private JTextField nombreFld;
-    private JButton buscarFld;
-    private JButton agregarFld;
-    private JTable empleadosFld;
-    private JLabel nombreLbl;
-    private JButton eliminarFld;
+    private JTextField nombreField;
+    private JButton buscarButton;
+    private JButton agregarButton;
+    private JTable empleadosTable;
+    private JLabel nombreLabel;
+    private JButton eliminarButton;
     private JButton reporteButton;
-    private JLabel imagenLbl;
-    private sucursales.presentation.empleado.View empleado;
+    private JLabel imagenLabel;
 
     Controller controller;
     Model model;
@@ -33,49 +32,35 @@ public class View implements Observer {
     }
 
     public View() {
-        buscarFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.buscar(nombreFld.getText());
-            }
-        });
-        agregarFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.preAgregar();
-            }
-        });
-        empleadosFld.addMouseListener(new MouseAdapter() {
+        buscarButton.addActionListener(e -> controller.buscar(nombreField.getText()));
+        agregarButton.addActionListener(e -> controller.preAgregar());
+        empleadosTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    int row = empleadosFld.getSelectedRow();
+                    int row = empleadosTable.getSelectedRow();
                     controller.editar(row);
                 }
             }
         });
-        eliminarFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if(!Objects.equals(nombreFld.getText(), "")){
-                        controller.eliminar(nombreFld.getText());
-                    }
-                } catch (Exception ex) {
-                JOptionPane.showMessageDialog(panel, "Empleado no existe","ERROR",JOptionPane.ERROR_MESSAGE);
-            }
-            }
+        eliminarButton.addActionListener(e -> {
+            try {
+                if(!Objects.equals(nombreField.getText(), "")){
+                    controller.eliminar(nombreField.getText());
+                }
+            } catch (Exception ex) {
+            JOptionPane.showMessageDialog(panel, "Empleado no existe","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
         });
-        reporteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.imprimir();
-                    if (Desktop.isDesktopSupported()) {
-                        File myFile = new File("empleados.pdf");
-                        Desktop.getDesktop().open(myFile);
-                    }
-                } catch (Exception ex) { }
+        reporteButton.addActionListener(e -> {
+            try {
+                controller.imprimir();
+                if (Desktop.isDesktopSupported()) {
+                    File myFile = new File("empleados.pdf");
+                    Desktop.getDesktop().open(myFile);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "No se pudo imprimir el reporte","ERROR",JOptionPane.ERROR_MESSAGE);
             }
         });
     }
@@ -89,8 +74,8 @@ public class View implements Observer {
     @Override
     public void update(Observable updatedModel, Object parametros) {
         int[] cols = {TableModel.CEDULA, TableModel.NOMBRE, TableModel.TELEFONO, TableModel.SALARIO_BASE, TableModel.SUCURSAL, TableModel.ZONAJE, TableModel.SALARIO_TOTAL};
-        empleadosFld.setModel(new TableModel(cols, model.getEmpleados()));
-        empleadosFld.setRowHeight(30);
+        empleadosTable.setModel(new TableModel(cols, model.getEmpleados()));
+        empleadosTable.setRowHeight(30);
         this.panel.revalidate();
     }
 

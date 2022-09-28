@@ -19,7 +19,6 @@ public class View implements Observer {
     sucursales.presentation.sucursal.Model model;
 
     private JPanel panel;
-    private JFrame window;
 
     private JLabel codigoLabel;
     private JTextField codigoField;
@@ -45,37 +44,30 @@ public class View implements Observer {
     private JLabel unselectedLabel;
     private Image sucursalUnselectedImage;
 
-    private JLabel chirulito;
-
-    private int x = 0;
-    private int y = 0;
+    private JLabel currentSucursal;
+    private int currentX = 0;
+    private int currentY = 0;
 
     public View() throws IOException {
-        guardarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clean();
-                if (validate()) {
-                    Sucursal n;
-                    try {
-                        n = take();
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    try {
-                        controller.guardar(n);
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
-                    }
+        guardarButton.addActionListener(e -> {
+            clean();
+            if (validate()) {
+                Sucursal n;
+                try {
+                    n = take();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                try {
+                    controller.guardar(n);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-        cancelarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.hide();
-                cleanMap();
-            }
+        cancelarButton.addActionListener(e -> {
+            controller.hide();
+            cleanMap();
         }
         );
         mapLabel.addMouseListener(new MouseAdapter() {
@@ -83,10 +75,10 @@ public class View implements Observer {
             public void mouseClicked(MouseEvent e) {
                 cleanMap();
 
-                x = e.getX();
-                y = e.getY();
-                chirulito.setLocation(x - 15, y - 31);
-                mapLabel.add(chirulito);
+                currentX = e.getX();
+                currentY = e.getY();
+                currentSucursal.setLocation(currentX - 15, currentY - 31);
+                mapLabel.add(currentSucursal);
             }
         });
     }
@@ -101,7 +93,7 @@ public class View implements Observer {
     }
 
     private void cleanMap(){
-        mapLabel.remove(chirulito);
+        mapLabel.remove(currentSucursal);
         mapLabel.setIcon(new ImageIcon(mapImage));
     }
 
@@ -121,9 +113,9 @@ public class View implements Observer {
 
             if(model.getModo() == 0) { cleanMap(); }
             if(model.getModo() == 1) {
-                chirulito.setLocation(current.getX() - 15, current.getY() - 31);
-                chirulito.setToolTipText("<html>" + current.getReferencia() + "<br/>" + current.getDireccion() +"</html>");
-                mapLabel.add(chirulito);
+                currentSucursal.setLocation(current.getX() - 15, current.getY() - 31);
+                currentSucursal.setToolTipText("<html>" + current.getReferencia() + "<br/>" + current.getDireccion() +"</html>");
+                mapLabel.add(currentSucursal);
                 mapLabel.setIcon(new ImageIcon(mapImage));
             }
             this.panel.validate();
@@ -135,9 +127,9 @@ public class View implements Observer {
         s.setReferencia(referenciaField.getText());
         s.setDireccion(direccionField.getText());
         s.setPorcentajeZonaje(Double.parseDouble(zonajeField.getText()));
-        s.setX(x);
-        s.setY(y);
-        x = 0; y = 0;
+        s.setX(currentX);
+        s.setY(currentY);
+        currentX = 0; currentY = 0;
         return s;
     }
 
@@ -148,7 +140,6 @@ public class View implements Observer {
         zonajeLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
     }
     private boolean validate() {
-
         boolean valid = true;
         String mensajeError = "";
         int concatenaciones = 0;
@@ -196,7 +187,7 @@ public class View implements Observer {
             codigoLabel.setBorder(null);
         }
 
-        if (x == 0 && y == 0) {
+        if (currentX == 0 && currentY == 0) {
             valid = false;
             mapLabel.setBorder(Application.BORDER_ERROR);
             JOptionPane.showMessageDialog(panel, "Debe seleccionar un lugar en el mapa","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -236,12 +227,12 @@ public class View implements Observer {
             unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
             mapLabel.setIcon(new ImageIcon(mapImage));
 
-            chirulito = new JLabel();
-            chirulito.setIcon(new ImageIcon(sucursalUnselectedImage));
-            chirulito.setSize(30, 30);
-            chirulito.setVisible(true);
-            chirulito.setToolTipText("Sucursal");
-            mapLabel.add(chirulito);
+            currentSucursal = new JLabel();
+            currentSucursal.setIcon(new ImageIcon(sucursalUnselectedImage));
+            currentSucursal.setSize(30, 30);
+            currentSucursal.setVisible(true);
+            currentSucursal.setToolTipText("Sucursal");
+            mapLabel.add(currentSucursal);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

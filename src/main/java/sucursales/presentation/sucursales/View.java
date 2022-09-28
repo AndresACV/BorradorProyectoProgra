@@ -1,12 +1,9 @@
 package sucursales.presentation.sucursales;
 
-import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -18,14 +15,14 @@ import java.util.Observer;
 public class View implements Observer {
 
     private JPanel panel;
-    private JTextField referenciaFld;
-    private JButton buscarFld;
-    private JButton agregarFld;
-    private JTable sucursalesFld;
-    private JLabel referenciaLbl;
-    private JButton eliminarFld;
+    private JTextField referenciaField;
+    private JButton buscarButton;
+    private JButton agregarField;
+    private JTable sucursalesField;
+    private JLabel referenciaLabel;
+    private JButton eliminarButton;
     private JButton reporteButton;
-    private JScrollPane scrollPane1;
+    private JScrollPane tabla;
 
     private JLabel mapLabel;
     private Image mapImage;
@@ -47,31 +44,31 @@ public class View implements Observer {
     }
 
     public View() {
-        buscarFld.addActionListener(e -> controller.buscar(referenciaFld.getText()));
-        agregarFld.addActionListener(e -> controller.preAgregar());
-        sucursalesFld.addMouseListener(new MouseAdapter() {
+        buscarButton.addActionListener(e -> controller.buscar(referenciaField.getText()));
+        agregarField.addActionListener(e -> controller.preAgregar());
+        sucursalesField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    int row = sucursalesFld.getSelectedRow();
+                    int row = sucursalesField.getSelectedRow();
                     controller.editar(row);
                 }
             }
         });
-        sucursalesFld.addMouseListener(new MouseAdapter() {
+        sucursalesField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
-                    int row = sucursalesFld.getSelectedRow();
+                    int row = sucursalesField.getSelectedRow();
                     referenciaTemporal = model.getSucursales().get(row).getReferencia();
                     actualizarMapa();
                 }
             }
         });
-        eliminarFld.addActionListener(e -> {
+        eliminarButton.addActionListener(e -> {
             try {
-                if(!Objects.equals(referenciaFld.getText(), "")){
-                    controller.eliminar(referenciaFld.getText());
+                if(!Objects.equals(referenciaField.getText(), "")){
+                    controller.eliminar(referenciaField.getText());
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(panel, "Sucursal tiene empleados o no existe","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -105,8 +102,8 @@ public class View implements Observer {
         actualizarMapa();
 
         int[] cols = {sucursales.presentation.sucursales.TableModel.CODIGO, sucursales.presentation.sucursales.TableModel.REFERENCIA, sucursales.presentation.sucursales.TableModel.DIRECCION, sucursales.presentation.sucursales.TableModel.ZONAJE};
-        sucursalesFld.setModel(new sucursales.presentation.sucursales.TableModel(cols, model.getSucursales()));
-        sucursalesFld.setRowHeight(30);
+        sucursalesField.setModel(new sucursales.presentation.sucursales.TableModel(cols, model.getSucursales()));
+        sucursalesField.setRowHeight(30);
         this.panel.revalidate();
     }
 
@@ -121,7 +118,6 @@ public class View implements Observer {
                 temp.setIcon(new ImageIcon(sucursalSelectedImage));
              else
                 temp.setIcon(new ImageIcon(sucursalUnselectedImage));
-
             temp.setVisible(true);
             mapLabel.add(temp);
         }

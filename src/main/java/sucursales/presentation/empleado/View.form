@@ -20,7 +20,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="b4e49" class="javax.swing.JLabel" binding="cedulaLbl">
+          <component id="b4e49" class="javax.swing.JLabel" binding="cedulaLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -28,7 +28,7 @@
               <text value="Cedula"/>
             </properties>
           </component>
-          <component id="9a286" class="javax.swing.JTextField" binding="cedulaFld">
+          <component id="9a286" class="javax.swing.JTextField" binding="cedulaField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -69,7 +69,7 @@
               <background color="-858412"/>
             </properties>
           </component>
-          <component id="adff1" class="javax.swing.JLabel" binding="nombreLbl">
+          <component id="adff1" class="javax.swing.JLabel" binding="nombreLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -77,7 +77,7 @@
               <text value="Nombre"/>
             </properties>
           </component>
-          <component id="fb3c4" class="javax.swing.JLabel" binding="telefonoL">
+          <component id="fb3c4" class="javax.swing.JLabel" binding="telefonoLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -85,7 +85,7 @@
               <text value="Telefono"/>
             </properties>
           </component>
-          <component id="ca8a" class="javax.swing.JLabel" binding="salarioL">
+          <component id="ca8a" class="javax.swing.JLabel" binding="salarioLabel">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -93,7 +93,7 @@
               <text value="Salario"/>
             </properties>
           </component>
-          <component id="3659e" class="javax.swing.JLabel" binding="sucursalL">
+          <component id="3659e" class="javax.swing.JLabel" binding="sucursalLabel">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -101,7 +101,7 @@
               <text value="Sucursal"/>
             </properties>
           </component>
-          <component id="b5afc" class="javax.swing.JTextField" binding="nombreFld">
+          <component id="b5afc" class="javax.swing.JTextField" binding="nombreField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -122,7 +122,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="b99d5" class="javax.swing.JButton" binding="gurdarFld">
+              <component id="b99d5" class="javax.swing.JButton" binding="guardarButton">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -132,7 +132,7 @@
                   <text value="Guardar"/>
                 </properties>
               </component>
-              <component id="5a6aa" class="javax.swing.JButton" binding="cancelarFld">
+              <component id="5a6aa" class="javax.swing.JButton" binding="cancelarButton">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>

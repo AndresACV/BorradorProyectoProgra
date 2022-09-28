@@ -11,7 +11,7 @@ import java.util.Observer;
 public class View implements Observer {
 
     private JPanel panel;
-    private JLabel tituloLabel;
+    private JLabel titleLabel;
     private JLabel aboutLabel;
 
     private JLabel imagenLabel;
