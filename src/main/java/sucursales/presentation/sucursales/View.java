@@ -39,6 +39,7 @@ public class View implements Observer {
     private Image sucursalUnselectedImage;
 
     private String referenciaTemporal;
+    private ImageIcon reporteImage;
 
     sucursales.presentation.sucursales.Controller controller;
     sucursales.presentation.sucursales.Model model;
@@ -87,7 +88,7 @@ public class View implements Observer {
                         controller.eliminar(referenciaFld.getText());
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(panel, "Sucursal tiene empleados","ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "Sucursal tiene empleados o no existe","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -145,28 +146,34 @@ public class View implements Observer {
         }
     }
 
-
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-        reporteButton = new JButton();
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        reporteButton.setIcon(imageIcon);
+       init();
+    }
 
-        selectedLabel = new JLabel();
-        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
-        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
+    public void init() {
+        try {
+            mapLabel = new JLabel(); mapLabel.removeAll();
+            selectedLabel = new JLabel();
+            unselectedLabel = new JLabel();
+            reporteButton = new JButton();
 
-        unselectedLabel = new JLabel();
-        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
-        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+            sucursalSelectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/SucursalSel.png")));
+            sucursalUnselectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sucursal.png")));
+            mapImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/MapCR.png")));
+            reporteImage = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 
-        mapLabel = new JLabel();
-        mapLabel.removeAll();
-        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
-        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-        result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
-        graphics = result.getGraphics();
-        graphics.drawImage(mapImage, 10, 10, mapLabel);
-        mapLabel.setIcon(new ImageIcon(result));
+            sucursalSelectedImage = sucursalSelectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            sucursalUnselectedImage = sucursalUnselectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+
+            selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
+            unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+            mapLabel.setIcon(new ImageIcon(mapImage));
+            reporteButton.setIcon(reporteImage);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

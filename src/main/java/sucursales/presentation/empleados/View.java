@@ -1,7 +1,5 @@
 package sucursales.presentation.empleados;
 
-import sucursales.Application;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -98,6 +96,9 @@ public class View implements Observer {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        init();
+    }
+    private void init(){
         reporteButton = new JButton();
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         reporteButton.setIcon(imageIcon);

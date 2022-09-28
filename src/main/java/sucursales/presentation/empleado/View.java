@@ -13,8 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Observable;
@@ -39,13 +37,11 @@ public class View implements Observer {
     private JFrame window;
 
     private JLabel mapLabel;
-    private Image mapImage;
-    private Graphics graphics;
-    private BufferedImage result;
     private JLabel selectedLabel;
-    private Image sucursalSelectedImage;
-
     private JLabel unselectedLabel;
+
+    private Image mapImage;
+    private Image sucursalSelectedImage;
     private Image sucursalUnselectedImage;
 
     private String referenciaTemporal;
@@ -261,21 +257,29 @@ public class View implements Observer {
 
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-        selectedLabel = new JLabel();
-        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
-        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
+        init();
+    }
 
-        unselectedLabel = new JLabel();
-        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
-        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+    public void init() {
+        try {
+            mapLabel = new JLabel(); mapLabel.removeAll();
+            selectedLabel = new JLabel();
+            unselectedLabel = new JLabel();
 
-        mapLabel = new JLabel();
-        mapLabel.removeAll();
-        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
-        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-        result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
-        graphics = result.getGraphics();
-        graphics.drawImage(mapImage, 10, 10, mapLabel);
-        mapLabel.setIcon(new ImageIcon(result));
+            sucursalSelectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/SucursalSel.png")));
+            sucursalUnselectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sucursal.png")));
+            mapImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/MapCR.png")));
+
+            sucursalSelectedImage = sucursalSelectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            sucursalUnselectedImage = sucursalUnselectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+
+            selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
+            unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+            mapLabel.setIcon(new ImageIcon(mapImage));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

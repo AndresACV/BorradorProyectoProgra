@@ -8,9 +8,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,8 +20,6 @@ public class View implements Observer {
 
     private JPanel panel;
     private JFrame window;
-    private Graphics graphics;
-    private BufferedImage result;
 
     private JLabel codigoLabel;
     private JTextField codigoField;
@@ -105,7 +102,7 @@ public class View implements Observer {
 
     private void cleanMap(){
         mapLabel.remove(chirulito);
-        mapLabel.setIcon(new ImageIcon(result));
+        mapLabel.setIcon(new ImageIcon(mapImage));
     }
 
     @Override
@@ -127,7 +124,7 @@ public class View implements Observer {
                 chirulito.setLocation(current.getX() - 15, current.getY() - 31);
                 chirulito.setToolTipText("<html>" + current.getReferencia() + "<br/>" + current.getDireccion() +"</html>");
                 mapLabel.add(chirulito);
-                mapLabel.setIcon(new ImageIcon(result));
+                mapLabel.setIcon(new ImageIcon(mapImage));
             }
             this.panel.validate();
     }
@@ -217,37 +214,38 @@ public class View implements Observer {
 
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-        mapLabel = new JLabel();
-        mapImage = ImageIO.read(new File("src/main/resources/MapCR.png"));
-        mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-        result = new BufferedImage(400,400, BufferedImage.TYPE_INT_ARGB);
-        graphics = result.getGraphics();
-        graphics.drawImage(mapImage, 10, 10, mapLabel);
-        mapLabel.setIcon(new ImageIcon(result));
-
-        selectedLabel = new JLabel();
-        sucursalSelectedImage = ImageIO.read(new File("src/main/resources/Sucursal.png"));
-        selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
-
-        unselectedLabel = new JLabel();
-        sucursalUnselectedImage = ImageIO.read(new File("src/main/resources/SucursalSel.png"));
-        unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
-
-        chirulito = new JLabel();
-        chirulito.setIcon(new ImageIcon(sucursalUnselectedImage));
-        chirulito.setSize(30, 30);
-        chirulito.setVisible(true);
-        chirulito.setToolTipText("Sucursal");
-
-        mapLabel.add(chirulito);
-
-//        Sucursal sucursal = new Sucursal("006", "Limon", "Limon, Cahuita, Playa Negra", 4.0);
-//        JLabel labelPrueba = new JLabel();
-//        labelPrueba.putClientProperty(sucursal.getReferencia(), sucursal);
-//        Sucursal x = (Sucursal) labelPrueba.getClientProperty("Limon");
-//        mapLabel.putClientProperty(sucursal.getReferencia(), sucursal);
-//        mapLabel.getClientProperty(sucursal.getReferencia());
-//        graphics.drawImage(mapImage, 30, 40,mapLabel);
-//        mapLabel.setIcon(new ImageIcon(result));
+       init();
     }
+
+    public void init() {
+        try {
+            mapLabel = new JLabel(); mapLabel.removeAll();
+            selectedLabel = new JLabel();
+            unselectedLabel = new JLabel();
+
+
+            sucursalSelectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/SucursalSel.png")));
+            sucursalUnselectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sucursal.png")));
+            mapImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/MapCR.png")));
+
+            sucursalSelectedImage = sucursalSelectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            sucursalUnselectedImage = sucursalUnselectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+
+            selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
+            unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
+            mapLabel.setIcon(new ImageIcon(mapImage));
+
+            chirulito = new JLabel();
+            chirulito.setIcon(new ImageIcon(sucursalUnselectedImage));
+            chirulito.setSize(30, 30);
+            chirulito.setVisible(true);
+            chirulito.setToolTipText("Sucursal");
+            mapLabel.add(chirulito);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

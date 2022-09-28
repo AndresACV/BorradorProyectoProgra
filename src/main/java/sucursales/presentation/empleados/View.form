@@ -66,8 +66,8 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-858412"/>
-              <foreground color="-858412"/>
+              <background color="-16777216"/>
+              <foreground color="-16777216"/>
             </properties>
             <border type="none"/>
             <children>
@@ -75,10 +75,11 @@
                 <constraints/>
                 <properties>
                   <background color="-858412"/>
-                  <gridColor color="-858412"/>
+                  <foreground color="-16777216"/>
+                  <gridColor color="-14273992"/>
                   <preferredScrollableViewportSize width="600" height="400"/>
-                  <selectionBackground color="-858412"/>
-                  <selectionForeground color="-858412"/>
+                  <selectionBackground color="-16554332"/>
+                  <selectionForeground color="-1"/>
                 </properties>
               </component>
             </children>
