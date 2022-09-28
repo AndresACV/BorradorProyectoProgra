@@ -79,11 +79,8 @@ public class View implements Observer {
             public void mouseClicked(MouseEvent e) {
                 cleanMap();
 
-                try {
-                    robot = new Robot();
-                    outOfRangeColor = robot.getPixelColor(e.getXOnScreen(), e.getYOnScreen());
-                    currentColor = new Color(236, 219, 194);
-                } catch (AWTException ex) { throw new RuntimeException(ex); }
+                outOfRangeColor = robot.getPixelColor(e.getXOnScreen(), e.getYOnScreen());
+                currentColor = new Color(236, 219, 194);
 
                 if(!outOfRangeColor.equals(currentColor)) {
                     panel.getGraphics().getColor();
@@ -224,6 +221,7 @@ public class View implements Observer {
     public void init() {
         try {
 
+            robot = new Robot();
 
             mapLabel = new JLabel(); mapLabel.removeAll();
             selectedLabel = new JLabel();
@@ -249,7 +247,7 @@ public class View implements Observer {
             currentSucursal.setToolTipText("Sucursal");
             mapLabel.add(currentSucursal);
 
-        } catch (IOException e) {
+        } catch (IOException | AWTException e) {
             throw new RuntimeException(e);
         }
     }
