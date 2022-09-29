@@ -38,9 +38,6 @@ public class View implements Observer {
     private JLabel mapLabel;
     private Image mapImage;
 
-    private JLabel selectedLabel;
-    private Image sucursalSelectedImage;
-
     private JLabel unselectedLabel;
     private Image sucursalUnselectedImage;
 
@@ -50,40 +47,28 @@ public class View implements Observer {
 
     Robot robot;
     Color outOfRangeColor;
-    Color currentColor;
 
     public View() throws IOException {
         guardarButton.addActionListener(e -> {
             clean();
             if (validate()) {
-                Sucursal n;
                 try {
-                    n = take();
+                    controller.guardar(take());
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-                try {
-                    controller.guardar(n);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "El codigo debe ser unico","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
         cancelarButton.addActionListener(e -> {
             controller.hide();
-            cleanMap();
+            mapLabel.remove(currentSucursal);
+            mapLabel.setIcon(new ImageIcon(mapImage));
         }
         );
         mapLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                cleanMap();
-
-                outOfRangeColor = robot.getPixelColor(e.getXOnScreen(), e.getYOnScreen());
-                currentColor = new Color(236, 219, 194);
-
-                if(!outOfRangeColor.equals(currentColor)) {
-                    panel.getGraphics().getColor();
+                if(!outOfRangeColor.equals(robot.getPixelColor(e.getXOnScreen(), e.getYOnScreen()))) {
                     currentX = e.getX();
                     currentY = e.getY();
                     currentSucursal.setLocation(currentX - 15, currentY - 31);
@@ -102,11 +87,6 @@ public class View implements Observer {
         model.addObserver(this);
     }
 
-    private void cleanMap(){
-        mapLabel.remove(currentSucursal);
-        mapLabel.setIcon(new ImageIcon(mapImage));
-    }
-
     @Override
     public void update(Observable updatedModel, Object parametros) {
         Sucursal current = model.getCurrent();
@@ -121,7 +101,10 @@ public class View implements Observer {
                 zonajeField.setText(String.valueOf(current.getPorcentajeZonaje()));
             }
 
-            if(model.getModo() == 0) { cleanMap(); }
+            if(model.getModo() == 0) {
+                mapLabel.remove(currentSucursal);
+                mapLabel.setIcon(new ImageIcon(mapImage));
+            }
             if(model.getModo() == 1) {
                 currentSucursal.setLocation(current.getX() - 15, current.getY() - 31);
                 currentSucursal.setToolTipText("<html>" + current.getReferencia() + "<br/>" + current.getDireccion() +"</html>");
@@ -215,28 +198,19 @@ public class View implements Observer {
 
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-       init();
-    }
-
-    public void init() {
         try {
-
             robot = new Robot();
+            outOfRangeColor = new Color(236, 219, 194);
 
             mapLabel = new JLabel(); mapLabel.removeAll();
-            selectedLabel = new JLabel();
             unselectedLabel = new JLabel();
 
-
-            sucursalSelectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/SucursalSel.png")));
             sucursalUnselectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sucursal.png")));
             mapImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/MapCR.png")));
 
-            sucursalSelectedImage = sucursalSelectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
             sucursalUnselectedImage = sucursalUnselectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
             mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
 
-            selectedLabel.setIcon(new ImageIcon(sucursalSelectedImage));
             unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
             mapLabel.setIcon(new ImageIcon(mapImage));
 
@@ -251,5 +225,7 @@ public class View implements Observer {
             throw new RuntimeException(e);
         }
     }
+
+
 
 }
