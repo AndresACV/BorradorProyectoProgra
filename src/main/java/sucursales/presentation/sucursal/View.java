@@ -38,12 +38,8 @@ public class View implements Observer {
     private JLabel mapLabel;
     private Image mapImage;
 
-    private JLabel unselectedLabel;
-    private Image sucursalUnselectedImage;
-
-    private JLabel currentSucursal;
-    private int currentX = 0;
-    private int currentY = 0;
+    private JLabel chirulitoLabel;
+    private Image chirulitoImage;
 
     Robot robot;
     Color outOfRangeColor;
@@ -57,11 +53,13 @@ public class View implements Observer {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, "El codigo debe ser unico","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
+                mapLabel.remove(chirulitoLabel);
+                mapLabel.setIcon(new ImageIcon(mapImage));
             }
         });
         cancelarButton.addActionListener(e -> {
             controller.hide();
-            mapLabel.remove(currentSucursal);
+            mapLabel.remove(chirulitoLabel);
             mapLabel.setIcon(new ImageIcon(mapImage));
         }
         );
@@ -69,10 +67,11 @@ public class View implements Observer {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(!outOfRangeColor.equals(robot.getPixelColor(e.getXOnScreen(), e.getYOnScreen()))) {
-                    currentX = e.getX();
-                    currentY = e.getY();
-                    currentSucursal.setLocation(currentX - 15, currentY - 31);
-                    mapLabel.add(currentSucursal);
+                    Sucursal current = model.getCurrent();
+                    current.setX(e.getX() - 15);
+                    current.setY(e.getY() - 31);
+                    chirulitoLabel.setLocation(current.getX(), current.getY());
+                    mapLabel.add(chirulitoLabel);
                 }
             }
         });
@@ -101,14 +100,10 @@ public class View implements Observer {
                 zonajeField.setText(String.valueOf(current.getPorcentajeZonaje()));
             }
 
-            if(model.getModo() == 0) {
-                mapLabel.remove(currentSucursal);
-                mapLabel.setIcon(new ImageIcon(mapImage));
-            }
             if(model.getModo() == 1) {
-                currentSucursal.setLocation(current.getX() - 15, current.getY() - 31);
-                currentSucursal.setToolTipText("<html>" + current.getReferencia() + "<br/>" + current.getDireccion() +"</html>");
-                mapLabel.add(currentSucursal);
+                chirulitoLabel.setLocation(current.getX(), current.getY());
+                chirulitoLabel.setToolTipText("<html>" + current.getReferencia() + "<br/>" + current.getDireccion() +"</html>");
+                mapLabel.add(chirulitoLabel);
                 mapLabel.setIcon(new ImageIcon(mapImage));
             }
             this.panel.validate();
@@ -116,13 +111,15 @@ public class View implements Observer {
 
     public Sucursal take() {
         Sucursal s = new Sucursal();
+        Sucursal current = model.getCurrent();
+
         s.setCodigo(codigoField.getText());
         s.setReferencia(referenciaField.getText());
         s.setDireccion(direccionField.getText());
         s.setPorcentajeZonaje(Double.parseDouble(zonajeField.getText()));
-        s.setX(currentX);
-        s.setY(currentY);
-        currentX = 0; currentY = 0;
+
+        s.setX(current.getX());   current.setX(0);
+        s.setY(current.getY());   current.setY(0);
         return s;
     }
 
@@ -180,7 +177,7 @@ public class View implements Observer {
             codigoLabel.setBorder(null);
         }
 
-        if (currentX == 0 && currentY == 0) {
+        if (model.getCurrent().getX() == 0 && model.getCurrent().getY() == 0) {
             valid = false;
             mapLabel.setBorder(Application.BORDER_ERROR);
             JOptionPane.showMessageDialog(panel, "Debe seleccionar un lugar en el mapa","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -196,36 +193,27 @@ public class View implements Observer {
         return valid;
     }
 
-    private void createUIComponents() throws IOException {
+    private void createUIComponents() {
         // TODO: place custom component creation code here
         try {
             robot = new Robot();
             outOfRangeColor = new Color(236, 219, 194);
 
-            mapLabel = new JLabel(); mapLabel.removeAll();
-            unselectedLabel = new JLabel();
-
-            sucursalUnselectedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sucursal.png")));
+            mapLabel = new JLabel();
             mapImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/MapCR.png")));
-
-            sucursalUnselectedImage = sucursalUnselectedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
             mapImage = mapImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-
-            unselectedLabel.setIcon(new ImageIcon(sucursalUnselectedImage));
             mapLabel.setIcon(new ImageIcon(mapImage));
 
-            currentSucursal = new JLabel();
-            currentSucursal.setIcon(new ImageIcon(sucursalUnselectedImage));
-            currentSucursal.setSize(30, 30);
-            currentSucursal.setVisible(true);
-            currentSucursal.setToolTipText("Sucursal");
-            mapLabel.add(currentSucursal);
+            chirulitoLabel = new JLabel();
+            chirulitoImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/SucursalSel.png")));
+            chirulitoImage = chirulitoImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            chirulitoLabel.setIcon(new ImageIcon(chirulitoImage));
+            chirulitoLabel.setVisible(true);
+            chirulitoLabel.setSize(30, 30);
+            chirulitoLabel.setToolTipText("Sucursal");
 
         } catch (IOException | AWTException e) {
             throw new RuntimeException(e);
         }
     }
-
-
-
 }

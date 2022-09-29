@@ -12,6 +12,7 @@ public class Controller {
 
     View view;
     Model model;
+    static JDialog dialog;
 
     public Controller(View view, Model model) {
         model.setCurrent(new Sucursal());
@@ -27,8 +28,6 @@ public class Controller {
         model.commit();
         this.show();
     }
-
-    static JDialog dialog;
 
     public void show(){
         dialog = new JDialog(Application.window,"Sucursal", true);
@@ -64,8 +63,6 @@ public class Controller {
         Application.controllerSucursales.buscar("");
         model.commit();
     }
-
-
 
     public void editar(Sucursal e){
         model.setModo(Application.MODO_EDITAR);

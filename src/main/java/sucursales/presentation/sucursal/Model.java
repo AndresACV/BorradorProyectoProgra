@@ -1,8 +1,6 @@
 package sucursales.presentation.sucursal;
 
-import sucursales.logic.Empleado;
 import sucursales.logic.Sucursal;
-
 import java.util.Observable;
 import java.util.Observer;
 
