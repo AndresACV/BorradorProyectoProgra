@@ -87,21 +87,23 @@ public class Controller {
         PdfWriter writer = new PdfWriter(dest);
         PdfDocument pdf = new PdfDocument(writer);
 
-        //Document document = new Document(pdf, PageSize.A4.rotate());
         Document document = new Document(pdf);
         document.setMargins(10, 10, 10, 10);
 
         Table header = new Table(1);
-       // header.setWidth(10);
+        Image image = new Image(ImageDataFactory.create("src/main/resources/CompanyLogo.jpg"));
+        image = image.scaleToFit(300, 300);
+
         header.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        header.addCell(getCell(new Paragraph("Sistema Integrado SISE").setFont(font).setBold().setFontSize(20f), TextAlignment.CENTER,false));
-        header.addCell(getCell(new Image(ImageDataFactory.create("src/main/resources/CompanyLogo.png")), HorizontalAlignment.CENTER,false));
+        header.addCell(getCell(new Paragraph("SECR: Sucursales y Empleados Costa Rica").setFont(font).setBold().setFontSize(20f), TextAlignment.CENTER,false));
+        header.addCell(getCell(image, HorizontalAlignment.CENTER,false));
+
         document.add(header);
 
         document.add(new Paragraph(""));document.add(new Paragraph(""));
 
-        Color bkg = ColorConstants.RED;
-        Color frg= ColorConstants.WHITE;
+        Color bkg = ColorConstants.BLUE;
+        Color frg= ColorConstants.BLACK;
         Table body = new Table(7);
         body.setWidth(500);
         body.setHorizontalAlignment(HorizontalAlignment.CENTER);

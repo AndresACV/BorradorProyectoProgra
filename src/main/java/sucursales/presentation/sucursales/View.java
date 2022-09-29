@@ -81,7 +81,9 @@ public class View implements Observer {
                     File myFile = new File("sucursales.pdf");
                     Desktop.getDesktop().open(myFile);
                 }
-            } catch (Exception ex) { }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "No se pudo generar el reporte","ERROR",JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
 
