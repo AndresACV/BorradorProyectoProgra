@@ -14,7 +14,7 @@ public class View implements Observer {
     private JLabel titleLabel;
     private JLabel aboutLabel;
 
-    private JLabel imagenLabel;
+    private JLabel logoLabel;
     private Image companyLogo;
 
     Controller controller;
@@ -40,15 +40,11 @@ public class View implements Observer {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        imageLoad();
-    }
-
-    public void imageLoad() {
         try {
-            imagenLabel = new JLabel();
+            logoLabel = new JLabel();
             companyLogo = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/CompanyLogo.jpg")));
             companyLogo = companyLogo.getScaledInstance(800, 400, Image.SCALE_DEFAULT);
-            imagenLabel.setIcon(new ImageIcon(companyLogo));
+            logoLabel.setIcon(new ImageIcon(companyLogo));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

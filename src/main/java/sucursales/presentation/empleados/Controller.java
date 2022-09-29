@@ -61,10 +61,6 @@ public class Controller {
         } catch (Exception ex) {}
     }
 
-    public void show(){
-        Application.window.setContentPane(view.getPanel());
-    }
-
     private Cell getCell( Paragraph paragraph,TextAlignment alignment,boolean hasBorder) {
         Cell cell = new Cell().add(paragraph);
         cell.setPadding(0);

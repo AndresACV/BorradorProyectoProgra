@@ -1,7 +1,6 @@
 package sucursales.presentation.empleados;
 
 import sucursales.logic.Empleado;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;

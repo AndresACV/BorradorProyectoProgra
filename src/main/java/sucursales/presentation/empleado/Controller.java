@@ -12,6 +12,7 @@ public class Controller {
 
     View view;
     Model model;
+    JDialog dialog;
 
     public Controller(View view, Model model) {
         model.setSucursales(Service.instance().getData().getSucursales());
@@ -21,14 +22,13 @@ public class Controller {
         view.setController(this);
         view.setModel(model);
     }
+
     public void preAgregar(){
         model.setModo(Application.MODO_AGREGAR);
         model.setCurrent(new Empleado());
         model.commit();
         this.show();
     }
-
-    JDialog dialog;
 
     public void show(){
         dialog = new JDialog(Application.window,"Empleado", true);

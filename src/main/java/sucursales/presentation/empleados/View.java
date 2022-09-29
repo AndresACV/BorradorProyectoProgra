@@ -2,15 +2,12 @@ package sucursales.presentation.empleados;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-
 
 public class View implements Observer {
 
@@ -22,7 +19,6 @@ public class View implements Observer {
     private JLabel nombreLabel;
     private JButton eliminarButton;
     private JButton reporteButton;
-    private JLabel imagenLabel;
 
     Controller controller;
     Model model;
@@ -81,9 +77,6 @@ public class View implements Observer {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        init();
-    }
-    private void init(){
         reporteButton = new JButton();
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/resources/IconPDF.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         reporteButton.setIcon(imageIcon);

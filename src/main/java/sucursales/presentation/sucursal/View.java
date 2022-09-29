@@ -5,7 +5,6 @@ import sucursales.logic.Sucursal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -46,7 +45,7 @@ public class View implements Observer {
 
     public View() throws IOException {
         guardarButton.addActionListener(e -> {
-            clean();
+            cleanBorders();
             if (validate()) {
                 try {
                     controller.guardar(take());
@@ -93,12 +92,8 @@ public class View implements Observer {
             this.codigoField.setText(current.getCodigo());
             referenciaField.setText(current.getReferencia());
             direccionField.setText(current.getDireccion());
-            if(String.valueOf(current.getPorcentajeZonaje()).equals("0.0")){
-                zonajeField.setText("");
-            }
-            else{
-                zonajeField.setText(String.valueOf(current.getPorcentajeZonaje()));
-            }
+            if(String.valueOf(current.getPorcentajeZonaje()).equals("0.0")){ zonajeField.setText(""); }
+            else { zonajeField.setText(String.valueOf(current.getPorcentajeZonaje())); }
 
             if(model.getModo() == 1) {
                 chirulitoLabel.setLocation(current.getX(), current.getY());
@@ -123,11 +118,12 @@ public class View implements Observer {
         return s;
     }
 
-    public void clean(){
-        codigoLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
-        referenciaLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
-        direccionLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
-        zonajeLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
+    public void cleanBorders(){
+        codigoLabel.setBorder(null);
+        referenciaLabel.setBorder(null);
+        direccionLabel.setBorder(null);
+        zonajeLabel.setBorder(null);
+        mapLabel.setBorder(null);
     }
     private boolean validate() {
         boolean valid = true;
@@ -142,9 +138,6 @@ public class View implements Observer {
             valid = false;
             codigoLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Codigo debe ser numerico. ";        }
-        else {
-            codigoField.setBorder(null);
-        }
 
         if (referenciaField.getText().length() == 0) {
             valid = false;
@@ -154,17 +147,12 @@ public class View implements Observer {
             valid = false;
             referenciaLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Referencia no puede ser numerica. ";
-        } else {
-            referenciaField.setBorder(null);
         }
         if (direccionField.getText().isEmpty()) {
             valid = false;
             direccionLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Direccion requerida. "; concatenaciones++;
-        } else {
-            codigoLabel.setBorder(null);
         }
-
         if (zonajeField.getText().isEmpty()) {
             valid = false;
             zonajeLabel.setBorder(Application.BORDER_ERROR);
@@ -173,18 +161,12 @@ public class View implements Observer {
             valid = false;
             zonajeLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Zonaje debe ser numerico. ";
-        } else {
-            codigoLabel.setBorder(null);
         }
-
         if (model.getCurrent().getX() == 0 && model.getCurrent().getY() == 0) {
             valid = false;
             mapLabel.setBorder(Application.BORDER_ERROR);
             JOptionPane.showMessageDialog(panel, "Debe seleccionar un lugar en el mapa","ERROR",JOptionPane.ERROR_MESSAGE);
-        } else {
-            mapLabel.setBorder(null);
         }
-
         if(concatenaciones == 4){
             JOptionPane.showMessageDialog(panel, "Todos los campos son requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
         } else if(!mensajeError.equals("")){

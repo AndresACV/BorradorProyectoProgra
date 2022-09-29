@@ -1,18 +1,15 @@
 package sucursales.presentation.sucursal;
 
 import sucursales.Application;
-import sucursales.logic.Empleado;
 import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
-
 import javax.swing.*;
-import java.awt.*;
 
 public class Controller {
 
     View view;
     Model model;
-    static JDialog dialog;
+    JDialog dialog;
 
     public Controller(View view, Model model) {
         model.setCurrent(new Sucursal());
@@ -41,7 +38,7 @@ public class Controller {
     public void hide(){
         dialog.dispose();
         dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        view.clean();
+        view.cleanBorders();
     }
 
     public void guardar(Sucursal e) throws Exception {

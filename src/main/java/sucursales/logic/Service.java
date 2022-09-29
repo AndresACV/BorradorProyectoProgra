@@ -9,16 +9,9 @@ import java.util.stream.Collectors;
 
 public class Service {
 
-
     private static Service instance;
     private static XmlPersister persister;
-
     private Data data;
-
-    public Data getData() {
-        return data;
-    }
-    public void setData(Data data) { this.data = data; }
 
     public static Service instance() {
         if (instance == null) {
@@ -29,12 +22,17 @@ public class Service {
     }
 
     private Service(){
-        try{
-            data= XmlPersister.instance().load();
-        }
-        catch(Exception e){
-            data =  new Data();
-        }
+        try{ data = XmlPersister.instance().load(); }
+        catch(Exception e){ data = new Data(); }
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void store(){
+        try { XmlPersister.instance().store(data); }
+        catch (Exception e) { throw new RuntimeException(e); }
     }
 
     public List<Empleado> empleadosSearch(String filtro) {
@@ -51,19 +49,14 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
-    public Empleado empleadoGet(String cedula) {
-        return data.getEmpleados().stream().filter(e -> e.getCedula().equals(cedula)).findFirst().orElse(null);
-    }
-
-    public Sucursal sucursalGet(String referencia) {
-        return data.getSucursales().stream().filter(e -> e.getReferencia().equals(referencia)).findFirst().orElse(null);
-    }
+    public Empleado empleadoGet(String cedula) { return data.getEmpleados().stream().filter(e -> e.getCedula().equals(cedula)).findFirst().orElse(null); }
+    public Sucursal sucursalGet(String referencia) { return data.getSucursales().stream().filter(e -> e.getReferencia().equals(referencia)).findFirst().orElse(null); }
 
     public void agregarEmpleado(Empleado empleado) throws Exception {
         Empleado result = data.getEmpleados().stream().filter(e -> e.getCedula().equals(empleado.getCedula())).findFirst().orElse(null);
         if (result == null) {
             data.getEmpleados().add(empleado);
-            persister.store(getData());
+            this.store();
         } else {
             throw new Exception("Empleado ya existe");
         }
@@ -73,7 +66,7 @@ public class Service {
         Sucursal result = data.getSucursales().stream().filter(e -> e.getCodigo().equals(sucursal.getCodigo())).findFirst().orElse(null);
         if (result == null) {
             data.getSucursales().add(sucursal);
-            persister.store(getData());
+            this.store();
         } else {
             throw new Exception("Sucursal ya existe");
         }
@@ -85,7 +78,7 @@ public class Service {
             result = this.empleadoGet(empleado.cedula);
             data.getEmpleados().remove(result);
             data.getEmpleados().add(empleado);
-            persister.store(getData());
+            this.store();
         } catch (Exception e) {
             throw new Exception("Empleado no existe");
         }
@@ -97,7 +90,7 @@ public class Service {
             result = this.sucursalGet(sucursal.referencia);
             data.getSucursales().remove(result);
             data.getSucursales().add(sucursal);
-            persister.store(getData());
+            this.store();
         } catch (Exception e) {
             throw new Exception("Sucursal no existe");
         }
@@ -107,7 +100,7 @@ public class Service {
         for (int i = 0; i < data.getEmpleados().size(); i++) {
             if (Objects.equals(data.getEmpleados().get(i).getNombre(), nombre)) {
                 data.getEmpleados().remove(i);
-                persister.store(getData());
+                this.store();
                 return data.getEmpleados();
             }
         }
@@ -128,12 +121,5 @@ public class Service {
             }
         }
         throw new Exception("Sucursal no existe");
-    }
-    public void store(){
-        try {
-            XmlPersister.instance().store(data);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 }

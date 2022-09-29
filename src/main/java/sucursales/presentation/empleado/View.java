@@ -53,16 +53,10 @@ public class View implements Observer {
         guardarButton.addActionListener(e -> {
                 clean();
                 if (validate()) {
-                    Empleado n = null;
                     try {
-                        n = take();
+                        controller.guardar(take());
                     } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    try {
-                        controller.guardar(n);
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(panel, ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(panel, "El codigo debe ser unico","ERROR",JOptionPane.ERROR_MESSAGE);
                     }
                 }
         });
@@ -86,45 +80,43 @@ public class View implements Observer {
     public void update(Observable updatedModel, Object parametros) {
 
         Empleado current = model.getCurrent();
-            this.cedulaField.setEnabled(model.getModo() == Application.MODO_AGREGAR);
-            this.cedulaField.setText(current.getCedula());
-            nombreField.setText(current.getNombre());
-            telefonoField.setText(current.getTelefono());
-            if(String.valueOf(current.getSalarioBase()).equals("0.0")){
-                salarioField.setText("");
-            }
-            else{
-                salarioField.setText(String.valueOf(current.getSalarioBase()));
-            }
-            if(current.getSucursal() != null){
-                sucursalField.setText(current.getSucursal().getReferencia());
-            }
-            else{
-                sucursalField.setText("");
-            }
+        this.cedulaField.setEnabled(model.getModo() == Application.MODO_AGREGAR);
+        this.cedulaField.setText(current.getCedula());
+        nombreField.setText(current.getNombre());
+        telefonoField.setText(current.getTelefono());
 
-            actualizarMapa();
+        if(String.valueOf(current.getSalarioBase()).equals("0.0")){ salarioField.setText(""); }
+        else { salarioField.setText(String.valueOf(current.getSalarioBase())); }
+
+        if(current.getSucursal() != null){ sucursalField.setText(current.getSucursal().getReferencia()); }
+        else { sucursalField.setText(""); }
+
+        actualizarMapa();
 
         this.panel.validate();
     }
 
-    public Empleado take() throws Exception {
+    public Empleado take() {
         Empleado e = new Empleado();
-            e.setCedula(cedulaField.getText());
-            e.setNombre(nombreField.getText());
-            e.setTelefono(telefonoField.getText());
-            e.setSalarioBase(Double.parseDouble(salarioField.getText()));
-            e.setSucursal(Service.instance().sucursalGet(sucursalField.getText()));
-            e.setSalarioTotal(e.getSalarioBase() + (e.getSalarioBase() / 100));
-            return e;
+        e.setCedula(cedulaField.getText());
+        e.setNombre(nombreField.getText());
+        e.setTelefono(telefonoField.getText());
+        e.setSalarioBase(Double.parseDouble(salarioField.getText()));
+        e.setSalarioTotal(e.getSalarioBase() + (e.getSalarioBase() / 100));
+        for (int i = 0; i < model.getSucursales().size() ; i++) {
+            if(model.getSucursales().get(i).getReferencia().equals(sucursalField.getText()))
+                e.setSucursal(model.getSucursales().get(i));
+        }
+        return e;
     }
 
     public void clean() {
-        cedulaLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
-        nombreLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
-        telefonoLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
-        salarioLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
-        sucursalLabel.setBorder(new EmptyBorder(0, 0, 2, 0));
+        cedulaLabel.setBorder(null);
+        nombreLabel.setBorder(null);
+        telefonoLabel.setBorder(null);
+        salarioLabel.setBorder(null);
+        sucursalLabel.setBorder(null);
+        mapLabel.setBorder(null);
     }
 
     private boolean validate() {
@@ -141,11 +133,6 @@ public class View implements Observer {
             cedulaLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Cedula debe ser numerico. ";
         }
-        else {
-            cedulaLabel.setBorder(null);
-            cedulaLabel.setToolTipText(null);
-        }
-
         if (nombreField.getText().length() == 0) {
             valid = false;
             nombreLabel.setBorder(Application.BORDER_ERROR);
@@ -155,11 +142,6 @@ public class View implements Observer {
             nombreLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "El nombre no puede ser numerico. ";
         }
-        else {
-            nombreLabel.setBorder(null);
-            nombreLabel.setToolTipText(null);
-        }
-
         if (telefonoField.getText().length() == 0) {
             valid = false;
             telefonoLabel.setBorder(Application.BORDER_ERROR);
@@ -173,11 +155,6 @@ public class View implements Observer {
             telefonoLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "El telefono debe tener 8 digitos. ";
         }
-        else {
-            telefonoLabel.setBorder(null);
-            telefonoLabel.setToolTipText(null);
-        }
-
         if (salarioField.getText().length() == 0) {
             valid = false;
             salarioLabel.setBorder(Application.BORDER_ERROR);
@@ -186,11 +163,7 @@ public class View implements Observer {
             valid = false;
             salarioLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "El salario debe ser numerico. ";
-        } else {
-            salarioLabel.setBorder(null);
-            salarioLabel.setToolTipText(null);
         }
-
         if (sucursalField.getText().length() == 0) {
             valid = false;
             sucursalLabel.setBorder(Application.BORDER_ERROR);
@@ -199,9 +172,6 @@ public class View implements Observer {
             valid = false;
             sucursalLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "La sucursal no existe. ";
-        } else {
-            sucursalLabel.setBorder(null);
-            sucursalLabel.setToolTipText(null);
         }
         if(concatenaciones == 5){
             JOptionPane.showMessageDialog(panel, "Todos los campos son requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -242,13 +212,8 @@ public class View implements Observer {
         }
     }
 
-
     private void createUIComponents() throws IOException {
         // TODO: place custom component creation code here
-        init();
-    }
-
-    public void init() {
         try {
             mapLabel = new JLabel(); mapLabel.removeAll();
             selectedLabel = new JLabel();

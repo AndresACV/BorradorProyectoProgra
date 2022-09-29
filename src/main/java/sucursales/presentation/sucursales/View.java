@@ -49,19 +49,13 @@ public class View implements Observer {
         sucursalesField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    int row = sucursalesField.getSelectedRow();
-                    controller.editar(row);
-                }
-            }
-        });
-        sucursalesField.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     int row = sucursalesField.getSelectedRow();
                     referenciaTemporal = model.getSucursales().get(row).getReferencia();
                     actualizarMapa();
+                } else if (e.getClickCount() == 2) {
+                    int row = sucursalesField.getSelectedRow();
+                    controller.editar(row);
                 }
             }
         });
@@ -102,7 +96,6 @@ public class View implements Observer {
     @Override
     public void update(Observable updatedModel, Object parametros) {
         actualizarMapa();
-
         int[] cols = {sucursales.presentation.sucursales.TableModel.CODIGO, sucursales.presentation.sucursales.TableModel.REFERENCIA, sucursales.presentation.sucursales.TableModel.DIRECCION, sucursales.presentation.sucursales.TableModel.ZONAJE};
         sucursalesField.setModel(new sucursales.presentation.sucursales.TableModel(cols, model.getSucursales()));
         sucursalesField.setRowHeight(30);
@@ -125,15 +118,10 @@ public class View implements Observer {
         }
     }
 
-    private void createUIComponents() throws IOException {
+    private void createUIComponents() {
         // TODO: place custom component creation code here
-       init();
-    }
-
-    public void init() {
-
         try {
-            mapLabel = new JLabel(); mapLabel.removeAll();
+            mapLabel = new JLabel();
             selectedLabel = new JLabel();
             unselectedLabel = new JLabel();
             reporteButton = new JButton();

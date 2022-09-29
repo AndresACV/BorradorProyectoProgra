@@ -2,7 +2,6 @@ package sucursales.presentation.empleado;
 
 import sucursales.logic.Empleado;
 import sucursales.logic.Sucursal;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -15,7 +14,7 @@ public class Model extends Observable {
     int modo;
 
     public Model() {
-        this.setSucursales(new ArrayList<Sucursal>());
+        this.setSucursales(new ArrayList<>());
     }
 
     public void setSucursales(List<Sucursal> sucursales){
@@ -38,7 +37,6 @@ public class Model extends Observable {
     public void setCurrent(Empleado current) {
         this.current = current;
     }
-
 
     @Override
     public void addObserver(Observer o) {

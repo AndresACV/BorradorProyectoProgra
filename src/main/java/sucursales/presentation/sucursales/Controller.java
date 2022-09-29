@@ -17,7 +17,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import sucursales.Application;
-import sucursales.logic.Empleado;
 import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
 
@@ -59,11 +58,9 @@ public class Controller {
         try {
             e= Service.instance().sucursalGet(referencia);
             Application.controllerSucursal.editar(e);
-        } catch (Exception ex) {}
-    }
-
-    public void show(){
-        Application.window.setContentPane(view.getPanel());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private Cell getCell(Paragraph paragraph, TextAlignment alignment, boolean hasBorder) {
@@ -88,7 +85,6 @@ public class Controller {
         PdfWriter writer = new PdfWriter(dest);
         PdfDocument pdf = new PdfDocument(writer);
 
-        //Document document = new Document(pdf, PageSize.A4.rotate());
         Document document = new Document(pdf);
         document.setMargins(10, 10, 10, 10);
 
