@@ -15,7 +15,7 @@ public class Controller {
     JDialog dialog;
 
     public Controller(View view, Model model) {
-        model.setSucursales(Service.instance().getData().getSucursales());
+      //  model.setSucursales(Service.instance().getData().getSucursales());
         model.setCurrent(new Empleado());
         this.view = view;
         this.model = model;

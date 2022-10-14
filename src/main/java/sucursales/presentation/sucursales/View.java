@@ -44,7 +44,13 @@ public class View implements Observer {
     }
 
     public View() {
-        buscarButton.addActionListener(e -> controller.buscar(referenciaField.getText()));
+        buscarButton.addActionListener(e -> {
+            try {
+                controller.buscar(referenciaField.getText());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         agregarField.addActionListener(e -> controller.preAgregar());
         sucursalesField.addMouseListener(new MouseAdapter() {
             @Override

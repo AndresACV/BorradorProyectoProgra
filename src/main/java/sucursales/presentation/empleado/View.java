@@ -168,10 +168,10 @@ public class View implements Observer {
             valid = false;
             sucursalLabel.setBorder(Application.BORDER_ERROR);
             mensajeError += "Sucursal requerida. "; concatenaciones++;
-        } else if(Service.instance().sucursalGet(sucursalField.getText()) == null) {
-            valid = false;
-            sucursalLabel.setBorder(Application.BORDER_ERROR);
-            mensajeError += "La sucursal no existe. ";
+//        } else if(Service.instance().sucursalGet(sucursalField.getText()) == null) {
+//            valid = false;
+//            sucursalLabel.setBorder(Application.BORDER_ERROR);
+//            mensajeError += "La sucursal no existe. ";
         }
         if(concatenaciones == 5){
             JOptionPane.showMessageDialog(panel, "Todos los campos son requeridos","ERROR",JOptionPane.ERROR_MESSAGE);

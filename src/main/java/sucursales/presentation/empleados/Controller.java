@@ -28,7 +28,7 @@ public class Controller {
     Model model;
 
     public Controller(View view, Model model) {
-        model.setEmpleados(Service.instance().empleadosSearch(""));
+//        model.setEmpleados(Service.instance().empleadosSearch(""));
         this.view = view;
         this.model = model;
         view.setController(this);
@@ -36,8 +36,8 @@ public class Controller {
     }
 
     public void buscar(String filtro){
-        List<Empleado> rows = Service.instance().empleadosSearch(filtro);
-        model.setEmpleados(rows);
+//        List<Empleado> rows = Service.instance().empleadosSearch(filtro);
+//        model.setEmpleados(rows);
         model.commit();
     }
 
@@ -56,7 +56,7 @@ public class Controller {
         String cedula = model.getEmpleados().get(row).getCedula();
         Empleado e=null;
         try {
-            e= Service.instance().empleadoGet(cedula);
+//            e= Service.instance().empleadoGet(cedula);
             Application.controllerEmpleado.editar(e);
         } catch (Exception ex) {}
     }

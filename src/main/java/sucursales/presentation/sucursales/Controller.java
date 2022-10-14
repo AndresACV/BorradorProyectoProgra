@@ -27,16 +27,20 @@ public class Controller {
     View view;
     Model model;
 
-    public Controller(View view, Model model) {
-        model.setSucursales(Service.instance().sucursalesSearch(""));
+    public Controller(View view, Model model) throws Exception {
+        Sucursal s = new Sucursal();
+        s.setReferencia("");
+        model.setSucursales(Service.instance().sucursalesSearch(s));
         this.view = view;
         this.model = model;
         view.setController(this);
         view.setModel(model);
     }
 
-    public void buscar(String filtro){
-        List<Sucursal> rows = Service.instance().sucursalesSearch(filtro);
+    public void buscar(String filtro) throws Exception {
+        Sucursal s = new Sucursal();
+        s.setReferencia("");
+        List<Sucursal> rows = Service.instance().sucursalesSearch(s);
         model.setSucursales(rows);
         model.commit();
     }
@@ -56,7 +60,7 @@ public class Controller {
         String referencia = model.getSucursales().get(row).getReferencia();
         Sucursal e=null;
         try {
-            e= Service.instance().sucursalGet(referencia);
+//            e= Service.instance().sucursalGet(referencia);
             Application.controllerSucursal.editar(e);
         } catch (Exception ex) {
             throw new RuntimeException(ex);

@@ -1,16 +1,12 @@
 package sucursales.logic;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlID;
-
+import sucursales.data.SucursalDao;
 import java.util.Objects;
 
-@XmlAccessorType(XmlAccessType.FIELD)
+
 
 public class Sucursal {
 
-    @XmlID
     String codigo;
     String referencia;
     String direccion;
