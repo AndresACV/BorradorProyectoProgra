@@ -39,7 +39,7 @@ public class Controller {
 
     public void buscar(String filtro) throws Exception {
         Sucursal s = new Sucursal();
-        s.setReferencia("");
+        s.setReferencia(filtro);
         List<Sucursal> rows = Service.instance().sucursalesSearch(s);
         model.setSucursales(rows);
         model.commit();
@@ -58,9 +58,10 @@ public class Controller {
 
     public void editar(int row){
         String referencia = model.getSucursales().get(row).getReferencia();
-        Sucursal e=null;
+        Sucursal e= new Sucursal();
+        e.setReferencia(referencia);
         try {
-//            e= Service.instance().sucursalGet(referencia);
+            e = Service.instance().sucursalesSearch(e).get(0);
             Application.controllerSucursal.editar(e);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
