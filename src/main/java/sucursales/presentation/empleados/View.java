@@ -28,8 +28,20 @@ public class View implements Observer {
     }
 
     public View() {
-        buscarButton.addActionListener(e -> controller.buscar(nombreField.getText()));
-        agregarButton.addActionListener(e -> controller.preAgregar());
+        buscarButton.addActionListener(e -> {
+            try {
+                controller.buscar(nombreField.getText());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        agregarButton.addActionListener(e -> {
+            try {
+                controller.preAgregar();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         empleadosTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

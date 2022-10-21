@@ -19,6 +19,7 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
+import sucursales.logic.Sucursal;
 
 import java.util.List;
 
@@ -27,38 +28,48 @@ public class Controller {
     View view;
     Model model;
 
-    public Controller(View view, Model model) {
-//        model.setEmpleados(Service.instance().empleadosSearch(""));
+    public Controller(View view, Model model) throws Exception {
+        Empleado e = new Empleado();
+        e.setNombre("");
+        model.setEmpleados(Service.instance().empleadosSearch(e));
         this.view = view;
         this.model = model;
         view.setController(this);
         view.setModel(model);
     }
 
-    public void buscar(String filtro){
-//        List<Empleado> rows = Service.instance().empleadosSearch(filtro);
-//        model.setEmpleados(rows);
+    public void buscar(String filtro) throws Exception {
+        Empleado e = new Empleado();
+        e.setNombre(filtro);
+        List<Empleado> rows = Service.instance().empleadosSearch(e);
+        model.setEmpleados(rows);
         model.commit();
     }
 
+
     public void eliminar(String cedula) throws Exception {
-        List<Empleado> rows = Service.instance().eliminarEmpleado(cedula);
+        Empleado e = new Empleado();
+        e.setCedula(cedula);
+        List<Empleado> rows = Service.instance().eliminarEmpleado(e);
         model.setEmpleados(rows);
         this.buscar("");
         model.commit();
     }
 
-    public void preAgregar(){
+    public void preAgregar() throws Exception {
         Application.controllerEmpleado.preAgregar();
     }
 
     public void editar(int row){
         String cedula = model.getEmpleados().get(row).getCedula();
-        Empleado e=null;
+        Empleado e=new Empleado();
+        e.setCedula(cedula);
         try {
-//            e= Service.instance().empleadoGet(cedula);
+            e= Service.instance().empleadosSearch(e).get(0);
             Application.controllerEmpleado.editar(e);
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private Cell getCell( Paragraph paragraph,TextAlignment alignment,boolean hasBorder) {

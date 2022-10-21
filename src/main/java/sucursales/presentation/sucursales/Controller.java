@@ -17,6 +17,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import sucursales.Application;
+import sucursales.logic.Empleado;
 import sucursales.logic.Service;
 import sucursales.logic.Sucursal;
 
@@ -46,7 +47,9 @@ public class Controller {
     }
 
     public void eliminar(String codigo) throws Exception {
-        List<Sucursal> rows = Service.instance().eliminarSucursal(codigo);
+        Sucursal s = new Sucursal();
+        s.setCodigo(codigo);
+        List<Sucursal> rows = Service.instance().eliminarSucursal(s);
         model.setSucursales(rows);
         this.buscar("");
         model.commit();

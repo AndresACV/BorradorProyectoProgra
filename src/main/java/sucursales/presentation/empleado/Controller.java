@@ -14,8 +14,10 @@ public class Controller {
     Model model;
     JDialog dialog;
 
-    public Controller(View view, Model model) {
-      //  model.setSucursales(Service.instance().getData().getSucursales());
+    public Controller(View view, Model model) throws Exception {
+        Sucursal e = new Sucursal();
+        e.setReferencia("");
+        model.setSucursales(Service.instance().sucursalesSearch(e));
         model.setCurrent(new Empleado());
         this.view = view;
         this.model = model;
@@ -23,14 +25,17 @@ public class Controller {
         view.setModel(model);
     }
 
-    public void preAgregar(){
+    public void preAgregar() throws Exception {
         model.setModo(Application.MODO_AGREGAR);
         model.setCurrent(new Empleado());
         model.commit();
         this.show();
     }
 
-    public void show(){
+    public void show() throws Exception {
+        Sucursal e = new Sucursal();
+        e.setReferencia("");
+        model.setSucursales(Service.instance().sucursalesSearch(e));
         dialog = new JDialog(Application.window,"Empleado", true);
         dialog.setSize(700,470);
         dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -59,7 +64,7 @@ public class Controller {
         model.commit();
     }
 
-    public void editar(Empleado e){
+    public void editar(Empleado e) throws Exception {
         model.setModo(Application.MODO_EDITAR);
         model.setCurrent(e);
         model.commit();
